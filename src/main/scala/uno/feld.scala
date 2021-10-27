@@ -10,15 +10,20 @@ object Uno {
     val unoKarte = row + "\n" + mid + "\n" + row
     val unoKarteEnd = rowEnd + "\n" + midEnd + "\n" + rowEnd
 
-    def p1(cCount: Int) =
+    def cardrow(cCount: Int) =
       row * cCount + rowEnd + "\n" + mid * cCount + midEnd + "\n" + row * cCount + rowEnd + "\n"
 
-    def p2(cCount: Int) =
-      unoKarte * cCount + unoKarteEnd
+    def cardrow2(cCount: Int) =
+      cardrow(cCount)
 
-    print(p1(5))
-    println("xxxxxxxxxxxxxxxx\n")
-    print(p2(1))
+    print(cardrow(7))
+    println("xxxxxxxxxxxxxxxxxxxxxx")
+    println
+    println
+    println
+    println
+    println("xxxxxxxxxxxxxxxxxxxxxx")
+    print(cardrow(7))
 
   }
 }
