@@ -1,29 +1,32 @@
 package uno
 object Uno {
   def main(args: Array[String]): Unit = {
+
     val row = ("+" + "-" * 2)
     val rowEnd = "+"
 
     val mid = ("|" + " " * 2)
     val midEnd = "|"
 
-    val unoKarte = row + "\n" + mid + "\n" + row
-    val unoKarteEnd = rowEnd + "\n" + midEnd + "\n" + rowEnd
+    //creates the top or bottom row
+    def udrow(cCount: Int) =
+      row * cCount + rowEnd + "\n"
+    //creates the mid row of a card
+    def midrow(cCount: Int) =
+      mid * cCount + midEnd + "\n"
 
-    def cardrow(cCount: Int) =
-      row * cCount + rowEnd + "\n" + mid * cCount + midEnd + "\n" + row * cCount + rowEnd + "\n"
+    //creates the card row
+    def finalCard(cCount: Int) =
+      udrow(cCount) + midrow(cCount) + udrow(cCount)
 
-    def cardrow2(cCount: Int) =
-      cardrow(cCount)
-
-    print(cardrow(7))
+    print(finalCard(7))
     println("xxxxxxxxxxxxxxxxxxxxxx")
     println
     println
     println
     println
     println("xxxxxxxxxxxxxxxxxxxxxx")
-    print(cardrow(7))
+    print(finalCard(7))
 
   }
 }
