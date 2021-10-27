@@ -28,7 +28,7 @@ object Uno {
     println("xxxxxxxxxxxxxxxxxxxxxx")
     print(finalCard(7))
 
-    //HI Timo hat nen kleinen
+    //Halt dein SChnauze
 
   }
 }
