@@ -1,6 +1,16 @@
-package de.hwtg.se.uno
-
 @main def Feld: Unit =
+  print(finalCard())
+  println("xxxxxxxxxxxxxxxxxxxxxx")
+  println
+  println
+  println
+  println
+  println("xxxxxxxxxxxxxxxxxxxxxx")
+  print(finalCard())
+  println
+  println
+  println
+  println("scalable output:")
   print(finalCard(7))
   println("xxxxxxxxxxxxxxxxxxxxxx")
   println
@@ -10,29 +20,34 @@ package de.hwtg.se.uno
   println("xxxxxxxxxxxxxxxxxxxxxx")
   print(finalCard(7))
 
-def row() =
+def row() = //tested
   "+" + "-" * 2
-def rowEnd() =
-  "+"
+def rowEnd() = //tested
+  "+\n"
 
-//val row = ("+" + "-" * 2)
-//val rowEnd = "+"
-
-def mid() =
+def mid() = //tested
   "|" + " " * 2
-def midEnd() =
-  "|"
+def midEnd() = //tested
+  "|\n"
 
-//val mid = ("|" + " " * 2)
-//val midEnd = "|"
-
+//default settings
 //creates the top or bottom row
-def udrow(cCount: Int) =
-  row() * cCount + rowEnd() + "\n"
+def udRow() = //tested
+  row() * 1 + rowEnd()
 //creates the mid row of a card
-def midrow(cCount: Int) =
-  mid() * cCount + midEnd() + "\n"
-
+def midRow() = //tested
+  mid() * 1 + midEnd()
 //creates the card row
-def finalCard(cCount: Int) =
-  udrow(cCount) + midrow(cCount) + udrow(cCount)
+def finalCard() = //tested
+  udRow() + midRow() + udRow()
+
+//scalable settings
+//creates the top or bottom row
+def udRow(cCount: Int) = //tested
+  row() * cCount + rowEnd()
+//creates the mid row of a card
+def midRow(cCount: Int) = //tested
+  mid() * cCount + midEnd()
+//creates the card row
+def finalCard(cCount: Int) = //tested
+  udRow(cCount) + midRow(cCount) + udRow(cCount)
