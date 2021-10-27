@@ -7,6 +7,10 @@ val int_liste = List(3, 2, 1)
 val string_liste = List("Hallo", "World", "A")
 val double_liste = List(3.14149, 2.7, 1.0)
 
+//Methode
+def f(x: Int) = x + 1
+f(8)
+
 int_liste.sorted
 string_liste.sorted
 double_liste.sorted
