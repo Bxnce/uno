@@ -20,34 +20,34 @@
   println("xxxxxxxxxxxxxxxxxxxxxx")
   print(finalCard(7))
 
-def row() = //tested
+def row(): String = //tested
   "+" + "-" * 2
-def rowEnd() = //tested
+def rowEnd(): String = //tested
   "+\n"
 
-def mid() = //tested
+def mid(): String = //tested
   "|" + " " * 2
-def midEnd() = //tested
+def midEnd(): String = //tested
   "|\n"
 
 //default settings
 //creates the top or bottom row
-def udRow() = //tested
+def udRow(): String = //tested
   row() * 1 + rowEnd()
 //creates the mid row of a card
-def midRow() = //tested
+def midRow(): String = //tested
   mid() * 1 + midEnd()
 //creates the card row
-def finalCard() = //tested
+def finalCard(): String = //tested
   udRow() + midRow() + udRow()
 
 //scalable settings
 //creates the top or bottom row
-def udRow(cCount: Int) = //tested
+def udRow(cCount: Int): String = //tested
   row() * cCount + rowEnd()
 //creates the mid row of a card
-def midRow(cCount: Int) = //tested
+def midRow(cCount: Int): String = //tested
   mid() * cCount + midEnd()
 //creates the card row
-def finalCard(cCount: Int) = //tested
+def finalCard(cCount: Int): String = //tested
   udRow(cCount) + midRow(cCount) + udRow(cCount)
