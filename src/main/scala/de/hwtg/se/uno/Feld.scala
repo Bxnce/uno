@@ -1,24 +1,8 @@
 @main def Feld: Unit =
-  print(finalCard())
-  println("xxxxxxxxxxxxxxxxxxxxxx")
-  println
-  println
-  println
-  println
-  println("xxxxxxxxxxxxxxxxxxxxxx")
-  print(finalCard())
-  println
-  println
-  println
-  println("scalable output:")
-  print(finalCard(7))
-  println("xxxxxxxxxxxxxxxxxxxxxx")
-  println
-  println
-  println
-  println
-  println("xxxxxxxxxxxxxxxxxxxxxx")
-  print(finalCard(7))
+  print(table(5, 5))
+
+def lb(): String = "\n"
+def spacer(): String = "xxx"
 
 def row(): String = //tested
   "+" + "-" * 2
@@ -51,3 +35,10 @@ def midRow(cCount: Int): String = //tested
 //creates the card row
 def finalCard(cCount: Int): String = //tested
   udRow(cCount) + midRow(cCount) + udRow(cCount)
+
+def table(cp1: Int, cp2: Int): String =
+  finalCard(
+    cp1
+  ) + spacer() * cp1 + lb() + lb() + lb() + spacer() * cp2 + lb() + finalCard(
+    cp2
+  )
