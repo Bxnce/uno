@@ -1,8 +1,7 @@
 @main def Feld: Unit =
   print(table(5, 5))
 
-def lb(): String = "\n"
-def spacer(): String = "xxx"
+def lb(): String = "\n\n"
 
 def row(): String = //tested
   "+" + "-" * 2
@@ -36,9 +35,8 @@ def midRow(cCount: Int): String = //tested
 def finalCard(cCount: Int): String = //tested
   udRow(cCount) + midRow(cCount) + udRow(cCount)
 
+def stack(): String =
+  finalCard()
+
 def table(cp1: Int, cp2: Int): String =
-  finalCard(
-    cp1
-  ) + spacer() * cp1 + lb() + lb() + lb() + spacer() * cp2 + lb() + finalCard(
-    cp2
-  )
+  finalCard(cp1) + lb() + stack() + lb() + finalCard(cp2)
