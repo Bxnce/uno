@@ -1,5 +1,5 @@
 @main def Feld: Unit =
-  print(table(5, 5))
+  print(table(1, 1))
 
 def lb(): String = "\n\n"
 
