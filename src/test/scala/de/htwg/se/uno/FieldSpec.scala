@@ -1,8 +1,9 @@
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
+import Field
 
-class FeldSpec extends AnyWordSpec:
-  "Feld" should {
+class FieldSpec extends AnyWordSpec {
+  "Field" should {
     "have a lb as String of form'lblb'" in {
       lb() should be("\n\n")
     }
@@ -68,3 +69,4 @@ class FeldSpec extends AnyWordSpec:
       )
     }*/
   }
+}
