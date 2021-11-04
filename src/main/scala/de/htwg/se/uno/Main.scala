@@ -8,11 +8,8 @@ import Field._
 @main def Main: Unit =
   var stack = fill()
 
-  println("Player1:")
-  val p1 = readLine()
-  println("Player2:")
-  val p2 = readLine
-  println("Kartenanzahl")
-  val cards = readLine().toInt
+  val p1 = readLine("Player1: ")
+  val p2 = readLine("Player2: ")
+  val cards = readLine("Kartenanzahl: ").toInt
 
   print(table(p1, p2, cards, cards))
