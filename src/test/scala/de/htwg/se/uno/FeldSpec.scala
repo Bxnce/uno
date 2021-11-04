@@ -3,6 +3,9 @@ import org.scalatest.matchers.should.Matchers._
 
 class FeldSpec extends AnyWordSpec:
   "Feld" should {
+    "have a lb as String of form'lblb'" in {
+      lb() should be("\n\n")
+    }
     "have a row as String of form '+--'" in {
       row() should be("+--")
     }
@@ -48,4 +51,20 @@ class FeldSpec extends AnyWordSpec:
       finalCard(2) should be("+--+--+\n|  |  |\n+--+--+\n")
       finalCard(3) should be("+--+--+--+\n|  |  |  |\n+--+--+--+\n")
     }
+
+    "have a stack" in {
+      stack() should be("+--+\n|  |\n+--+\n")
+    }
+
+    /*"have a scalable table" in {
+      table(1, 1) should be(
+        "+--+\n|  |\n+--+\n\n\n+--+\n|  |\n+--+\n\n\n+--+\n|  |\n+--+\n"
+      )
+      table(2, 2) should be(
+        "+--+--+\n|  |  |\n+--+--+\n\n\n+--+\n|  |\n+--+\n\n\n+--+--+\n|  |  |\n+--+--+\n"
+      )
+      table(3, 3) should be(
+        "+--+--+--+\n|  |  |  |\n+--+--+--+\n\n\n+--+\n|  |\n+--+\n\n\n+--+--+--+\n|  |  |  |\n+--+--+--+\n"
+      )
+    }*/
   }

@@ -1,7 +1,16 @@
-@main def Feld: Unit =
-  print(table(5, 5))
+import scala.io.StdIn.readLine
 
-def lb(): String = "\n\n"
+@main def Feld: Unit =
+  println("Player1:")
+  val p1 = readLine()
+  println("Player2:")
+  val p2 = readLine
+  println("Kartenanzahl")
+  val cards = readLine().toInt
+
+  print(table(p1, p2, cards, cards))
+
+def lb(): String = "\n\n" //tested
 
 def row(): String = //tested
   "+" + "-" * 2
@@ -38,5 +47,9 @@ def finalCard(cCount: Int): String = //tested
 def stack(): String =
   finalCard()
 
-def table(cp1: Int, cp2: Int): String =
-  finalCard(cp1) + lb() + stack() + lb() + finalCard(cp2)
+def table(n1: String, n2: String, cp1: Int, cp2: Int): String = //tested
+  n1 + "\n" + finalCard(cp1) + lb() + stack() + lb() + finalCard(
+    cp2
+  ) + n2 + "\n"
+
+enum card 
