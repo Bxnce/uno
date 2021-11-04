@@ -52,4 +52,12 @@ def table(n1: String, n2: String, cp1: Int, cp2: Int): String = //tested
     cp2
   ) + n2 + "\n"
 
-enum card
+enum test(colour: String, value: String, number: Int) {
+  private final val col = colour
+  private final val valu = value
+  private final val num = number
+
+  case R1 extends test("R", "1", 2)
+  case B1 extends test("B", "1", 2)
+
+}
