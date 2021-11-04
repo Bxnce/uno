@@ -59,5 +59,7 @@ enum test(colour: String, value: String, number: Int) {
 
   case R1 extends test("R", "1", 2)
   case B1 extends test("B", "1", 2)
+  case G1 extends test("G", "1", 2)
+  case Y1 extends test("Y", "1", 2)
 
 }
