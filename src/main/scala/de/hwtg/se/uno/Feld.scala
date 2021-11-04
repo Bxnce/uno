@@ -52,4 +52,6 @@ def table(n1: String, n2: String, cp1: Int, cp2: Int): String = //tested
     cp2
   ) + n2 + "\n"
 
-enum card
+enum Card() {
+  case COLOUR, VALUE, COUNT
+}
