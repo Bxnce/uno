@@ -1,6 +1,8 @@
 package de.htwg.se.uno
 
 import scala.io.StdIn.readLine
+import de.htwg.se.uno._
+import CardStack._
 import Field._
 
 class TUI {
@@ -30,6 +32,7 @@ class TUI {
     }
 
     def NewGame() =
+      var stack = fill()
       val p1 = readLine("Player1: ")
       val p2 = readLine("Player2: ")
       val cards = readLine("Kartenanzahl: ").toInt
