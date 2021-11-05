@@ -38,7 +38,7 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case G6 extends Card(CardColor.Green, CardValue.Six, "G6")
   case G7 extends Card(CardColor.Green, CardValue.Seven, "G7")
   case G8 extends Card(CardColor.Green, CardValue.Eight, "G8")
-  case g9 extends Card(CardColor.Green, CardValue.Nine, "G9")
+  case G9 extends Card(CardColor.Green, CardValue.Nine, "G9")
 
   case Y0 extends Card(CardColor.Yellow, CardValue.Zero, "Y0")
   case Y1 extends Card(CardColor.Yellow, CardValue.One, "Y1")
