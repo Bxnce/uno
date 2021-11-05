@@ -2,7 +2,7 @@ package de.htwg.se.uno
 package aview
 
 import scala.io.StdIn.readLine
-import model.CardStack.fill
+import model.CardStack
 import model.Field.table
 
 class TUI {
@@ -33,9 +33,9 @@ class TUI {
     }
 
     def NewGame() =
-      var stack = fill()
       val p1 = readLine("Player1: ")
       val p2 = readLine("Player2: ")
       val cards = readLine("Kartenanzahl: ").toInt
+
       print(table(p1, p2, cards, cards))
 }

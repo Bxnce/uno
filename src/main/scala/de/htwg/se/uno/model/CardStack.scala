@@ -4,11 +4,9 @@ package model
 import scala.collection.immutable.HashMap
 import Card._
 
-object CardStack {
+class CardStack {
+  var stack = HashMap[Card, Int]()
 
-  def fill(): HashMap[Card, Int] =
-    val cardsArr = Card.values
-    var tmp = HashMap(R0 -> 2, B0 -> 2, G0 -> 2, Y0 -> 2)
-
-    return tmp
+  def fill() =
+    Card.values.map(x => (x, 2)).map(x => (stack = stack + (x)))
 }
