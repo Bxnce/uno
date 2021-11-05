@@ -1,8 +1,9 @@
 package de.htwg.se.uno
+package model
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import Field._
+import model.Field._
 
 class FieldSpec extends AnyWordSpec {
   "Field" should {

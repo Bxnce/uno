@@ -1,16 +1,16 @@
 package de.htwg.se.uno
+package aview
 
 import scala.io.StdIn.readLine
-import de.htwg.se.uno._
-import CardStack._
-import Field._
+import model.CardStack.fill
+import model.Field.table
 
 class TUI {
 
   def TUI(): Unit =
-    val in = readLine("Befehle eingeben\n")
+    val in = readLine()
     in match
-      case "exit" =>
+      case "exit" | "q" =>
       case _ =>
         println(menu(in))
         TUI()
@@ -20,9 +20,10 @@ class TUI {
         case "help" | "h" =>
           """
                 Befehlsübersicht für Uno:
-                - help | h      : zeigt alle Befehle für Uno
-                - game          : startet ein neues Spiel mit 2 Spielern
-                - play <Index>  : Legt die Karte mit dem gewünschten Index                
+                - help | h       : zeigt alle Befehle für Uno
+                - exit | q       : verlässt das Spiel
+                - game           : startet ein neues Spiel mit 2 Spielern
+                - play <cardID>  : Legt die Karte mit dem gewünschten Index                
                 """
         case "game" =>
           NewGame()

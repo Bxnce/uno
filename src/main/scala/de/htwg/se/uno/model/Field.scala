@@ -1,4 +1,5 @@
 package de.htwg.se.uno
+package model
 
 object Field {
 

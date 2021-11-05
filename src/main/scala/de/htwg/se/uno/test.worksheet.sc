@@ -45,16 +45,3 @@ val house = House(Vector(cell1, cell2))
 
 house.cells(0).value
 house.cells(0).isSet
-
-import de.hwtg.se.uno.Card
-import Card._
-
-import scala.collection.immutable.HashMap
-
-val map = HashMap(R0 -> 2, B0 -> 2, G0 -> 2, Y0 -> 2)
-
-val y = map + (R0 -> 1)
-
-y(R0)
-
-R0.getColor
