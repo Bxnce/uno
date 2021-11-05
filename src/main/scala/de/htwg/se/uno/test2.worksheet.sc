@@ -5,13 +5,9 @@ import de.htwg.se.uno.model.CardStack
 
 //Initialisieren und Aktualisieren des Stapels von dem gezogen wird
 
-val x = CardStack
-x.fill()
+val stack = CardStack()
 
-print(x.stack)
-
-val tmp = Y2
-
-x.stack = x.stack + (tmp -> 10)
-
-print(x.stack)
+print(stack.c)
+stack.c += (Y7 -> 0)
+print(stack.c)
+stack.c(Y7)
