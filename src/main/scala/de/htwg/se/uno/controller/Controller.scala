@@ -18,5 +18,18 @@ case class Controller(var game: Game) extends Observable:
     } else {
       notifyObservers
     }
+
+  def take(player: String) =
+    val err = game.take(player)
+    if (err == -3) {
+      Console.println(s"${RED}!!!Falschen Namen eingegeben!!!${RESET}")
+    } else if (err == -2) {
+      Console.println(s"${RED}!!!Karte ist nichtmehr im Stack!!!${RESET}")
+    } else if (err == -1) {
+      Console.println(s"${RED}!!!Ungültige Karte!!!${RESET}")
+    } else {
+      notifyObservers
+    }
+
   override def toString: String =
     return game.toString()

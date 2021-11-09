@@ -28,7 +28,8 @@ class TUI(controller: Controller) extends Observer:
               Befehlsübersicht für Uno:
               - help | h                       : zeigt alle Befehle für Uno
               - exit | q                       : verlässt das Spiel
-              - add <player> <card>            : fügt eine Karte einem Spieler hinzu           
+              - add <player> <card>            : fügt eine Karte einem Spieler hinzu
+              - take | + <player>              : fügt eine Zufällige Karte zum jeweiligen Spieler hinzu           
               ${RESET}""" + "\n")
       case "add" =>
         if (innew.size == 3) {
@@ -36,9 +37,14 @@ class TUI(controller: Controller) extends Observer:
           val c = innew(2)
           controller.add(p, c)
         } else {
-          Console.println(s"${RED}Falscher Add Aufruf!${RESET}")
+          Console.println(s"${RED}Falscher take Aufruf!${RESET}")
         }
-
+      case "take" | "+" =>
+        if (innew.size == 2) {
+          controller.take(innew(1))
+        } else {
+          Console.println(s"${RED}Falscher take Aufruf!${RESET}")
+        }
       case _ =>
         println("Ungültige Eingabe, versuchen sie help")
     TUI()

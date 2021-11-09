@@ -52,6 +52,7 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case Y7 extends Card(CardColor.Yellow, CardValue.Seven, "Y7")
   case Y8 extends Card(CardColor.Yellow, CardValue.Eight, "Y8")
   case Y9 extends Card(CardColor.Yellow, CardValue.Nine, "Y9")
+
   case XX extends Card(CardColor.Error, CardValue.Error, "XX")
 
   def getColor: CardColor = color
