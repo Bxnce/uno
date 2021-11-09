@@ -4,14 +4,38 @@ package model
 import scala.io.StdIn.readLine
 import Player._
 import Field.table
+import toCard._
+import Field._
+import Card._
+import scala.io.StdIn
 
 case class Game():
-  val cs = CardStack()
-  val p1 = Player(readLine("Name Spieler1: "))
-  val p2 = Player(readLine("Name Spieler2: "))
+  var cs = CardStack()
+  val p1 = Player(readLine("Name Spieler1:    "))
+  val p2 = Player(readLine("Name Spieler2:    "))
 
-  val cc = readLine("Anzahl an Karten: ").toInt
+  def add(player: String, karte: String): Int =
+    val c = getCard(karte)
+    if (c.toString == "XX") {
+      return -1;
+    } else if (cs.c(c) == 0) {
+      return -2;
+    } else if (
+      player.equalsIgnoreCase("P1") || player.equalsIgnoreCase(p1.getName())
+    ) {
+      p1.add(c)
+      cs.c = cs.c + (c -> (cs.c(c) - 1))
+      return 0;
+    } else if (
+      player.equalsIgnoreCase("P2") || player.equalsIgnoreCase(p2.getName())
+    ) {
+      p2.add(c)
+      cs.c = cs.c + (c -> (cs.c(c) - 1))
+      return 0;
+    } else {
+      return -3;
+    }
 
-  def add() = p1.add()
   override def toString: String =
-    p1.print()
+    return p1.getName() + eol + p1.print() + eol + p2.print() + p2
+      .getName() + eol
