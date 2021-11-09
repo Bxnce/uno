@@ -1,4 +1,4 @@
-package de.htwg.se.uno.model
+package de.htwg.se.uno
 package model
 import Card._
 import Field._
@@ -8,12 +8,13 @@ case class Player(n: String) {
   var karten = Vector[Card](R0, G1, B1, B2, B3)
   override def toString: String = name
 
-  def print() =
+  def print(): String =
     val midLine =
       karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
-    printf(udRow(karten.size) + midLine + udRow(karten.size))
+    return udRow(karten.size) + midLine + udRow(karten.size)
 
   def add() =
     karten = karten :+ Y9
     karten = karten :+ R7
+
 }

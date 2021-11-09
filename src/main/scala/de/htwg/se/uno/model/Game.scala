@@ -2,7 +2,7 @@ package de.htwg.se.uno
 package model
 
 import scala.io.StdIn.readLine
-import model.Player
+import Player._
 import Field.table
 
 case class Game():
@@ -13,4 +13,5 @@ case class Game():
   val cc = readLine("Anzahl an Karten: ").toInt
 
   def add() = p1.add()
-  override def toString = p1.print()
+  override def toString: String =
+    p1.print()

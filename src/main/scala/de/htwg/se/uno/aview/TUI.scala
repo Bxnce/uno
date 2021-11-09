@@ -11,6 +11,9 @@ class TUI(controller: Controller) extends Observer:
     println(controller.game.p1.print())
     TUI()
 
+  override def update: Unit =
+    print(controller.toString())
+
   def TUI(): Unit =
     val in = readLine()
     in match
@@ -25,9 +28,8 @@ class TUI(controller: Controller) extends Observer:
                 - game           : startet ein neues Spiel mit 2 Spielern
                 - play <cardID>  : Legt die Karte mit dem gewünschten Index                
                 """)
-      case "print" =>
-
       case "add" =>
+        controller.add()
       case _ =>
         println("Ungültige Eingabe, versuchen sie help")
     TUI()
