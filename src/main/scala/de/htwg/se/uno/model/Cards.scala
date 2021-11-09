@@ -2,10 +2,11 @@ package de.htwg.se.uno
 package model
 
 enum CardValue:
-  case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Special
+  case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Special,
+  Error
 
 enum CardColor:
-  case Red, Blue, Green, Yellow, Special
+  case Red, Blue, Green, Yellow, Special, Error
 
 enum Card(color: CardColor, value: CardValue, id: String):
   case R0 extends Card(CardColor.Red, CardValue.Zero, "R0")
@@ -51,7 +52,19 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case Y7 extends Card(CardColor.Yellow, CardValue.Seven, "Y7")
   case Y8 extends Card(CardColor.Yellow, CardValue.Eight, "Y8")
   case Y9 extends Card(CardColor.Yellow, CardValue.Nine, "Y9")
+  case XX extends Card(CardColor.Error, CardValue.Error, "XX")
 
   def getColor: CardColor = color
   def getValue: CardValue = value
   override def toString: String = id
+
+object toCard:
+  def getCard(search: String): /*Option[Card]*/ Card =
+    val index = Card.values.map(x => x.toString).indexOf(search)
+    if (index < 0) {
+      //None
+      return Card.XX
+    } else {
+      return Card.values(index)
+      //return Some(Card.fromOrdinal(index))
+    }

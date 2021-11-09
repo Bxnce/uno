@@ -5,16 +5,21 @@ import Field._
 
 case class Player(n: String) {
   val name = n
-  var karten = Vector[Card](R0, G1, B1, B2, B3)
+  var karten = Vector[Card]()
   override def toString: String = name
 
   def print(): String =
-    val midLine =
-      karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
-    return udRow(karten.size) + midLine + udRow(karten.size)
+    if (karten.size == 0) {
+      return udRow(1) + "|  |" + eol + udRow(1)
+    } else {
+      val midLine =
+        karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
+      return udRow(karten.size) + midLine + udRow(karten.size)
+    }
 
-  def add() =
-    karten = karten :+ Y9
-    karten = karten :+ R7
+  def getName(): String =
+    return name
 
+  def add(karte: Card) =
+    karten = karten :+ karte
 }
