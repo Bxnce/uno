@@ -7,9 +7,6 @@ import de.htwg.se.uno.model.Game
 
 val stack = CardStack()
 
-print(stack.c)
-stack.c += (Y7 -> 0)
-print(stack.c)
-stack.c(Y7)
+val car = R0
 
-val xx = Game()
+val aa = Vector(R0, R1)

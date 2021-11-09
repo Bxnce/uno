@@ -2,13 +2,21 @@ package de.htwg.se.uno
 package aview
 
 import scala.io.StdIn.readLine
-import model.Game
+import controller.Controller
+import util.Observer
 
-class TUI {
+class TUI(controller: Controller) extends Observer:
+  controller.add(this)
+  def run() =
+    println(controller.game.p1.print())
+    TUI()
+
   def TUI(): Unit =
     val in = readLine()
     in match
       case "exit" | "q" =>
+        println("Hey")
+        return
       case "help" | "h" =>
         print("""
                 Befehlsübersicht für Uno:
@@ -17,10 +25,9 @@ class TUI {
                 - game           : startet ein neues Spiel mit 2 Spielern
                 - play <cardID>  : Legt die Karte mit dem gewünschten Index                
                 """)
-      case "game" =>
-        Game()
-        println("Neues Spiel gestartet")
+      case "print" =>
+
+      case "add" =>
       case _ =>
         println("Ungültige Eingabe, versuchen sie help")
     TUI()
-}
