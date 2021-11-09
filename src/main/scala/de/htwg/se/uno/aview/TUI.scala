@@ -4,7 +4,7 @@ package aview
 import scala.io.StdIn.readLine
 import controller.Controller
 import util.Observer
-import Console.{RED, RESET}
+import Console.{RED, GREEN, RESET}
 
 class TUI(controller: Controller) extends Observer:
   controller.add(this)
@@ -24,12 +24,12 @@ class TUI(controller: Controller) extends Observer:
       case "exit" | "q" =>
         return
       case "help" | "h" =>
-        print("""
+        Console.print(s"""${GREEN}
               Befehlsübersicht für Uno:
               - help | h                       : zeigt alle Befehle für Uno
               - exit | q                       : verlässt das Spiel
               - add <player> <card>            : fügt eine Karte einem Spieler hinzu           
-              """ + "\n")
+              ${RESET}""" + "\n")
       case "add" =>
         if (innew.size == 3) {
           val p = innew(1)
