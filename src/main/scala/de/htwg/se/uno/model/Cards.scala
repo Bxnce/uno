@@ -63,9 +63,7 @@ object toCard:
   def getCard(search: String): /*Option[Card]*/ Card =
     val index = Card.values.map(x => x.toString).indexOf(search)
     if (index < 0) {
-      //None
       return Card.XX
     } else {
       return Card.values(index)
-      //return Some(Card.fromOrdinal(index))
     }

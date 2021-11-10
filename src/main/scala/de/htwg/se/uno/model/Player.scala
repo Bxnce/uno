@@ -1,7 +1,7 @@
 package de.htwg.se.uno
 package model
 import Card._
-import Field._
+import CardLayout._
 
 case class Player(n: String) {
   val name = n
