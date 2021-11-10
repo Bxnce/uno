@@ -3,9 +3,8 @@ package model
 
 import scala.io.StdIn.readLine
 import Player._
-import Field.table
 import toCard._
-import Field._
+import CardLayout._
 import Card._
 import scala.io.StdIn
 
