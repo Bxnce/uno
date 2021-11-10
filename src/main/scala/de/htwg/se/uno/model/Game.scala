@@ -18,7 +18,7 @@ case class Game():
     take("p1")
     take("p2")
   }
-
+  //bis hier weiß ich nicht wie ichs testen kann
   def add(player: String, karte: String): Int =
     val c = getCard(karte)
     if (c.toString == "XX") {
