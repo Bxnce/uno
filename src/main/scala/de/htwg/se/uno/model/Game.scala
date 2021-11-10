@@ -38,7 +38,7 @@ case class Game():
       cs.c = cs.c + (c -> (cs.c(c) - 1))
       return 0;
     } else {
-      return -3;
+      return -3;q
     }
 
   def add(player: String, c: Card): Int =
