@@ -6,7 +6,6 @@ import CardLayout._
 case class Player(n: String) {
   val name = n
   var karten = Vector[Card]()
-  override def toString: String = name //wofür brauchen wir die ToString ?
 
   def print(): String = //printet bei einen leeren Vektor trotzdem noch eine Karte aber ohne Wert
     if (karten.size == 0) {
