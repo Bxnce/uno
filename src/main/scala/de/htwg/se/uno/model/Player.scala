@@ -7,7 +7,7 @@ case class Player(n: String) {
   val name = n
   var karten = Vector[Card]()
 
-  def print(): String =
+  def print(): String = //printet bei einen leeren Vektor trotzdem noch eine Karte aber ohne Wert
     if (karten.size == 0) {
       return udRow(1) + "|  |" + eol + udRow(1)
     } else {
@@ -19,6 +19,7 @@ case class Player(n: String) {
   def getName(): String =
     return name
 
+  //Was passiert wenn man eine falsche Karte einfügen will
   def add(karte: Card) =
     karten = karten :+ karte
 }
