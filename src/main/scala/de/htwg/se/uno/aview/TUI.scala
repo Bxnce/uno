@@ -9,9 +9,7 @@ import Console.{RED, GREEN, RESET}
 class TUI(controller: Controller) extends Observer:
   controller.add(this)
   def run() =
-    println(
-      "\n" * 10 + "Willkommen zum Spiel! für Hilfe help eingeben" + "\n" * 5 + controller.game.toString
-    )
+    println(controller.game.toString)
     TUI()
 
   override def update: Unit =
@@ -43,8 +41,10 @@ class TUI(controller: Controller) extends Observer:
         if (innew.size == 2) {
           controller.take(innew(1))
         } else {
-          Console.println(s"${RED}Falscher take Aufruf!${RESET}")
+          controller.take()
         }
+      case "next" | "n" =>
+        controller.next()
       case _ =>
         println("Ungültige Eingabe, versuchen sie help")
     TUI()

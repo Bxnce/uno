@@ -31,5 +31,19 @@ case class Controller(var game: Game) extends Observable:
       notifyObservers
     }
 
+  def take() =
+    val err = game.take()
+    if (err == -2) {
+      Console.println(s"${RED}!!!Karte ist nichtmehr im Stack!!!${RESET}")
+    } else if (err == -1) {
+      Console.println(s"${RED}!!!Ungültige Karte!!!${RESET}")
+    } else {
+      notifyObservers
+    }
+
+  def next() =
+    game.next()
+    notifyObservers
+
   override def toString: String =
     return game.toString()
