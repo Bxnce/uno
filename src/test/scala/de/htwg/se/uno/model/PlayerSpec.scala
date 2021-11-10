@@ -19,10 +19,6 @@ class PlayerSpec extends AnyWordSpec {
       p1.karten.size shouldBe (1)
       p1.karten(0) shouldBe (R0)
     }
-    "override toString and print the name of the Player" in {
-      val p1 = Player("Spieler1")
-      p1.toString shouldBe ("Spieler1")
-    }
     "have a method print() that prints out the Players Cards" in {
       val p1 = Player("Spieler1")
       p1.print() shouldBe (
