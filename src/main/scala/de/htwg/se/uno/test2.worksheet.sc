@@ -45,7 +45,7 @@ game2.p1.karten.size
 game2.p2.karten.size
 game2.midCard.karten.size
 game2.midCard.karten(0)
-game2.midCard.karten = game.midCard.karten.updated(0, R0)
+game2.midCard.karten = game2.midCard.karten.updated(0, R0)
 game2.midCard.karten.toString()
 
 game2.add("p1", XX)
@@ -62,11 +62,13 @@ game2.midCard.karten(0)
 game2.add("hs", XX)
 
 val game1 = Game("player1", "player2", 1)
-game1.midCard.karten = game.midCard.karten.updated(0, R1)
+game1.midCard.karten = game1.midCard.karten.updated(0, R1)
 game1.toString()
 game1.p1.karten
-game1.p1.karten = game.p1.karten.updated(0, B0)
-game1.p2.karten = game.p2.karten.updated(0, G0)
+game1.p1.karten = game1.p1.karten.updated(0, B0)
+game1.p2.karten = game1.p2.karten.updated(0, G0)
 game1.p1.karten
 game1.midCard.karten
 game1.toString()
+
+val game3 = Game("ASD", "ASD", 1)
