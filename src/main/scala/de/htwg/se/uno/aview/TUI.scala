@@ -43,6 +43,8 @@ class TUI(controller: Controller) extends Observer:
         } else {
           controller.take()
         }
+      case "place" | "-" =>
+        controller.place(innew(1).toInt - 1)
       case "next" | "n" =>
         controller.next()
       case _ =>

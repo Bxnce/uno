@@ -40,6 +40,9 @@ case class Controller(var game: Game) extends Observable:
     } else {
       notifyObservers
     }
+  def place(ind: Int) =
+    game.place(ind)
+    notifyObservers
 
   def next() =
     game.next()

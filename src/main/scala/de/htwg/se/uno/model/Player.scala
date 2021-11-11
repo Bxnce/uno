@@ -15,6 +15,15 @@ case class Player(n: String) {
         karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
       return udRow(karten.size) + midLine + udRow(karten.size)
     }
+  //entfernt den Eintrag in dem Vector an der Index Stelle
+  def removeInd(ind: Int) =
+    if (ind == 0) {
+      karten.drop(1)
+    } else if (ind == karten.size - 1) {
+      karten.dropRight(1)
+    }
+    val (tmp1, tmp2) = karten.splitAt(ind)
+    karten = tmp1.toVector ++ tmp2.toVector.drop(1)
 
   def getName(): String =
     return name

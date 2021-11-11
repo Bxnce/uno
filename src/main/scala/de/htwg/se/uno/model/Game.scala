@@ -14,7 +14,9 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
   var cardStack = CardStack()
   val midCard = Player(
     "midstack"
-  ) //als Spieler, damit die gleiche Print benutzen kann und die Abfragen werden einfacher.
+  )
+  var cardsInDeck =
+    Card.values.size - 1 //als Spieler, damit die gleiche Print benutzen kann und die Abfragen werden einfacher.
   val r = scala.util.Random
   val p1 = Player(player1)
   val p2 = Player(player2)
@@ -79,7 +81,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     }
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
   def take(player: String): Int =
-    val rnd = r.nextInt(39)
+    val rnd = r.nextInt(cardsInDeck - 1)
     return add(player, Card.values(rnd))
   //zieht eine zufällig Karte und fügt diese dem Spieler hinzu, der an der Reihe ist
   def take(): Int =
@@ -89,6 +91,20 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
       return take("P2")
     }
 
+  def place(ind: Int): Int =
+    if (playerDiff % 2 == 0) { //player1
+      val tmp = midCard.karten(0)
+      //midCard.karten.updated(0, p1.karten(ind))
+      midCard.karten = midCard.karten.updated(0, p1.karten(ind))
+      p1.removeInd(ind)
+      cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
+    } else {
+      val tmp = midCard.karten(0)
+      midCard.karten.updated(0, p2.karten(ind))
+      p2.removeInd(ind)
+      cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
+    }
+    return 0
   //nächster Spieler ist dran
   def next() =
     playerDiff += 1
