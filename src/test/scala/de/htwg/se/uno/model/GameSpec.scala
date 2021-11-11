@@ -105,9 +105,8 @@ class GameSpec extends AnyWordSpec {
 
       val game1 = Game("player1", "player2", 1)
       game1.midCard.karten = game.midCard.karten.updated(0, R0)
-      game1.p1
-      //game1.p1.karten = game.p1.karten.updated(0, B0)
-      //game1.p2.karten = game.p2.karten.updated(0, G0)
+      game1.p1.karten = game1.p1.karten.updated(0, B0)
+      game1.p2.karten = game1.p2.karten.updated(0, G0)
       game1.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
