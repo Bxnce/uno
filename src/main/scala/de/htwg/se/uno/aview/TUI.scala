@@ -24,7 +24,7 @@ class TUI(controller: Controller) extends Observer:
       case "help" | "h" =>
         Console.print(s"""${GREEN}
               Befehlsübersicht für Uno:
-              - help | h                       : zeigt alle Befehle für Uno
+              - help | h                       : zeigt alle Befehle fuer Uno
               - exit | q                       : verlässt das Spiel
               - add <player> <card>            : fügt eine Karte einem Spieler hinzu
               - take | + <player>              : fügt eine Zufällige Karte zum jeweiligen Spieler hinzu           
