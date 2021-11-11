@@ -100,7 +100,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
       cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
     } else {
       val tmp = midCard.karten(0)
-      midCard.karten.updated(0, p2.karten(ind))
+      midCard.karten = midCard.karten.updated(0, p2.karten(ind))
       p2.removeInd(ind)
       cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
     }

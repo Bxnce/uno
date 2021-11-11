@@ -24,3 +24,49 @@ def removeInd(ind: Int, vec: Vector[Card]): Vector[Card] =
 var cardv = Vector(R0, R1, R2, R3, R4, R5)
 
 removeInd(5, cardv)
+
+import de.htwg.se.uno.model.Player
+import de.htwg.se.uno.model.Card._
+import de.htwg.se.uno.model.CardColor._
+import de.htwg.se.uno.model.CardValue._
+
+Player("Timo")
+val p1 = Player("Spieler1")
+p1.karten.size
+p1.print()
+p1.add(R0)
+p1.karten.size
+p1.karten(0)
+p1.print()
+p1.add(R1)
+
+val game2 = Game("player1", "player2", 0)
+game2.p1.karten.size
+game2.p2.karten.size
+game2.midCard.karten.size
+game2.midCard.karten(0)
+game2.midCard.karten = game.midCard.karten.updated(0, R0)
+game2.midCard.karten.toString()
+
+game2.add("p1", XX)
+game2.p1.karten.size
+game2.p1.karten(0)
+
+game2.add("p2", R0)
+game2.p2.karten.size
+
+game2.add("midstack", R0)
+game2.midCard.karten.size
+game2.midCard.karten(0)
+
+game2.add("hs", XX)
+
+val game1 = Game("player1", "player2", 1)
+game1.midCard.karten = game.midCard.karten.updated(0, R1)
+game1.toString()
+game1.p1.karten
+game1.p1.karten = game.p1.karten.updated(0, B0)
+game1.p2.karten = game.p2.karten.updated(0, G0)
+game1.p1.karten
+game1.midCard.karten
+game1.toString()
