@@ -1,7 +1,7 @@
 import de.htwg.se.uno.model.Game._
+import de.htwg.se.uno.model.Game
 import de.htwg.se.uno.model.Card
 import de.htwg.se.uno.model.Card._
-import de.htwg.se.uno.model.Game
 
 val game = Game("Bence", "Bence2", 7)
 
