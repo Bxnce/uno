@@ -2,6 +2,7 @@ import de.htwg.se.uno.model.Player
 import de.htwg.se.uno.model.Card._
 import de.htwg.se.uno.model.CardColor._
 import de.htwg.se.uno.model.CardValue._
+import scala.io.StdIn
 
 Player("Timo")
 val p1 = Player("Spieler1")
