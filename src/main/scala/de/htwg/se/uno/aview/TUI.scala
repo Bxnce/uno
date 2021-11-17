@@ -10,6 +10,9 @@ class TUI(controller: Controller) extends Observer:
   controller.add(this)
   def run() =
     println(controller.game.toString)
+    println(
+      "Willkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben"
+    )
     TUI()
 
   override def update: Unit =
@@ -23,7 +26,7 @@ class TUI(controller: Controller) extends Observer:
         return
       case "help" | "h" =>
         Console.print(s"""${GREEN}
-              Befehlsübersicht für Uno:
+              Befehlsuebersicht fuer Uno:
               - help | h                       : zeigt alle Befehle fuer Uno
               - exit | q                       : verlaesst das Spiel
               - add <player> <card>            : fuegt eine Karte einem Spieler hinzu

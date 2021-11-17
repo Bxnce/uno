@@ -2,13 +2,12 @@ package de.htwg.se.uno
 
 import aview._
 import model.Game
-import de.htwg.se.uno.controller.Controller
+import controller.Controller
 import scala.io.StdIn.readLine //import controller._
 
 @main def Main: Unit =
-  println(
-    "\n" * 50 + "Willkommen zum Spiel! für Hilfe help eingeben!" + "\n" * 5
-  )
+  println("\n" * 50)
+  println("Bitte den Anweisungen folgen:")
   val game = Game(
     readLine("Name Spieler1:                   "),
     readLine("Name Spieler2:                   "),
