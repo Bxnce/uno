@@ -67,24 +67,33 @@ class CardsSpec extends AnyWordSpec {
         Nine
       )
     }
-    "should return its color" in {
+    "have a method getColor that returns the color of the card" in {
       R0.getColor should be(CardColor.Red)
       B0.getColor should be(CardColor.Blue)
       G0.getColor should be(CardColor.Green)
       Y0.getColor should be(CardColor.Yellow)
     }
-    "should return its value" in {
+    "have a method getValue that returns the color of the card" in {
       R0.getValue should be(CardValue.Zero)
       B0.getValue should be(CardValue.Zero)
       G0.getValue should be(CardValue.Zero)
       Y0.getValue should be(CardValue.Zero)
       R1.getValue should be(CardValue.One)
     }
-    "should have its own toString Method that prints it's ID" in {
+    "have its own toString Method that prints it's ID" in {
       R0.toString should be("R0")
       B0.toString should be("B0")
       G0.toString should be("G0")
       Y0.toString should be("Y0")
+    }
+    "have a method getCard(String) that converts a String into a card" in {
+      toCard.getCard("R0") should be(R0)
+      toCard.getCard("B9") should be(B9)
+      toCard.getCard("G4") should be(G4)
+      toCard.getCard("Y6") should be(Y6)
+
+      toCard.getCard("R13") should be(XX)
+      toCard.getCard("Hallo") should be(XX)
     }
   }
 }

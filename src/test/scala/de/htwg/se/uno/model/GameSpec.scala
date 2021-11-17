@@ -11,8 +11,24 @@ import Card._
 
 class GameSpec extends AnyWordSpec {
   "Game" should {
+    "should create a game with 2 Players and one Card in the middle" in {
+      val g1 = Game("player1", "player2", 4)
+      g1.playerDiff shouldBe (0)
+      g1.midCard.karten.size shouldBe (1)
+      g1.p1.karten.size shouldBe (4)
+      g1.p2.karten.size shouldBe (4)
+    }
     "have a method add(String, String) that adds a card to a players hand" in {
       val game = Game("player1", "player2", 0)
+      //dafür sorgen dass R2 nicht auf dem Spielstapel liegt
+      val tmp = game.midCard.karten(0)
+      game.add("midstack", Y9)
+      game.midCard.removeInd(0)
+      game.cardStack.cards =
+        game.cardStack.cards + (tmp -> ((game.cardStack.cards(tmp) + 1)))
+      game.midCard.karten.size shouldBe (1)
+      game.midCard.karten(0) shouldBe (Y9)
+
       game.p1.karten.size shouldBe (0)
       game.p2.karten.size shouldBe (0)
       game.add("p1", "R0")
@@ -34,60 +50,110 @@ class GameSpec extends AnyWordSpec {
       game.cardStack.cards(R2) shouldBe (1)
     }
     "have a method add(String, Card) that adds a card to a players hand" in {
-      val game = Game("player1", "player2", 0)
-      game.p1.karten.size shouldBe (0)
-      game.p2.karten.size shouldBe (0)
-      game.midCard.karten.size shouldBe (1)
+      val game1 = Game("player1", "player2", 0)
+      game1.p1.karten.size shouldBe (0)
+      game1.p2.karten.size shouldBe (0)
+      game1.midCard.karten.size shouldBe (1)
 
-      game.add("p1", XX)
-      game.p1.karten.size shouldBe (1)
+      game1.add("p1", XX)
+      game1.p1.karten.size shouldBe (1)
 
-      game.add("p2", R0) shouldEqual (0)
-      game.p2.karten.size shouldBe (1)
+      game1.add("p2", R0) shouldEqual (0)
+      game1.p2.karten.size shouldBe (1)
 
-      game.add("midstack", R0)
-      game.midCard.karten.size shouldBe (2) //es liegen dann halt immer mehrere Karten auf dem Stapel
+      game1.add("midstack", R0)
+      game1.midCard.karten.size shouldBe (2) //es liegen dann halt immer mehrere Karten auf dem Stapel
 
-      game.add("p3", "G8") shouldEqual (-3)
+      game1.add("p3", "G8") shouldEqual (-3)
     }
     "have a method take(String) that adds a random card to a players hand" in {
-      val game = Game("player1", "player2", 0)
-      game.p1.karten.size shouldBe (0)
-      game.p2.karten.size shouldBe (0)
+      val game2 = Game("player1", "player2", 0)
+      game2.p1.karten.size shouldBe (0)
+      game2.p2.karten.size shouldBe (0)
 
-      game.take("p1")
-      game.p1.karten.size shouldBe (1)
+      game2.take("p1")
+      game2.p1.karten.size shouldBe (1)
 
-      game.take("p2")
-      game.p2.karten.size shouldBe (1)
+      game2.take("p2")
+      game2.p2.karten.size shouldBe (1)
     }
     "have a method take() that adds a random card to the player whos turn it is" in {
-      val game = Game("player1", "player2", 0)
-      game.p1.karten.size shouldBe (0)
-      game.p2.karten.size shouldBe (0)
-      game.playerDiff shouldBe (0)
+      val game3 = Game("player1", "player2", 0)
+      game3.p1.karten.size shouldBe (0)
+      game3.p2.karten.size shouldBe (0)
+      game3.playerDiff shouldBe (0)
 
-      game.take()
-      game.p1.karten.size shouldBe (1)
+      game3.take()
+      game3.p1.karten.size shouldBe (1)
 
-      game.next()
-      game.playerDiff shouldBe (1)
-      game.take()
-      game.p2.karten.size shouldBe (1)
+      game3.next()
+      game3.playerDiff shouldBe (1)
+      game3.take()
+      game3.p2.karten.size shouldBe (1)
     }
-    //place funktioniert nach next nicht mehr richtig muss noch getestet werden
+    "have a method place(Integer) that places a card onto the stack" in {
+      val game4 = Game("player1", "player2", 1)
+      game4.playerDiff shouldBe (0)
+      game4.midCard.karten = game4.midCard.karten.updated(0, R0)
+      game4.p1.karten = game4.p1.karten.updated(0, B0)
+      game4.p2.karten = game4.p2.karten.updated(0, G0)
+      game4.p1.karten.size shouldBe (1)
+      game4.p2.karten.size shouldBe (1)
+      game4.midCard.karten.size shouldBe (1)
+
+      game4.place(0)
+      game4.p1.karten.size shouldBe (0)
+      game4.p2.karten.size shouldBe (1)
+      game4.midCard.karten.size shouldBe (1)
+
+      game4.next()
+      game4.playerDiff shouldBe (1)
+      game4.place(0)
+      game4.p1.karten.size shouldBe (0)
+      game4.p2.karten.size shouldBe (0)
+      game4.midCard.karten.size shouldBe (1)
+
+      val game5 = Game("player1", "player2", 3)
+      game5.midCard.karten = game5.midCard.karten.updated(0, R0)
+      game5.p1.karten = game5.p1.karten.updated(0, B0)
+      game5.p1.karten = game5.p1.karten.updated(1, B1)
+      game5.p1.karten = game5.p1.karten.updated(2, B2)
+      game5.p2.karten = game5.p2.karten.updated(0, G0)
+      game5.p2.karten = game5.p2.karten.updated(1, G1)
+      game5.p2.karten = game5.p2.karten.updated(2, G2)
+
+      game5.playerDiff shouldBe (0)
+      game5.p1.karten.size shouldBe (3)
+      game5.p2.karten.size shouldBe (3)
+      game5.midCard.karten.size shouldBe (1)
+
+      game5.place(1)
+      game5.p1.karten.size shouldBe (2)
+      game5.p2.karten.size shouldBe (3)
+      game5.midCard.karten.size shouldBe (1)
+      game5.midCard.karten(0) shouldBe (B1)
+
+      game5.next()
+      game5.playerDiff shouldBe (1)
+      game5.place(2)
+      game5.p1.karten.size shouldBe (2)
+      game5.p2.karten.size shouldBe (2)
+      game5.midCard.karten.size shouldBe (1)
+      game5.midCard.karten(0) shouldBe (G2)
+
+    }
     "have a method next() that increments the PlayerDiff variable" in {
-      val game = Game("player1", "player2", 0)
-      game.playerDiff shouldBe (0)
-      game.next()
-      game.playerDiff shouldBe (1)
-      game.next()
-      game.playerDiff shouldBe (2)
+      val game6 = Game("player1", "player2", 0)
+      game6.playerDiff shouldBe (0)
+      game6.next()
+      game6.playerDiff shouldBe (1)
+      game6.next()
+      game6.playerDiff shouldBe (2)
     }
     "override the method toString() and return a String in Form of" in {
-      val game = Game("player1", "player2", 0)
-      game.midCard.karten = game.midCard.karten.updated(0, R0)
-      game.toString() shouldBe (
+      val game7 = Game("player1", "player2", 0)
+      game7.midCard.karten = game7.midCard.karten.updated(0, R0)
+      game7.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "|  |" + eol +
@@ -103,11 +169,11 @@ class GameSpec extends AnyWordSpec {
           "player2" + eol
       )
 
-      val game1 = Game("player1", "player2", 1)
-      game1.midCard.karten = game1.midCard.karten.updated(0, R0)
-      game1.p1.karten = game1.p1.karten.updated(0, B0)
-      game1.p2.karten = game1.p2.karten.updated(0, G0)
-      game1.toString() shouldBe (
+      val game8 = Game("player1", "player2", 1)
+      game8.midCard.karten = game8.midCard.karten.updated(0, R0)
+      game8.p1.karten = game8.p1.karten.updated(0, B0)
+      game8.p2.karten = game8.p2.karten.updated(0, G0)
+      game8.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "|B0|" + eol +

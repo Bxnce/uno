@@ -50,3 +50,5 @@ game1.p2.karten = game.p2.karten.updated(0, G0)
 game1.p1.karten
 game1.midCard.karten
 game1.toString()
+
+getCard("R0")
