@@ -25,9 +25,11 @@ class TUI(controller: Controller) extends Observer:
         Console.print(s"""${GREEN}
               Befehlsübersicht für Uno:
               - help | h                       : zeigt alle Befehle fuer Uno
-              - exit | q                       : verlässt das Spiel
-              - add <player> <card>            : fügt eine Karte einem Spieler hinzu
-              - take | + <player>              : fügt eine Zufällige Karte zum jeweiligen Spieler hinzu           
+              - exit | q                       : verlaesst das Spiel
+              - add <player> <card>            : fuegt eine Karte einem Spieler hinzu
+              - take <player> | + <player>     : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
+              - place <index> | - <index>      : Legt die Karte an diesem Index auf den Spielstapel
+              - next | n                       : Beendet den Zug, der naechste Spieler ist dran       
               ${RESET}""" + "\n")
       case "add" =>
         if (innew.size == 3) {
