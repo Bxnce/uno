@@ -3,27 +3,33 @@ package aview
 
 import scala.io.StdIn.readLine
 import controller.Controller
+import model.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
 class TUI(controller: Controller) extends Observer:
   controller.add(this)
-  def run() =
-    println(controller.game.toString)
-    println(
-      "Willkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben"
+  print(
+    "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
+  )
+  println(controller.toString)
+
+  def this() =
+    this(
+      new Controller(
+        Game(
+          readLine("Name Spieler1:                   "),
+          readLine("Name Spieler2:                   "),
+          readLine("Anzahl der Startkarten eingeben: ").toInt
+        )
+      )
     )
-    TUI()
 
-  override def update: Unit =
-    print(controller.toString())
-
-  def TUI(): Unit =
-    val in = readLine()
+  def run(input: String): Unit =
+    val in = input
     val innew = in.split(" ")
     innew(0) match
-      case "exit" | "q" =>
-        return
+      case "exit" | "q" => return
       case "help" | "h" =>
         Console.print(s"""${GREEN}
               Befehlsuebersicht fuer Uno:
@@ -54,4 +60,7 @@ class TUI(controller: Controller) extends Observer:
         controller.next()
       case _ =>
         println("Ungültige Eingabe, versuchen sie help")
-    TUI()
+    print("\n\n")
+
+  override def update: Unit =
+    print(controller.toString())

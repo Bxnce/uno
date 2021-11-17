@@ -21,24 +21,24 @@ class TUISpec extends AnyWordSpec {
     controller.game.p2.karten = controller.game.p2.karten.updated(0, G0)
     controller.game.p2.karten = controller.game.p2.karten.updated(1, G1)
     controller.game.p2.karten = controller.game.p2.karten.updated(2, G2)
-    val tui = TUI(controller)
+
     "created with the given parameters " should {
-      "have a method run()" in {
-        tui.run() shouldEqual (
-          "Timo" + eol +
+      "have the following values" in {
+        val tui = TUI(controller) shouldEqual (
+          "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n" +
+            "Bence\n" +
             "+--+--+--+\n" +
             "|R0|R1|R2|\n" +
             "+--+--+--+\n" +
-            eol +
+            "\n" +
             "+--+\n" +
             "|Y6|\n" +
             "+--+\n" +
-            eol +
+            "\n" +
             "+--+--+--+\n" +
             "|G0|G1|G2|\n" +
             "+--+--+--+\n" +
-            "Bence" + eol +
-            "Willkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben" + eol
+            "Timo\n"
         )
       }
     }
