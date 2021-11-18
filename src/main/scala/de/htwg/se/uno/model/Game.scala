@@ -131,6 +131,6 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
         .printFiller() + p2
         .getName() + eol
     }
-    return p1.getName() + eol + p1.print() + eol + midCard.print() + eol + p2
-      .print() + p2
-      .getName() + eol
+    return p1.getName() + eol + p1.print() + eol + midCard.print() + eol +
+      p2.print() +
+      p2.getName() + eol
