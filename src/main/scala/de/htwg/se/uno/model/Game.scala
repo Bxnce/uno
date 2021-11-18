@@ -16,7 +16,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     "midstack"
   )
   var cardsInDeck =
-    Card.values.size - 1 //als Spieler, damit die gleiche Print benutzen kann und die Abfragen werden einfacher.
+    Card.values.size - 1
   val r = scala.util.Random
   val p1 = Player(player1)
   val p2 = Player(player2)
@@ -55,7 +55,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     } else if (cardStack.cards(card) == 0) {
       take(
         player
-      ) //Problem, falls der ganze Stack leer sein sollte, da dauerschleife.
+      )
     } else if (
       player.equalsIgnoreCase("P1") || player.equalsIgnoreCase(p1.getName())
     ) {
