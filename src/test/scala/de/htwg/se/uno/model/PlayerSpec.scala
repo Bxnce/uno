@@ -52,6 +52,20 @@ class PlayerSpec extends AnyWordSpec {
           "| 1|\n" +
           "+--+\n"
       )
+      p1.add(R1)
+      p1.add(R2)
+      p1.add(R3)
+      p1.add(R4)
+      p1.add(R5)
+      p1.add(R6)
+      p1.add(R7)
+      p1.add(R8)
+      p1.add(R9)
+      p1.printFiller() shouldBe (
+        "+--+\n" +
+          "|10|\n" +
+          "+--+\n"
+      )
     }
 
     "have a method removeInd(Integer) that removes a card at aspecific index from the players hand" in {
