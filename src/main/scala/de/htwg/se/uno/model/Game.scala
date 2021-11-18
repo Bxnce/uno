@@ -53,9 +53,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     if (card.toString == "XX") {
       take(player)
     } else if (cardStack.cards(card) == 0) {
-      take(
-        player
-      )
+      take(player)
     } else if (
       player.equalsIgnoreCase("P1") || player.equalsIgnoreCase(p1.getName())
     ) {
