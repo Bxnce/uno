@@ -46,17 +46,18 @@ val house = House(Vector(cell1, cell2))
 house.cells(0).value
 house.cells(0).isSet
 
-
-
 val playerDiff = 7
 
-
-if(playerDiff % 4 == 0){
+if (playerDiff % 4 == 0) {
   print("p1")
-} else if(playerDiff % 4 == 1) {
+} else if (playerDiff % 4 == 1) {
   print("zwip2next")
-} else if(playerDiff % 4 == 2) {
+} else if (playerDiff % 4 == 2) {
   print("p2")
-} else if(playerDiff % 4 == 3) {
+} else if (playerDiff % 4 == 3) {
   print("zwip1next")
 }
+
+val xxxx = System.lineSeparator()
+
+print("aaa" + xxxx + " bbbb")

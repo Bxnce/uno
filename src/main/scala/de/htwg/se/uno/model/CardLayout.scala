@@ -2,7 +2,7 @@ package de.htwg.se.uno
 package model
 
 object CardLayout {
-  val eol = "\n"
+  val eol = System.lineSeparator()
   val row = "+" + "-" * 2
   val rowEnd = "+" + eol
 //scalable settings
