@@ -27,17 +27,17 @@ class TUISpec extends AnyWordSpec {
       "have the following values" in {
         controller.toString shouldEqual (
           "Bence\n" +
-            "+--+--+--+\n" +
-            "|R0|R1|R2|\n" +
-            "+--+--+--+\n" +
+            "+--+\n" +
+            "| 3|\n" +
+            "+--+\n" +
             "\n" +
             "+--+\n" +
             "|Y6|\n" +
             "+--+\n" +
             "\n" +
-            "+--+--+--+\n" +
-            "|G0|G1|G2|\n" +
-            "+--+--+--+\n" +
+            "+--+\n" +
+            "| 3|\n" +
+            "+--+\n" +
             "Timo\n"
         )
         //vllt einfach einen case new bei dem dann erst ein neues Spiel erstellt wird.
@@ -55,6 +55,7 @@ class TUISpec extends AnyWordSpec {
         controller.game.p1.karten(3) shouldBe (R3)
         controller.game.p2.karten(3) shouldBe (G3)
 
+        tui.convertinputString("n") shouldBe (tui.SUCCESS)
         tui.convertinputString("+") shouldBe (tui.SUCCESS)
         controller.game.p1.karten.size shouldBe (5)
 
@@ -63,7 +64,8 @@ class TUISpec extends AnyWordSpec {
         controller.game.midCard.karten(0) shouldBe (R0)
 
         tui.convertinputString("n") shouldBe (tui.SUCCESS)
-        controller.game.playerDiff shouldBe (1)
+        tui.convertinputString("n") shouldBe (tui.SUCCESS)
+        controller.game.playerDiff shouldBe (6)
       }
       "Have a method printhelp() that prints out the help message" in {}
       "override th method update" in {}

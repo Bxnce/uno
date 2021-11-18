@@ -39,8 +39,10 @@ class ControllerSpec extends AnyWordSpec {
       c.take("p3") shouldBe (-3)
     }
     "have a method take(), that calls the take() function in game" in {
-      c.game.playerDiff shouldBe (0)
+      c.game.playerDiff shouldBe (3)
+      c.next()
       c.take() shouldBe (0)
+      c.next()
       c.next()
       c.take() shouldBe (0)
     }
