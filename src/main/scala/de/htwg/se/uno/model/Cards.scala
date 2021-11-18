@@ -6,7 +6,7 @@ enum CardValue:
   Error
 
 enum CardColor:
-  case Red, Blue, Green, Yellow, Special, Error
+  case Red, Blue, Green, Yellow, SpecialC, ErrorC
 
 enum Card(color: CardColor, value: CardValue, id: String):
   case R0 extends Card(CardColor.Red, CardValue.Zero, "R0")
@@ -53,7 +53,7 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case Y8 extends Card(CardColor.Yellow, CardValue.Eight, "Y8")
   case Y9 extends Card(CardColor.Yellow, CardValue.Nine, "Y9")
 
-  case XX extends Card(CardColor.Error, CardValue.Error, "XX")
+  case XX extends Card(CardColor.ErrorC, CardValue.Error, "XX")
 
   def getColor: CardColor = color
   def getValue: CardValue = value

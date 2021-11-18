@@ -38,7 +38,7 @@ case class Controller(var game: Game) extends Observable:
       notifyObservers
     }
     return err
-  def place(ind: Int): Int =
+  def place(ind: Int): Int = //Index auf outofbounds checken
     val err = game.place(ind)
     if (err < 0) {
       Console.println(

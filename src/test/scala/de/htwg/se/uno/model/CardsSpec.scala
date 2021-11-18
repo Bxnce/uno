@@ -66,6 +66,9 @@ class CardsSpec extends AnyWordSpec {
         Eight,
         Nine
       )
+      val error = (XX)
+      error.getColor shouldBe (CardColor.ErrorC)
+      error.getValue shouldBe (CardValue.Error)
     }
     "have a method getColor that returns the color of the card" in {
       R0.getColor should be(CardColor.Red)

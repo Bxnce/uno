@@ -121,6 +121,9 @@ class GameSpec extends AnyWordSpec {
       game4.p2.karten.size shouldBe (0)
       game4.midCard.karten.size shouldBe (1)
 
+      game4.next()
+      game4.place(1) shouldBe (-4)
+
       val game5 = Game("player1", "player2", 3)
       game5.midCard.karten = game5.midCard.karten.updated(0, R0)
       game5.p1.karten = game5.p1.karten.updated(0, B0)
@@ -162,6 +165,15 @@ class GameSpec extends AnyWordSpec {
       game6.next()
       game6.playerDiff shouldBe (5)
     }
+    "have a method playerFill() that fills the karten from one player with the parameter amount " in {
+      val gameXX = Game("player1", "player2", 0)
+      gameXX.p1.karten.size shouldBe (0)
+      gameXX.p2.karten.size shouldBe (0)
+      gameXX.playerFill(2)
+      gameXX.p1.karten.size shouldBe (2)
+      gameXX.p2.karten.size shouldBe (2)
+
+    }
     "override the method toString() and return a String in Form of" in {
       val game7 = Game("player1", "player2", 0)
       //game7.midCard.karten = game7.midCard.karten.updated(0, R0)
@@ -193,6 +205,21 @@ class GameSpec extends AnyWordSpec {
       game8.add("P2", G0)
       game8.next()
       game8.place(1)
+      game8.toString() shouldBe (
+        "player1" + eol +
+          "+--+" + eol +
+          "|B0|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "|R0|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "| 1|" + eol +
+          "+--+" + eol +
+          "player2" + eol
+      )
       game8.next()
       //game8.p2.karten = game8.p2.karten.updated(0, G0)
       game8.toString() shouldBe (
@@ -207,6 +234,22 @@ class GameSpec extends AnyWordSpec {
           eol +
           "+--+" + eol +
           "| 1|" + eol +
+          "+--+" + eol +
+          "player2" + eol
+      )
+      game8.next()
+      game8.toString() shouldBe (
+        "player1" + eol +
+          "+--+" + eol +
+          "| 1|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "|R0|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "|G0|" + eol +
           "+--+" + eol +
           "player2" + eol
       )

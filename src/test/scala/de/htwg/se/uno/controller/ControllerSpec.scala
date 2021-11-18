@@ -49,5 +49,16 @@ class ControllerSpec extends AnyWordSpec {
     "override th method toString" in {
       c.toString shouldEqual (game.toString)
     }
+    "have a method place() that places a Card from a player to the midStack" in {
+      c.game.place(0) shouldBe (0)
+      c.game.midCard.karten(0) shouldBe (B1)
+      c.game.next()
+      c.game.place(0) shouldBe (-4)
+    }
+    "have a method next()" in {
+      c.game.playerDiff shouldBe (7)
+      c.next()
+      c.game.playerDiff shouldBe (8)
+    }
   }
 }
