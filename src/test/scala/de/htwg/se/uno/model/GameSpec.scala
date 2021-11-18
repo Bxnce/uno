@@ -1,4 +1,4 @@
-/*package de.htwg.se.uno
+package de.htwg.se.uno
 package model
 
 import org.scalatest.wordspec.AnyWordSpec
@@ -191,4 +191,3 @@ class GameSpec extends AnyWordSpec {
     }
   }
 }
-*/
