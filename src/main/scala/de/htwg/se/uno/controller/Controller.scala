@@ -28,16 +28,26 @@ case class Controller(var game: Game) extends Observable:
       notifyObservers
     }
     return err
-
   def take(): Int =
     val err = game.take()
-    notifyObservers
+    if (err == -4) {
+      Console.println(
+        s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
+      )
+    } else {
+      notifyObservers
+    }
     return err
-
-  def place(ind: Int) =
-    game.place(ind)
-    notifyObservers
-
+  def place(ind: Int): Int =
+    val err = game.place(ind)
+    if (err < 0) {
+      Console.println(
+        s"${RED}!!!place oder + ist nicht möglich in diesem Zustand!!!${RESET}"
+      )
+    } else {
+      notifyObservers
+    }
+    return err
   def next() =
     game.next()
     notifyObservers

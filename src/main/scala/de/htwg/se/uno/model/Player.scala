@@ -15,6 +15,15 @@ case class Player(n: String) {
         karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
       return udRow(karten.size) + midLine + udRow(karten.size)
     }
+
+  def printFiller(): String =
+    if (karten.size < 10) {
+      return udRow(1) + "| " + karten.size + "|" + eol + udRow(1)
+
+    } else {
+      return udRow(1) + "|" + karten.size + "|" + eol + udRow(1)
+    }
+
   //entfernt den Eintrag in dem Vector an der Index Stelle
   def removeInd(ind: Int) =
     if (ind == 0) {

@@ -65,7 +65,11 @@ class TUI(controller: Controller) extends Observer:
         }
         return SUCCESS
       case "place" | "-" =>
-        controller.place(innew(1).toInt - 1)
+        if (innew.size < 2) {
+          Console.println(s"${RED}Falscher place Aufruf!${RESET}")
+        } else {
+          controller.place(innew(1).toInt - 1)
+        }
         return SUCCESS
       case "next" | "n" =>
         controller.next()
