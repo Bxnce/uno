@@ -38,13 +38,24 @@ case class Controller(var game: Game) extends Observable:
       Console.println(s"${RED}!!!Karte ist nichtmehr im Stack!!!${RESET}")
     } else if (err == -1) {
       Console.println(s"${RED}!!!Ungültige Karte!!!${RESET}")
+    } else if (err == -4) {
+      Console.println(
+        s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
+      )
     } else {
       notifyObservers
     }
     return err
-  def place(ind: Int) =
-    notifyObservers
-
+  def place(ind: Int): Int =
+    val err = game.place(ind)
+    if (err < 0) {
+      Console.println(
+        s"${RED}!!!place oder + ist nicht möglich in diesem Zustand!!!${RESET}"
+      )
+    } else {
+      notifyObservers
+    }
+    return err
   def next() =
     game.next()
     notifyObservers
