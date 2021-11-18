@@ -113,6 +113,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
   //nächster Spieler ist dran
   def next() =
     playerDiff += 1
+
   override def toString: String =
     if (playerDiff % 4 == 0) {
       return p1.getName() + eol + p1.print() + eol + midCard.print() + eol + p2
