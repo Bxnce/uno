@@ -108,7 +108,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
       cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
       return 0
     } else {
-      return -1
+      return -4
     }
   //nächster Spieler ist dran
   def next() =
