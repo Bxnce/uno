@@ -52,3 +52,12 @@ game1.midCard.karten
 game1.toString()
 
 getCard("R0")
+
+import de.htwg.se.uno.controller.Controller
+import de.htwg.se.uno.model.Game
+import de.htwg.se.uno.model.Card._
+
+val g = new Game("p1", "p2", 0)
+g.midCard.karten = g.midCard.karten.updated(0, R0)
+val c = new Controller(g)
+c.add("p1", "B0")
