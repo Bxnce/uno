@@ -4,7 +4,6 @@ package model
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import CardLayout._
-
 class CardLayoutSpec extends AnyWordSpec {
   "CardLayout" should {
     "have a eol as String of form'\\n'" in {

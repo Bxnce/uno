@@ -60,7 +60,7 @@ enum Card(color: CardColor, value: CardValue, id: String):
   override def toString: String = id
 
 object toCard:
-  def getCard(search: String): /*Option[Card]*/ Card =
+  def getCard(search: String): Card =
     val index = Card.values.map(x => x.toString).indexOf(search)
     if (index < 0) {
       return Card.XX
