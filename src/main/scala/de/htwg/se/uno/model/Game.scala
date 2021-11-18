@@ -20,12 +20,8 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
   val r = scala.util.Random
   val p1 = Player(player1)
   val p2 = Player(player2)
-  val startC = kartenAnzahl
   //Befüllen der Starthand der Spieler
-  for (i <- 1 to startC) {
-    take("p1")
-    take("p2")
-  }
+  playerFill(kartenAnzahl)
   //1. Karte in der Mitte:
   take("midstack")
   //Funktionen des Spiels
@@ -114,6 +110,11 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
   def next() =
     playerDiff += 1
 
+  def playerFill(count: Int) =
+    for (i <- 1 to count) {
+      take("P1")
+      take("P2")
+    }
   override def toString: String =
     if (playerDiff % 4 == 0) {
       return p1.getName() + eol + p1.print() + eol + midCard.print() + eol + p2

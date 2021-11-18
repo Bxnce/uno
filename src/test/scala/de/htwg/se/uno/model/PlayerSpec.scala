@@ -39,6 +39,21 @@ class PlayerSpec extends AnyWordSpec {
           "+--+--+\n"
       )
     }
+    "have a method printFiller() that prints a Card with the number of cards of the player" in {
+      val p1 = Player("Spieler1")
+      p1.printFiller() shouldBe (
+        "+--+\n" +
+          "| 0|\n" +
+          "+--+\n"
+      )
+      p1.add(R0)
+      p1.printFiller() shouldBe (
+        "+--+\n" +
+          "| 1|\n" +
+          "+--+\n"
+      )
+    }
+
     "have a method removeInd(Integer) that removes a card at aspecific index from the players hand" in {
       val p1 = Player("p1")
       p1.add(Y0)
