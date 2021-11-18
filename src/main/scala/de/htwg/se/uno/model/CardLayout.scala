@@ -10,5 +10,4 @@ object CardLayout {
 //creates the top or bottom row
   def udRow(cCount: Int): String =
     row * cCount + rowEnd
-
 }

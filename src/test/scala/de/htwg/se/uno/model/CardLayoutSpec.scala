@@ -14,12 +14,12 @@ class CardLayoutSpec extends AnyWordSpec {
       row should be("+--")
     }
     "have a rowEnd as String of form '+'" in {
-      rowEnd should be("+" + eol)
+      rowEnd should be("+" + "\n")
     }
     "have a scalable udRow" in {
-      udRow(1) should be("+--+" + eol)
-      udRow(2) should be("+--+--+" + eol)
-      udRow(3) should be("+--+--+--+" + eol)
+      udRow(1) should be("+--+" + "\n")
+      udRow(2) should be("+--+--+" + "\n")
+      udRow(3) should be("+--+--+--+" + "\n")
     }
   }
 }
