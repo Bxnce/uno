@@ -33,10 +33,11 @@ class GameSpec extends AnyWordSpec {
       game.p2.karten.size shouldBe (0)
       game.add("p1", "R0")
       game.p1.karten.size shouldBe (1)
+      game.add("player1", "R1")
       game.p2.karten.size shouldBe (0)
       game.p1.karten(0) shouldBe (R0)
       game.add("p2", "G7")
-      game.p1.karten.size shouldBe (1)
+      game.p1.karten.size shouldBe (2)
       game.p2.karten.size shouldBe (1)
       game.p2.karten(0) shouldBe (G7)
       //die ganzen Abfragen prüfen
