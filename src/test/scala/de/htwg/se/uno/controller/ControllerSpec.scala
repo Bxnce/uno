@@ -54,6 +54,7 @@ class ControllerSpec extends AnyWordSpec {
       c.game.place(0) shouldBe (0)
       c.game.midCard.karten(0) shouldBe (B1)
       c.game.next()
+      c.game.playerDiff shouldBe (7)
       c.game.place(0) shouldBe (-4)
     }
     "have a method next()" in {
