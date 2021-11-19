@@ -27,14 +27,12 @@ class TUI(controller: Controller) extends Observer:
         )
       )
     )
-
   def run(input: String) =
     convertinputString(input) match
       case ERROR   => printhelp()
       case EXIT    => print("Goodbye\n")
       case SUCCESS => print("\n\n")
       case _       => "Hier sollten sie nicht hinkommen"
-
   def convertinputString(input: String): Int =
     if (input.size == 0)
       print("Keine Eingabe!\n")
