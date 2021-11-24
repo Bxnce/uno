@@ -57,22 +57,39 @@ class TUISpec extends AnyWordSpec {
 
         tui.convertinputString("add p1 R3") shouldBe (tui.SUCCESS)
         tui.convertinputString("add p2 G3") shouldBe (tui.SUCCESS)
+        tui.convertinputString("add p3 G3") shouldBe (tui.ERROR)
         controller.game.p1.karten.size shouldBe (4)
         controller.game.p2.karten.size shouldBe (4)
         controller.game.p1.karten(3) shouldBe (R3)
         controller.game.p2.karten(3) shouldBe (G3)
 
+        tui.convertinputString("add p1 R3") shouldBe (tui.SUCCESS)
+        controller.game.p1.karten.size shouldBe (5)
+        tui.convertinputString("add p1 R3") shouldBe (tui.ERROR)
+        controller.game.p1.karten.size shouldBe (5)
+
+        tui.convertinputString("add p1 R10") shouldBe (tui.ERROR)
+        controller.game.p1.karten.size shouldBe (5)
+
         tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 6
         tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 7
         tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 8
-        tui.convertinputString("+") shouldBe (tui.SUCCESS)
-        controller.game.p1.karten.size shouldBe (5)
+        tui.convertinputString("+ p1") shouldBe (tui.SUCCESS)
+        controller.game.p1.karten.size shouldBe (6)
+        tui.convertinputString("+ p3") shouldBe (tui.ERROR)
 
+        tui.convertinputString("+") shouldBe (tui.SUCCESS)
+        controller.game.p1.karten.size shouldBe (7)
+
+        tui.convertinputString("-") shouldBe (tui.ERROR)
         tui.convertinputString("- 1") shouldBe (tui.SUCCESS)
-        controller.game.p1.karten.size shouldBe (4)
+        controller.game.p1.karten.size shouldBe (6)
         controller.game.midCard.karten(0) shouldBe (R0)
 
         tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 9
+        tui.convertinputString("+") shouldBe (tui.ERROR)
+        tui.convertinputString("- 1") shouldBe (tui.ERROR)
+
         tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 10
         controller.game.playerDiff shouldBe (10)
       }
