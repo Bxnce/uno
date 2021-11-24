@@ -46,7 +46,10 @@ class TUISpec extends AnyWordSpec {
         )
         //vllt einfach einen case new bei dem dann erst ein neues Spiel erstellt wird.
       }
-      "have a method run(String) that executes the commands" in {
+      "have a method run(String) that checks the output of convertInputString" in {
+        tui.run("") shouldBe (tui.printhelp())
+      }
+      "have a method convertinputString(String) that calls the controller to execute the command" in {
         tui.convertinputString("") shouldBe (tui.ERROR)
         tui.convertinputString("a") shouldBe (tui.ERROR)
         tui.convertinputString("add p1") shouldBe (tui.ERROR)

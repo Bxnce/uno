@@ -15,63 +15,96 @@ class TUI(controller: Controller) extends Observer:
   print(
     "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
   )
-  println(controller.toString)
 
-  def this() =
-    this(
-      new Controller(
-        Game(
-          readLine("Name Spieler1:                   "),
-          readLine("Name Spieler2:                   "),
-          readLine("Anzahl der Startkarten eingeben: ").toInt
-        )
-      )
-    )
+  def this() = this(new Controller(Game("Player 1", "Player 2", 0)))
+
   def run(input: String) =
     convertinputString(input) match
       case ERROR   => printhelp()
       case EXIT    => print("Goodbye\n")
       case SUCCESS => print("\n\n")
-      case _       => "Hier sollten sie nicht hinkommen"
+      case _       => print("Hier sollten sie nicht hinkommen\n")
+
   def convertinputString(input: String): Int =
     if (input.size == 0)
       print("Keine Eingabe!\n")
       return ERROR
-    val in = input
-    val innew = in.split(" ")
-    innew(0) match
+    val in = input.split(" ")
+
+    in(0) match
       case "exit" | "q" => return EXIT
+
       case "help" | "h" =>
         printhelp()
         return SUCCESS
+
+      case "new" =>
+        controller.game = Game(
+          readLine("Name Spieler1:                   "),
+          readLine("Name Spieler2:                   "),
+          readLine("Anzahl der Startkarten eingeben: ").toInt
+        )
+        println(controller.toString)
+        return SUCCESS
+
       case "add" =>
-        if (innew.size == 3) {
-          val p = innew(1)
-          val c = innew(2)
-          controller.add(p, c)
-          return SUCCESS
+        if (in.size == 3) {
+          val err = controller.add(in(1), in(2))
+          if (err == -3) {
+            Console.println(s"${RED}!!!Falschen Namen eingegeben!!!${RESET}")
+            return ERROR
+          } else if (err == -2) {
+            Console.println(s"${RED}!!!Karte ist nichtmehr im Stack!!!${RESET}")
+            return ERROR
+          } else if (err == -1) {
+            Console.println(s"${RED}!!!Ungültige Karte!!!${RESET}")
+            return ERROR
+          } else {
+            return SUCCESS
+          }
         } else {
-          Console.println(s"${RED}Falscher take Aufruf!${RESET}")
+          Console.println(s"${RED}Falscher add Aufruf!${RESET}")
           return ERROR
         }
 
       case "take" | "+" =>
-        if (innew.size == 2) {
-          controller.take(innew(1))
+        if (in.size == 2) {
+          val err = controller.take(in(1))
+          if (err == -3) {
+            Console.println(s"${RED}!!!Falschen Namen eingegeben!!!${RESET}")
+            return ERROR
+          }
         } else {
-          controller.take()
+          val err = controller.take()
+          if (err == -4) {
+            Console.println(
+              s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
+            )
+            return ERROR
+          }
         }
-        return SUCCESS
+        return SUCCESS;
+
       case "place" | "-" =>
-        if (innew.size < 2) {
+        if (in.size < 2) {
           Console.println(s"${RED}Falscher place Aufruf!${RESET}")
+          return ERROR
         } else {
-          controller.place(innew(1).toInt - 1)
+          val err = controller.place(in(1).toInt - 1)
+          if (err == -4) {
+            Console.println(
+              s"${RED}!!!place oder - ist nicht möglich in diesem Zustand!!!${RESET}"
+            )
+            return ERROR
+          } else {
+            return SUCCESS
+          }
         }
-        return SUCCESS
+
       case "next" | "n" =>
         controller.next()
         return SUCCESS
+
       case _ =>
         print("Falsche Eingabe, es gibt folgende Befehle: \n")
         return ERROR
@@ -81,6 +114,7 @@ class TUI(controller: Controller) extends Observer:
               Befehlsuebersicht fuer Uno:
               - help | h                       : zeigt alle Befehle fuer Uno
               - exit | q                       : verlaesst das Spiel
+              - new  |                         : startet ein neues Spiel
               - add <player> <card>            : fuegt eine Karte einem Spieler hinzu
               - take <player> | + <player>     : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
               - place <index> | - <index>      : Legt die Karte an diesem Index auf den Spielstapel
