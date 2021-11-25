@@ -5,9 +5,11 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
 import model.Game
+import model.Game._
 import model.Card._
 import model.CardLayout._
 import controller.Controller
+import util._
 
 class TUISpec extends AnyWordSpec {
   "TUI" when {
@@ -21,9 +23,9 @@ class TUISpec extends AnyWordSpec {
     controller.game.add("P2", "G0")
     controller.game.add("P2", "G1")
     controller.game.add("P2", "G2")
-    controller.next() // playerDiff = 4
+    controller.next() // p1
     controller.place(0)
-    controller.next() // playerDiff = 5
+    controller.next() // p2n
 
     val tui = TUI(controller)
 
@@ -71,9 +73,9 @@ class TUISpec extends AnyWordSpec {
         tui.convertinputString("add p1 R10") shouldBe (tui.ERROR)
         controller.game.p1.karten.size shouldBe (5)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 6
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 7
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 8
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2s
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p1n
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p1
         tui.convertinputString("+ p1") shouldBe (tui.SUCCESS)
         controller.game.p1.karten.size shouldBe (6)
         tui.convertinputString("+ p3") shouldBe (tui.ERROR)
@@ -86,12 +88,12 @@ class TUISpec extends AnyWordSpec {
         controller.game.p1.karten.size shouldBe (6)
         controller.game.midCard.karten(0) shouldBe (R0)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 9
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2n
         tui.convertinputString("+") shouldBe (tui.ERROR)
         tui.convertinputString("- 1") shouldBe (tui.ERROR)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) // playerDiff = 10
-        controller.game.playerDiff shouldBe (10)
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2s
+        controller.game.currentstate shouldBe (game.p2s)
       }
       "Have a method printhelp() that prints out the help message" in {}
       "override th method update" in {}
