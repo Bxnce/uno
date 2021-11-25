@@ -13,7 +13,7 @@ class GameSpec extends AnyWordSpec {
   "Game" should {
     "should create a game with 2 Players and one Card in the middle" in {
       val g1 = Game("player1", "player2", 4)
-      g1.currentstate shouldBe (game.p1s)
+      g1.currentstate shouldBe (g1.p1n)
       g1.midCard.karten.size shouldBe (1)
       g1.p1.karten.size shouldBe (4)
       g1.p2.karten.size shouldBe (4)
@@ -98,7 +98,7 @@ class GameSpec extends AnyWordSpec {
     }
     "have a method place(Integer) that places a card onto the stack" in {
       val game4 = Game("player1", "player2", 1)
-      game3.currentstate shouldBe (game3.p1n)
+      game4.currentstate shouldBe (game4.p1n)
       game4.midCard.karten = game4.midCard.karten.updated(0, R0)
       game4.p1.karten = game4.p1.karten.updated(0, B0)
       game4.p2.karten = game4.p2.karten.updated(0, G0)

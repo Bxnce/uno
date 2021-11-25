@@ -58,9 +58,9 @@ class ControllerSpec extends AnyWordSpec {
       c.game.place(0) shouldBe (-4)
     }
     "have a method next()" in {
-      c.game.currentstate shouldBe (game.p1n)
+      c.game.currentstate shouldEqual (game.p1n)
       c.next() //p1
-      c.game.currentstate shouldBe (game.p1) //p2n
+      c.game.currentstate shouldEqual (game.p1s) //p2n
     }
   }
 }
