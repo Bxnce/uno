@@ -7,7 +7,7 @@ import toCard._
 import CardLayout._
 import Card._
 import scala.io.StdIn
-import util.State
+import util._
 
 case class Game(player1: String, player2: String, kartenAnzahl: Int)
     extends State:
