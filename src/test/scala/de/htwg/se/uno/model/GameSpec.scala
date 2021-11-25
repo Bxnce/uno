@@ -13,10 +13,11 @@ class GameSpec extends AnyWordSpec {
   "Game" should {
     "should create a game with 2 Players and one Card in the middle" in {
       val g1 = Game("player1", "player2", 4)
-      g1.playerDiff shouldBe (3)
+      g1.currentstate shouldBe (g1.p1n)
       g1.midCard.karten.size shouldBe (1)
       g1.p1.karten.size shouldBe (4)
       g1.p2.karten.size shouldBe (4)
+      g1.cardsInDeck shouldBe (40)
     }
     "have a method add(String, String) that adds a card to a players hand" in {
       val game = Game("player1", "player2", 0)
@@ -82,23 +83,23 @@ class GameSpec extends AnyWordSpec {
       val game3 = Game("player1", "player2", 0)
       game3.p1.karten.size shouldBe (0)
       game3.p2.karten.size shouldBe (0)
-      game3.playerDiff shouldBe (3)
+      game3.currentstate shouldBe (game3.p1n)
 
-      game3.next()
-      game3.playerDiff shouldBe (4)
+      game3.changeState()
+      game3.currentstate shouldBe (game3.p1s)
       game3.take()
       game3.p1.karten.size shouldBe (1)
 
-      game3.next()
-      game3.playerDiff shouldBe (5)
-      game3.next()
-      game3.playerDiff shouldBe (6)
+      game3.changeState()
+      game3.currentstate shouldBe (game3.p2n)
+      game3.changeState()
+      game3.currentstate shouldBe (game3.p2s)
       game3.take()
       game3.p2.karten.size shouldBe (1)
     }
     "have a method place(Integer) that places a card onto the stack" in {
       val game4 = Game("player1", "player2", 1)
-      game4.playerDiff shouldBe (3)
+      game4.currentstate shouldBe (game4.p1n)
       game4.midCard.karten = game4.midCard.karten.updated(0, R0)
       game4.p1.karten = game4.p1.karten.updated(0, B0)
       game4.p2.karten = game4.p2.karten.updated(0, G0)
@@ -106,23 +107,23 @@ class GameSpec extends AnyWordSpec {
       game4.p2.karten.size shouldBe (1)
       game4.midCard.karten.size shouldBe (1)
 
-      game4.next()
-      game4.playerDiff shouldBe (4)
+      game4.changeState()
+      game4.currentstate shouldBe (game4.p1s)
       game4.place(0)
       game4.p1.karten.size shouldBe (0)
       game4.p2.karten.size shouldBe (1)
       game4.midCard.karten.size shouldBe (1)
 
-      game4.next()
-      game4.playerDiff shouldBe (5)
-      game4.next()
-      game4.playerDiff shouldBe (6)
+      game4.changeState()
+      game4.currentstate shouldBe (game4.p2n)
+      game4.changeState()
+      game4.currentstate shouldBe (game4.p2s)
       game4.place(0)
       game4.p1.karten.size shouldBe (0)
       game4.p2.karten.size shouldBe (0)
       game4.midCard.karten.size shouldBe (1)
 
-      game4.next()
+      game4.changeState()
       game4.place(1) shouldBe (-4)
 
       val game5 = Game("player1", "player2", 3)
@@ -134,23 +135,23 @@ class GameSpec extends AnyWordSpec {
       game5.p2.karten = game5.p2.karten.updated(1, G1)
       game5.p2.karten = game5.p2.karten.updated(2, G2)
 
-      game5.playerDiff shouldBe (3)
+      game5.currentstate shouldBe (game5.p1n)
       game5.p1.karten.size shouldBe (3)
       game5.p2.karten.size shouldBe (3)
       game5.midCard.karten.size shouldBe (1)
 
-      game5.next()
-      game5.playerDiff shouldBe (4)
+      game5.changeState()
+      game5.currentstate shouldBe (game5.p1s)
       game5.place(1)
       game5.p1.karten.size shouldBe (2)
       game5.p2.karten.size shouldBe (3)
       game5.midCard.karten.size shouldBe (1)
       game5.midCard.karten(0) shouldBe (B1)
 
-      game5.next()
-      game5.playerDiff shouldBe (5)
-      game5.next()
-      game5.playerDiff shouldBe (6)
+      game5.changeState()
+      game5.currentstate shouldBe (game5.p2n)
+      game5.changeState()
+      game5.currentstate shouldBe (game5.p2s)
       game5.place(2)
       game5.p1.karten.size shouldBe (2)
       game5.p2.karten.size shouldBe (2)
@@ -158,13 +159,13 @@ class GameSpec extends AnyWordSpec {
       game5.midCard.karten(0) shouldBe (G2)
 
     }
-    "have a method next() that increments the PlayerDiff variable" in {
+    "have a method changeState() that changes the currentstate to the next one" in {
       val game6 = Game("player1", "player2", 0)
-      game6.playerDiff shouldBe (3)
-      game6.next()
-      game6.playerDiff shouldBe (4)
-      game6.next()
-      game6.playerDiff shouldBe (5)
+      game6.currentstate shouldBe (game6.p1n)
+      game6.changeState()
+      game6.currentstate shouldBe (game6.p1s)
+      game6.changeState()
+      game6.currentstate shouldBe (game6.p2n)
     }
     "have a method playerFill() that fills the karten from one player with the parameter amount " in {
       val gameXX = Game("player1", "player2", 0)
@@ -179,9 +180,9 @@ class GameSpec extends AnyWordSpec {
       val game7 = Game("player1", "player2", 0)
       //game7.midCard.karten = game7.midCard.karten.updated(0, R0)
       game7.add("P1", R0)
-      game7.next()
+      game7.changeState()
       game7.place(0)
-      game7.next()
+      game7.changeState()
       game7.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
@@ -204,7 +205,7 @@ class GameSpec extends AnyWordSpec {
       game8.add("P1", B0)
       game8.add("P1", R0)
       game8.add("P2", G0)
-      game8.next()
+      game8.changeState()
       game8.place(1)
       game8.toString() shouldBe (
         "player1" + eol +
@@ -221,7 +222,7 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-      game8.next()
+      game8.changeState()
       //game8.p2.karten = game8.p2.karten.updated(0, G0)
       game8.toString() shouldBe (
         "player1" + eol +
@@ -238,7 +239,7 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-      game8.next()
+      game8.changeState()
       game8.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +

@@ -39,12 +39,12 @@ class ControllerSpec extends AnyWordSpec {
       c.take("p3") shouldBe (-3)
     }
     "have a method take(), that calls the take() function in game" in {
-      c.game.playerDiff shouldBe (3)
-      c.next()
+      c.game.currentstate shouldBe (game.p1n)
+      c.next() //p1s
       c.take() shouldBe (0)
-      c.next()
+      c.next() //p2n
       c.take() shouldBe (-4)
-      c.next()
+      c.next() //p2s
       c.take() shouldBe (0)
     }
     "override th method toString" in {
@@ -53,13 +53,14 @@ class ControllerSpec extends AnyWordSpec {
     "have a method place() that places a Card from a player to the midStack" in {
       c.game.place(0) shouldBe (0)
       c.game.midCard.karten(0) shouldBe (B1)
-      c.game.next()
+      c.game.changeState() //p1n
+      c.game.currentstate shouldBe (game.p1n)
       c.game.place(0) shouldBe (-4)
     }
     "have a method next()" in {
-      c.game.playerDiff shouldBe (7)
-      c.next()
-      c.game.playerDiff shouldBe (8)
+      c.game.currentstate shouldEqual (game.p1n)
+      c.next() //p1
+      c.game.currentstate shouldEqual (game.p1s) //p2n
     }
   }
 }

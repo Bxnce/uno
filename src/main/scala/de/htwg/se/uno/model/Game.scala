@@ -7,10 +7,20 @@ import toCard._
 import CardLayout._
 import Card._
 import scala.io.StdIn
+import util._
 
-case class Game(player1: String, player2: String, kartenAnzahl: Int):
+case class Game(player1: String, player2: String, kartenAnzahl: Int)
+    extends State:
   //Var's und Val's
-  var playerDiff: Int = 3
+  //var playerDiff: Int = 3
+
+  val p1s: State = new player1State(this)
+  val p2s: State = new player2State(this)
+  val p2n: State = new between12State(this)
+  val p1n: State = new between21State(this)
+
+  var currentstate: State = p1n
+
   var cardStack = CardStack()
   val midCard = Player(
     "midstack"
@@ -79,23 +89,23 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     return add(player, Card.values(rnd))
   //zieht eine zufällig Karte und fügt diese dem Spieler hinzu, der an der Reihe ist
   def take(): Int =
-    if (playerDiff % 4 == 0) {
+    if (currentstate == p1s) {
       return take("P1")
-    } else if (playerDiff % 4 == 2) {
+    } else if (currentstate == p2s) {
       return take("P2")
     } else {
       return -4
     }
 
   def place(ind: Int): Int =
-    if (playerDiff % 4 == 0) { //player1
+    if (currentstate == p1s) { //player1
       val tmp = midCard.karten(0)
       //midCard.karten.updated(0, p1.karten(ind))
       midCard.karten = midCard.karten.updated(0, p1.karten(ind))
       p1.removeInd(ind)
       cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
       return 0
-    } else if (playerDiff % 4 == 2) {
+    } else if (currentstate == p2s) {
       val tmp = midCard.karten(0)
       midCard.karten = midCard.karten.updated(0, p2.karten(ind))
       p2.removeInd(ind)
@@ -105,8 +115,11 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
       return -4
     }
   //nächster Spieler ist dran
-  def next() =
-    playerDiff += 1
+  def changeState() =
+    currentstate.changeState()
+
+  def displayState() =
+    currentstate.displayState()
 
   def playerFill(count: Int) =
     for (i <- 1 to count) {
@@ -114,11 +127,11 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
       take("P2")
     }
   override def toString: String =
-    if (playerDiff % 4 == 0) {
+    if (currentstate == p1s) {
       return p1.getName() + eol + p1.print() + eol + midCard.print() + eol + p2
         .printFiller() + p2
         .getName() + eol
-    } else if (playerDiff % 4 == 2) {
+    } else if (currentstate == p2s) {
       return p1.getName() + eol + p1.printFiller() + eol + midCard
         .print() + eol + p2
         .print() + p2
@@ -129,6 +142,3 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
         .printFiller() + p2
         .getName() + eol
     }
-    return p1.getName() + eol + p1.print() + eol + midCard.print() + eol +
-      p2.print() +
-      p2.getName() + eol
