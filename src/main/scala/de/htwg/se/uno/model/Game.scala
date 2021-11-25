@@ -21,6 +21,8 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
 
   var currentstate: State = p1n
 
+  var error = 0
+
   var cardStack = CardStack()
   val midCard = Player(
     "midstack"
@@ -89,13 +91,16 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
     return add(player, Card.values(rnd))
   //zieht eine zufällig Karte und fügt diese dem Spieler hinzu, der an der Reihe ist
   def take(): Int =
+    Strategy(this, "take");
+    error
+  /*
     if (currentstate == p1s) {
       return take("P1")
     } else if (currentstate == p2s) {
       return take("P2")
     } else {
       return -4
-    }
+    }*/
 
   def place(ind: Int): Int =
     if (currentstate == p1s) { //player1
@@ -142,3 +147,17 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
         .printFiller() + p2
         .getName() + eol
     }
+
+case class Strategy(g: Game, s: String) {
+  var strategy =
+    s match
+      case "take" =>
+        g.currentstate match
+          case g.p1s =>
+            g.error = g.take("P1")
+          case g.p2s =>
+            g.error = g.take("P2")
+          case _ =>
+            g.error = -4
+
+}
