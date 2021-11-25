@@ -20,7 +20,7 @@ case class Controller(var game: Game) extends Observable:
     notifyObservers
 
   def next() =
-    game.changeState()
+    invoker.doStep(new NextCommand(this))
     notifyObservers
 
   override def toString: String =
