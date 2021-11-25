@@ -28,7 +28,7 @@ case class Controller(var game: Game) extends Observable:
     return err
 
   def next() =
-    game.next()
+    game.changeState()
     notifyObservers
 
   override def toString: String =
