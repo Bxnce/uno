@@ -21,7 +21,7 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
 
   var currentstate: State = p1n
 
-
+  var ERROR = 0
 
   var cardStack = CardStack()
   val midCard = Player(
@@ -37,29 +37,6 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
   //1. Karte in der Mitte:
   take("midstack")
   //Funktionen des Spiels
-  //added eine Spezifische Karte(als String übergeben) auf die Hand eines Spielers
-  def add(player: String, karte: String): Int =
-    val card = getCard(karte)
-    if (card.toString == "XX") {
-      return -1;
-    } else if (cardStack.cards(card) == 0) {
-      return -2;
-    } else if (
-      player.equalsIgnoreCase("P1") || player.equalsIgnoreCase(p1.getName())
-    ) {
-      p1.add(card)
-      cardStack.cards = cardStack.cards + (card -> (cardStack.cards(card) - 1))
-      return 0;
-    } else if (
-      player.equalsIgnoreCase("P2") || player.equalsIgnoreCase(p2.getName())
-    ) {
-      p2.add(card)
-      cardStack.cards = cardStack.cards + (card -> (cardStack.cards(card) - 1))
-      return 0;
-    } else {
-      return -3;
-    }
-
   //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Int =
     if (card.toString == "XX") {
@@ -89,32 +66,14 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
   def take(player: String): Int =
     val rnd = r.nextInt(cardsInDeck - 1)
     return add(player, Card.values(rnd))
-  //zieht eine zufällig Karte und fügt diese dem Spieler hinzu, der an der Reihe ist
-  def take(): Int =
-      if(currentstate == p1s){
-        return take("P1") 
-      } else if(currentstate == p2s) {
-        return take("P2")
-      } else {
-        return -4
-      }
-  def place(ind: Int): Int =
-    if (currentstate == p1s) { //player1
-      val tmp = midCard.karten(0)
-      //midCard.karten.updated(0, p1.karten(ind))
-      midCard.karten = midCard.karten.updated(0, p1.karten(ind))
-      p1.removeInd(ind)
-      cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
-      return 0
-    } else if (currentstate == p2s) {
-      val tmp = midCard.karten(0)
-      midCard.karten = midCard.karten.updated(0, p2.karten(ind))
-      p2.removeInd(ind)
-      cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
-      return 0
-    } else {
-      return -4
-    }
+
+  def place(ind: Int, player: Player): Int =
+    val tmp = midCard.karten(0)
+    midCard.karten = midCard.karten.updated(0, player.karten(ind))
+    player.removeInd(ind)
+    cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
+    return 0
+
   //nächster Spieler ist dran
   def changeState() =
     currentstate.changeState()
@@ -144,13 +103,6 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
         .getName() + eol
     }
 
-
-
-
-
-
-
-
 /*
 case class Strategy(g: Game, s: String) {
   //var strategy = stratTake
@@ -174,4 +126,4 @@ case class Strategy(g: Game, s: String) {
     g.currentstate match
       case g.p1s =>
 }
-*/
+ */
