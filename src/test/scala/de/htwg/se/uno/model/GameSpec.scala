@@ -17,6 +17,7 @@ class GameSpec extends AnyWordSpec {
       g1.midCard.karten.size shouldBe (1)
       g1.p1.karten.size shouldBe (4)
       g1.p2.karten.size shouldBe (4)
+      g1.cardsInDeck shouldBe (40)
     }
     "have a method add(String, String) that adds a card to a players hand" in {
       val game = Game("player1", "player2", 0)
