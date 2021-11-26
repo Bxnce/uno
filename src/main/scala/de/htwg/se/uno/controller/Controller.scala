@@ -17,6 +17,7 @@ case class Controller(var game: Game) extends Observable:
 
   def place(ind: Int) =
     invoker.doStep(UnoCommand(ind, this))
+    game = invoker.doStep(UnoCommand(this, "win"))
     notifyObservers
 
   def next() =

@@ -3,6 +3,7 @@ package util
 
 import controller.Controller
 import model.Game
+import controller.UnoCommand._
 
 trait Command(controller: Controller) {
   def execute: Game

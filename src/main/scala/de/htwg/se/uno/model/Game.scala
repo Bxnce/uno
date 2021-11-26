@@ -8,6 +8,8 @@ import CardLayout._
 import Card._
 import scala.io.StdIn
 import util._
+import controller._
+import Console.{RED, GREEN, RESET}
 
 case class Game(player1: String, player2: String, kartenAnzahl: Int):
   //Var's und Val's
@@ -29,8 +31,11 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
 
   val r = scala.util.Random
 
+  val pList = (Player(player1), Player(player2))
+  /*
   val p1 = Player(player1)
-  val p2 = Player(player2)
+  val p2 = Player(player2)*/
+
   //Befüllen der Starthand der Spieler
   playerFill(kartenAnzahl)
   //1. Karte in der Mitte:
@@ -43,15 +48,17 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     } else if (cardStack.cards(card) == 0) {
       take(player)
     } else if (
-      player.equalsIgnoreCase("P1") || player.equalsIgnoreCase(p1.getName())
+      player
+        .equalsIgnoreCase("P1") || player.equalsIgnoreCase(pList(0).getName())
     ) {
-      p1.add(card)
+      pList(0).add(card)
       cardStack.cards = cardStack.cards + (card -> (cardStack.cards(card) - 1))
       return 0;
     } else if (
-      player.equalsIgnoreCase("P2") || player.equalsIgnoreCase(p2.getName())
+      player
+        .equalsIgnoreCase("P2") || player.equalsIgnoreCase(pList(1).getName())
     ) {
-      p2.add(card)
+      pList(1).add(card)
       cardStack.cards = cardStack.cards + (card -> (cardStack.cards(card) - 1))
       return 0;
     } else if (player.equals("midstack")) {
@@ -66,12 +73,34 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     val rnd = r.nextInt(cardsInDeck - 1)
     return add(player, Card.values(rnd))
 
-  def place(ind: Int, player: Player): Int =
-    val tmp = midCard.karten(0)
-    midCard.karten = midCard.karten.updated(0, player.karten(ind))
-    player.removeInd(ind)
-    cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
-    return 0
+  def place(ind: Int, player: Player) =
+    if (checkPlace(ind, player)) {
+      player.placed = true
+      val tmp = midCard.karten(0)
+      midCard.karten = midCard.karten.updated(0, player.karten(ind))
+      player.removeInd(ind)
+      cardStack.cards = cardStack.cards + (tmp -> ((cardStack.cards(tmp) + 1)))
+    } else {
+      Console.println(
+        s"${RED}!!!Nur eine Karte legen!!!${RESET}"
+      )
+    }
+
+  def checkPlace(ind: Int, player: Player): Boolean =
+    if (
+      ((midCard.karten(0).getColor == player.karten(ind).getColor) || (midCard
+        .karten(0)
+        .getValue == player.karten(ind).getValue)) && !player.placed
+    ) {
+      true
+    } else {
+      false
+    }
+  def checkWin(player: Player): Boolean =
+    if (player.karten.isEmpty) {
+      return true
+    }
+    return false
 
   //nächster Spieler ist dran
   def changeState() =
@@ -84,42 +113,18 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     }
   override def toString: String =
     if (currentstate == p1s) {
-      return p1.getName() + eol + p1.print() + eol + midCard.print() + eol + p2
-        .printFiller() + p2
+      return pList(0).getName() + eol + pList(0).print() + eol + midCard
+        .print() + eol + pList(1)
+        .printFiller() + pList(1)
         .getName() + eol
     } else if (currentstate == p2s) {
-      return p1.getName() + eol + p1.printFiller() + eol + midCard
-        .print() + eol + p2
-        .print() + p2
+      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+        .print() + eol + pList(1)
+        .print() + pList(1)
         .getName() + eol
     } else {
-      return p1.getName() + eol + p1.printFiller() + eol + midCard
-        .print() + eol + p2
-        .printFiller() + p2
+      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+        .print() + eol + pList(1)
+        .printFiller() + pList(1)
         .getName() + eol
     }
-
-/*
-case class Strategy(g: Game, s: String) {
-  //var strategy = stratTake
-  var strategy =
-    s match
-      case "take" =>
-        strategy = stratTake
-      case "toString" =>
-        strategy = stratToStr
-
-  def stratTake(str: String): Unit =
-    g.currentstate match
-      case g.p1s =>
-        g.error = g.take("P1")
-      case g.p2s =>
-        g.error = g.take("P2")
-      case _ =>
-        g.error = -4
-
-  def stratToStr(str: String): Unit =
-    g.currentstate match
-      case g.p1s =>
-}
- */

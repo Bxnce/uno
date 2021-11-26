@@ -7,14 +7,16 @@ case class Player(n: String) {
 
   val name = n
   var karten = Vector[Card]()
+  var placed: Boolean = false
 
-  def print(): String = //printet bei einen leeren Vektor trotzdem noch eine Karte aber ohne Wert
+  def print(): String = //printet bei einem leeren Vektor trotzdem noch eine Karte aber ohne Wert
     if (karten.size == 0) {
       return udRow(1) + "|  |" + eol + udRow(1)
     } else {
       val midLine =
         karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
-      return udRow(karten.size) + midLine + udRow(karten.size)
+
+      return udRow(karten.size) + midLine + udRow(karten.size) + eol
     }
 
   def printFiller(): String =
