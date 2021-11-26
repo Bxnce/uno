@@ -42,3 +42,16 @@ case class NextCommand(controller: Controller) extends Command(controller) {
     controller.game.changeState()
     return controller.game
 }
+
+object UnoCommand {
+  def apply(controller: Controller, dec: String) =
+    dec match
+      case "take" =>
+        new TakeCommand(controller)
+      case "next" =>
+        new NextCommand(controller)
+
+  def apply(ind: Int, controller: Controller) =
+    new PlaceCommand(ind, controller)
+
+}

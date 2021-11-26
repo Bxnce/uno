@@ -4,6 +4,7 @@ import Card._
 import CardLayout._
 
 case class Player(n: String) {
+
   val name = n
   var karten = Vector[Card]()
 
