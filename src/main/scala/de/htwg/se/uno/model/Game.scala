@@ -9,8 +9,7 @@ import Card._
 import scala.io.StdIn
 import util._
 
-case class Game(player1: String, player2: String, kartenAnzahl: Int)
-    extends State:
+case class Game(player1: String, player2: String, kartenAnzahl: Int):
   //Var's und Val's
 
   val p1s: State = new player1State(this)
