@@ -15,9 +15,11 @@ class ControllerSpec extends AnyWordSpec {
       c.game.p1.karten.size shouldBe (0)
       c.game.p2.karten.size shouldBe (0)
       c.game.midCard.karten.size shouldBe (1)
+
     }
     "have a method take(), that calls the take() function in game" in {
-      c.game.add("p1", B1) shouldBe (0)
+      //that we know a Card from player1 to test place later
+      c.game.add("p1", B0) shouldBe (0)
 
       c.game.currentstate shouldBe (game.p1n)
       c.next() //p1s
@@ -34,21 +36,20 @@ class ControllerSpec extends AnyWordSpec {
       c.toString shouldEqual (c.game.toString)
     }
     "have a method place() that places a Card from a player to the midStack" in {
-      c.game.place(
-        0,
-        c.game.p1
-      ) //nochmal drüber nachdenken wo man das place aufrufen soll
+      c.next() //p1n
+      c.next() //p1s
+      c.place(0)
       c.game.ERROR shouldBe (0)
-      c.game.midCard.karten(0) shouldBe (B1)
-      c.game.changeState() //p1n
-      c.game.currentstate shouldBe (game.p1n)
-      c.place(0) //genauso hier
+      c.game.midCard.karten(0) shouldBe (B0)
+      c.game.changeState() //p2n
+      c.game.currentstate shouldBe (game.p2n)
+      c.place(0)
       c.game.ERROR shouldBe (-1)
     }
     "have a method next()" in {
-      c.game.currentstate shouldEqual (game.p1n)
-      c.next() //p1
-      c.game.currentstate shouldEqual (game.p1s) //p2n
+      c.game.currentstate shouldEqual (game.p2n)
+      c.next() //p2s
+      c.game.currentstate shouldEqual (game.p2s)
     }
   }
 }

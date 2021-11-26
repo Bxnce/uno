@@ -15,7 +15,6 @@ class TUISpec extends AnyWordSpec {
   "TUI" when {
     val game = Game("Bence", "Timo", 0)
     val controller = Controller(game)
-    //controller.game.p1.karten = controller.game.p1.karten.updated(0, R0)
     controller.game.add("P1", Y6) //liegt auf midStack
     controller.game.add("P1", R0)
     controller.game.add("P1", R1)
@@ -46,7 +45,6 @@ class TUISpec extends AnyWordSpec {
             "+--+\n" +
             "Timo\n"
         )
-        //vllt einfach einen case new bei dem dann erst ein neues Spiel erstellt wird.
       }
       "have a method run(String) that checks the output of convertInputString" in {
         tui.run("") shouldBe (tui.printhelp())
@@ -76,7 +74,7 @@ class TUISpec extends AnyWordSpec {
         controller.game.currentstate shouldBe (game.p2s)
       }
       "Have a method printhelp() that prints out the help message" in {}
-      "override th method update" in {}
+      "override the method update" in {}
     }
   }
 }
