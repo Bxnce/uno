@@ -33,7 +33,7 @@ class GameSpec extends AnyWordSpec {
       game1.p2.karten.size shouldBe (1)
 
       game1.add("midstack", R0)
-      game1.midCard.karten.size shouldBe (2) //es liegen dann halt immer mehrere Karten auf dem Stapel
+      game1.midCard.karten.size shouldBe (2)
 
       game1.add("p3", G8) shouldEqual (-3)
     }
@@ -49,13 +49,14 @@ class GameSpec extends AnyWordSpec {
       game2.p2.karten.size shouldBe (1)
     }
 
-    "have a method place(Integer) that places a card onto the stack" in {
-      val game4 = Game("player1", "player2", 1)
+    "have a method place(Integer, player) that places a card onto the stack" in {
+      val game4 = Game("player1", "player2", 0)
       game4.currentstate shouldBe (game4.p1n)
-      game4.midCard.karten = game4.midCard.karten.updated(0, R0)
-      game4.p1.karten = game4.p1.karten
-        .updated(0, B0) //unschöne scheiße hier iwann das updated fixen
-      game4.p2.karten = game4.p2.karten.updated(0, G0)
+      game4.add("p1", R0)
+      game4.place(0, game4.p1)
+      game4.midCard.karten(0) shouldBe (R0)
+      game4.add("p1", B0)
+      game4.add("p2", G0)
       game4.p1.karten.size shouldBe (1)
       game4.p2.karten.size shouldBe (1)
       game4.midCard.karten.size shouldBe (1)
@@ -67,6 +68,7 @@ class GameSpec extends AnyWordSpec {
       game4.p1.karten.size shouldBe (0)
       game4.p2.karten.size shouldBe (1)
       game4.midCard.karten.size shouldBe (1)
+      game4.midCard.karten(0) shouldBe (B0)
 
       game4.changeState()
       game4.currentstate shouldBe (game4.p2n)
@@ -77,22 +79,18 @@ class GameSpec extends AnyWordSpec {
       game4.p1.karten.size shouldBe (0)
       game4.p2.karten.size shouldBe (0)
       game4.midCard.karten.size shouldBe (1)
+      game4.midCard.karten(0) shouldBe (G0)
 
-      /*                              //hatte nicht funktioniert, da wir jetzt mit player aufrufen denkt er jedesmal es ist ein korrekter AUfruf auch wenn man im fakschen State ist
-      game4.changeState()
-      game4.take("p1")
-      game4.place(0, game4.p1)
-      game4.ERROR shouldBe (-1)
-       */
-
-      val game5 = Game("player1", "player2", 3)
-      game5.midCard.karten = game5.midCard.karten.updated(0, R0)
-      game5.p1.karten = game5.p1.karten.updated(0, B0)
-      game5.p1.karten = game5.p1.karten.updated(1, B1)
-      game5.p1.karten = game5.p1.karten.updated(2, B2)
-      game5.p2.karten = game5.p2.karten.updated(0, G0)
-      game5.p2.karten = game5.p2.karten.updated(1, G1)
-      game5.p2.karten = game5.p2.karten.updated(2, G2)
+      val game5 = Game("player1", "player2", 0)
+      game5.add("p1", R0)
+      game5.place(0, game5.p1)
+      game5.midCard.karten(0) shouldBe (R0)
+      game5.add("p1", B0)
+      game5.add("p1", B1)
+      game5.add("p1", B2)
+      game5.add("p2", G0)
+      game5.add("p2", G1)
+      game5.add("p2", G2)
 
       game5.currentstate shouldBe (game5.p1n)
       game5.p1.karten.size shouldBe (3)
@@ -139,7 +137,6 @@ class GameSpec extends AnyWordSpec {
     }
     "override the method toString() and return a String in Form of" in {
       val game7 = Game("player1", "player2", 0)
-      //game7.midCard.karten = game7.midCard.karten.updated(0, R0)
       game7.add("P1", R0)
       game7.changeState()
       game7.place(0, game7.p1)
@@ -161,8 +158,6 @@ class GameSpec extends AnyWordSpec {
       )
 
       val game8 = Game("player1", "player2", 0)
-      //game8.midCard.karten = game8.midCard.karten.updated(0, R0)
-      //game8.p1.karten = game8.p1.karten.updated(0, B0)
       game8.add("P1", B0)
       game8.add("P1", R0)
       game8.add("P2", G0)
@@ -184,7 +179,6 @@ class GameSpec extends AnyWordSpec {
           "player2" + eol
       )
       game8.changeState()
-      //game8.p2.karten = game8.p2.karten.updated(0, G0)
       game8.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +

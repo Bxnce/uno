@@ -12,7 +12,6 @@ import util._
 case class Game(player1: String, player2: String, kartenAnzahl: Int)
     extends State:
   //Var's und Val's
-  //var playerDiff: Int = 3
 
   val p1s: State = new player1State(this)
   val p2s: State = new player2State(this)
@@ -27,9 +26,10 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
   val midCard = Player(
     "midstack"
   )
-  var cardsInDeck =
-    Card.values.size - 1
+  var cardsInDeck = Card.values.size - 1
+
   val r = scala.util.Random
+
   val p1 = Player(player1)
   val p2 = Player(player2)
   //Befüllen der Starthand der Spieler
