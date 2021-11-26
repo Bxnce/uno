@@ -78,9 +78,6 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int)
   def changeState() =
     currentstate.changeState()
 
-  def displayState() =
-    currentstate.displayState()
-
   def playerFill(count: Int) =
     for (i <- 1 to count) {
       take("P1")

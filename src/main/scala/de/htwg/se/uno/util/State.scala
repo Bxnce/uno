@@ -6,5 +6,4 @@ import model.Game
 
 trait State {
   def changeState(): Unit
-  def displayState(): Unit
 }
