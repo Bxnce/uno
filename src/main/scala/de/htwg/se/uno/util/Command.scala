@@ -6,7 +6,7 @@ import model.Game
 import controller.UnoCommand._
 
 trait Command(controller: Controller) {
-  def execute: Game
-  def undoStep: Game
-  def redoStep: Game
+  def execute: Unit
+  def undoStep: Unit
+  def redoStep: Unit
 }

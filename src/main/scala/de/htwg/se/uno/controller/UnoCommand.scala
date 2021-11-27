@@ -9,43 +9,53 @@ case class TakeCommand(controller: Controller) extends Command(controller) {
   val oldgame = controller.game
   var newgame = controller.game
 
-  override def execute: Game =
-    newgame = controller.game.currentstate.handle(this)
-  override def undoStep: Game =
+  override def execute =
+    controller.game.currentstate.handle(this)
+    newgame = controller.game
+  override def undoStep =
     controller.game = oldgame
-  override def redoStep: Game =
+    println("Hello Kenobi")
+  override def redoStep =
     controller.game = newgame
-
 }
 
 case class PlaceCommand(ind: Int, controller: Controller)
     extends Command(controller) {
 
-  private val oldgame = controller.game
-  private var newgame = controller.game
-  override def execute: Game =
-    newgame = controller.game.currentstate.handle(this)
-  override def undoStep: Game =
+  val oldgame = controller.game
+  var newgame = controller.game
+  override def execute =
+    controller.game.currentstate.handle(this)
+    newgame = controller.game
+  override def undoStep =
     controller.game = oldgame
-  override def redoStep: Game =
+  override def redoStep =
     controller.game = newgame
 }
 
 case class NextCommand(controller: Controller) extends Command(controller) {
   val oldgame = controller.game
   var newgame = controller.game
-  override def execute: Game =
+  override def execute =
     controller.game.changeState()
-    return controller.game
-  override def undoStep: Game =
+    newgame = controller.game
+  override def undoStep =
     controller.game = oldgame
-  override def redoStep: Game =
+  override def redoStep =
     controller.game = newgame
 }
 
 case class WinCommand(controller: Controller) extends Command(controller) {
-  override def execute: Game =
+  val oldgame = controller.game
+  var newgame = controller.game
+  override def execute =
     controller.game.currentstate.handle(this)
+    newgame = controller.game
+  override def undoStep =
+    controller.game = oldgame
+  override def redoStep =
+    controller.game = newgame
+
 }
 
 object UnoCommand { //Factory
