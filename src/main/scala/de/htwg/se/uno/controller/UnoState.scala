@@ -20,8 +20,8 @@ case class player1State(var game: Game) extends State {
         game
       case e: WinCommand =>
         if (game.checkWin(game.pList(0))) then
-          println(game.pList(0).getName() + " hat gewonnen! GZ\nneues Spiel:")
-
+          println(game.pList(0).getName() + " hat gewonnen! GZ")
+          readLine("ENTER fuer neues Spiel!")
           return new Game(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
@@ -49,7 +49,7 @@ case class player2State(game: Game) extends State {
       case e: WinCommand =>
         if (game.checkWin(game.pList(1))) then
           println(game.pList(1).getName() + " hat gewonnen! GZ")
-          readLine("Enter für neues Spiel!")
+          readLine("ENTER fuer neues Spiel!")
           return new Game(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
@@ -98,20 +98,3 @@ case class between21State(game: Game) extends State {
     game.currentstate = game.p1s
 
 }
-/*
-case class winState(game: Game) extends State {
-
-  override def handle(command: Command): Game =
-    game.checkWin
-    new Game(
-      readLine("Name Spieler1:                   "),
-      readLine("Name Spieler2:                   "),
-      readLine("Anzahl der Startkarten eingeben: ").toInt
-    )
-
-  override def changeState(): Unit =
-    game.currentstate = game.p1n
-
-  override def winCheck() =
-    if game.checkWin then game.currentstate = game.win
-}*/
