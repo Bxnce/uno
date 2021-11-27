@@ -15,6 +15,7 @@ class Invoker {
     undoStack match {
       case Nil =>
       case head :: stack => {
+        println("undo")
         head.undoStep
         undoStack = stack
         redoStack = head :: redoStack
@@ -25,6 +26,7 @@ class Invoker {
     redoStack match {
       case Nil =>
       case head :: stack => {
+        println("redo")
         head.redoStep
         redoStack = stack
         undoStack = head :: undoStack
