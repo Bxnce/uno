@@ -68,6 +68,13 @@ case class Game(player1: String, player2: String, kartenAnzahl: Int):
     } else {
       return -3;
     }
+
+  def addTest(p: String, card: Card): Int =
+    cardStack.cards = cardStack.cards + (midCard
+      .karten(0) -> (cardStack.cards(midCard.karten(0)) + 1))
+    midCard.karten.updated(0, card)
+    cardStack.cards = cardStack.cards + (card -> (cardStack.cards(card) - 1))
+    return 0
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
   def take(player: String): Int =
     val rnd = r.nextInt(cardsInDeck - 1)
