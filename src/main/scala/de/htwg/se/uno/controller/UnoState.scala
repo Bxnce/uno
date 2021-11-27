@@ -19,7 +19,7 @@ case class player1State(var game: Game) extends State {
         game.ERROR = 0
         game
       case e: WinCommand =>
-        if (game.checkWin(game.pList(0))) then
+        if (game.checkWin(game.pList(0))) {
           println(game.pList(0).getName() + " hat gewonnen! GZ")
           readLine("ENTER fuer neues Spiel!")
           return new Game(
@@ -27,11 +27,15 @@ case class player1State(var game: Game) extends State {
             readLine("Name Spieler2:                   "),
             readLine("Anzahl der Startkarten eingeben: ").toInt
           )
-        else return game
+        } else { game }
+      case _: Command =>
+        game.ERROR = -1
+        game
 
-  override def changeState(): Unit =
+  override def changeState(): Game =
     game.pList(0).placed = false
     game.currentstate = game.p2n
+    game
 
 }
 
@@ -47,7 +51,7 @@ case class player2State(game: Game) extends State {
         game.ERROR = 0
         game
       case e: WinCommand =>
-        if (game.checkWin(game.pList(1))) then
+        if (game.checkWin(game.pList(1))) {
           println(game.pList(1).getName() + " hat gewonnen! GZ")
           readLine("ENTER fuer neues Spiel!")
           return new Game(
@@ -55,11 +59,15 @@ case class player2State(game: Game) extends State {
             readLine("Name Spieler2:                   "),
             readLine("Anzahl der Startkarten eingeben: ").toInt
           )
-        else return game
+        } else { game }
+      case _: Command =>
+        game.ERROR = -1
+        game
 
-  override def changeState(): Unit =
+  override def changeState(): Game =
     game.pList(1).placed = false
     game.currentstate = game.p1n
+    game
 }
 
 case class between12State(game: Game) extends State {
@@ -75,10 +83,12 @@ case class between12State(game: Game) extends State {
       case e: WinCommand =>
         game.ERROR = -1
         game
+      case _: Command =>
+        game
 
-  override def changeState(): Unit =
+  override def changeState(): Game =
     game.currentstate = game.p2s
-
+    game
 }
 
 case class between21State(game: Game) extends State {
@@ -94,7 +104,10 @@ case class between21State(game: Game) extends State {
       case e: WinCommand =>
         game.ERROR = -1
         game
-  override def changeState(): Unit =
-    game.currentstate = game.p1s
+      case _: Command =>
+        game
 
+  override def changeState(): Game =
+    game.currentstate = game.p1s
+    game
 }

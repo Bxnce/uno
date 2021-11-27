@@ -6,5 +6,5 @@ import model.Game
 
 trait State {
   def handle(command: Command): Game
-  def changeState(): Unit
+  def changeState(): Game
 }

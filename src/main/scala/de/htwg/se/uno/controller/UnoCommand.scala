@@ -6,20 +6,41 @@ import controller.Controller
 import model._
 
 case class TakeCommand(controller: Controller) extends Command(controller) {
+  val oldgame = controller.game
+  var newgame = controller.game
+
   override def execute: Game =
-    controller.game.currentstate.handle(this)
+    newgame = controller.game.currentstate.handle(this)
+  override def undoStep: Game =
+    controller.game = oldgame
+  override def redoStep: Game =
+    controller.game = newgame
+
 }
 
 case class PlaceCommand(ind: Int, controller: Controller)
     extends Command(controller) {
+
+  private val oldgame = controller.game
+  private var newgame = controller.game
   override def execute: Game =
-    controller.game.currentstate.handle(this)
+    newgame = controller.game.currentstate.handle(this)
+  override def undoStep: Game =
+    controller.game = oldgame
+  override def redoStep: Game =
+    controller.game = newgame
 }
 
 case class NextCommand(controller: Controller) extends Command(controller) {
+  val oldgame = controller.game
+  var newgame = controller.game
   override def execute: Game =
     controller.game.changeState()
     return controller.game
+  override def undoStep: Game =
+    controller.game = oldgame
+  override def redoStep: Game =
+    controller.game = newgame
 }
 
 case class WinCommand(controller: Controller) extends Command(controller) {

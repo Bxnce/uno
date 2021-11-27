@@ -12,17 +12,23 @@ case class Controller(var game: Game) extends Observable:
   private val invoker = new Invoker
 
   def take() =
-    invoker.doStep(UnoCommand(this, "take"))
+    game = invoker.doStep(UnoCommand(this, "take"))
     notifyObservers
 
   def place(ind: Int) =
-    invoker.doStep(UnoCommand(ind, this))
+    game = invoker.doStep(UnoCommand(ind, this))
     game = invoker.doStep(UnoCommand(this, "win"))
     notifyObservers
 
   def next() =
-    invoker.doStep(UnoCommand(this, "next"))
+    game = invoker.doStep(UnoCommand(this, "next"))
     notifyObservers
+
+  def redo() =
+    invoker.redoStep
+
+  def undo() =
+    invoker.undoStep
 
   override def toString: String =
     game.toString()

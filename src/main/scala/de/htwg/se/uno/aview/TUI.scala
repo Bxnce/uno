@@ -76,7 +76,12 @@ class TUI(controller: Controller) extends Observer:
       case "next" | "n" =>
         controller.next()
         return SUCCESS
-
+      case "z" =>
+        controller.undo()
+        return SUCCESS
+      case "y" =>
+        controller.redo()
+        return SUCCESS
       case _ =>
         print("Falsche Eingabe, es gibt folgende Befehle: \n")
         return ERROR
