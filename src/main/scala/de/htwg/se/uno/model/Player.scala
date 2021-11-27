@@ -16,7 +16,7 @@ case class Player(n: String) {
       val midLine =
         karten.map(_.toString).map("" + _ + "").mkString("|", "|", "|") + eol
 
-      return udRow(karten.size) + midLine + udRow(karten.size) + eol
+      return udRow(karten.size) + midLine + udRow(karten.size)
     }
 
   def printFiller(): String =

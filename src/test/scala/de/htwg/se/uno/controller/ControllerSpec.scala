@@ -11,10 +11,12 @@ class ControllerSpec extends AnyWordSpec {
   "Controller" should {
     val game = new Game("p1", "p2", 0)
     val c = new Controller(game)
+    c.game.addTest("midstack", R0)
     "contain a game" in {
-      c.game.p1.karten.size shouldBe (0)
-      c.game.p2.karten.size shouldBe (0)
+      c.game.pList(0).karten.size shouldBe (0)
+      c.game.pList(1).karten.size shouldBe (0)
       c.game.midCard.karten.size shouldBe (1)
+      c.game.midCard.karten(0) shouldBe (R0)
 
     }
     "have a method take(), that calls the take() function in game" in {

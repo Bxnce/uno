@@ -1,8 +1,11 @@
+/*
 import de.htwg.se.uno.model.Player
 import de.htwg.se.uno.model.Card._
 import de.htwg.se.uno.model.CardColor._
 import de.htwg.se.uno.model.CardValue._
 import scala.io.StdIn
+ */
+import scala.de.htwg.se.uno.model.Player
 
 Player("Timo")
 val p1 = Player("Spieler1")
@@ -13,12 +16,13 @@ p1.karten.size
 p1.karten(0)
 p1.print()
 p1.add(R1)
-
+/*
 import de.htwg.se.uno.model.Game
 import de.htwg.se.uno.model.Player._
 import de.htwg.se.uno.model.toCard._
 import de.htwg.se.uno.model.CardLayout._
 import de.htwg.se.uno.model.Card._
+ */
 
 val game = Game("player1", "player2", 0)
 game.p1.karten.size
@@ -52,7 +56,7 @@ game1.midCard.karten
 game1.toString()
 
 getCard("R0")
-
+/*
 import de.htwg.se.uno.controller.Controller
 import de.htwg.se.uno.model.Game
 import de.htwg.se.uno.model.Card._
@@ -61,3 +65,6 @@ val g = new Game("p1", "p2", 0)
 g.midCard.karten = g.midCard.karten.updated(0, R0)
 val c = new Controller(g)
 c.add("p1", "B0")
+ */
+
+game15 = Game("p1", "p2", 0)

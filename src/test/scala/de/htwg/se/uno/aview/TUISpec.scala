@@ -15,7 +15,7 @@ class TUISpec extends AnyWordSpec {
   "TUI" when {
     val game = Game("Bence", "Timo", 0)
     val controller = Controller(game)
-    controller.game.add("P1", Y6) //liegt auf midStack
+    controller.game.addTest("midStack", Y0) //liegt auf midStack
     controller.game.add("P1", R0)
     controller.game.add("P1", R1)
     controller.game.add("P1", R2)
@@ -23,7 +23,6 @@ class TUISpec extends AnyWordSpec {
     controller.game.add("P2", G1)
     controller.game.add("P2", G2)
     controller.next() // p1
-    controller.place(0)
     controller.next() // p2n
 
     val tui = TUI(controller)
@@ -37,7 +36,7 @@ class TUISpec extends AnyWordSpec {
             "+--+\n" +
             "\n" +
             "+--+\n" +
-            "|Y6|\n" +
+            "|Y0|\n" +
             "+--+\n" +
             "\n" +
             "+--+\n" +
@@ -59,11 +58,11 @@ class TUISpec extends AnyWordSpec {
         tui.convertinputString("n") shouldBe (tui.SUCCESS) //p1
 
         tui.convertinputString("+") shouldBe (tui.SUCCESS)
-        controller.game.p1.karten.size shouldBe (4)
+        controller.game.pList(0).karten.size shouldBe (4)
 
         tui.convertinputString("-") shouldBe (tui.ERROR)
         tui.convertinputString("- 1") shouldBe (tui.SUCCESS)
-        controller.game.p1.karten.size shouldBe (3)
+        controller.game.pList(0).karten.size shouldBe (3)
         controller.game.midCard.karten(0) shouldBe (R0)
 
         tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2n
