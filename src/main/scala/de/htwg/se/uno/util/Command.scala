@@ -3,10 +3,9 @@ package util
 
 import controller.Controller
 import model.Game
-import controller.UnoCommand._
 
 trait Command(controller: Controller) {
-  def execute: Unit
-  def undoStep: Unit
-  def redoStep: Unit
+  def execute: Game
+  def undoStep: Game
+  def redoStep: Game
 }

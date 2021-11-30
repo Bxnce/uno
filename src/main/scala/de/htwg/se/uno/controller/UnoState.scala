@@ -6,108 +6,108 @@ import util.State
 import model.Game
 import util.Command
 
-case class player1State(var game: Game) extends State {
+object player1State extends State {
 
+  //Errors aus State in Game
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
-        game.take("P1")
-        game.ERROR = 0
-        game
+        e.controller.game = e.controller.game.take("P1")
+        e.controller.game.setError(0)
       case e: PlaceCommand =>
-        game.place(e.ind, game.pList(0))
-        game.ERROR = 0
-        game
+        e.controller.game = e.controller.game.place(e.ind, 0)
+        e.controller.game.setError(0)
       case e: WinCommand =>
-        if (game.checkWin(game.pList(0))) {
-          println(game.pList(0).getName() + " hat gewonnen! GZ")
-          readLine("ENTER fuer neues Spiel!")
-          return new Game(
-            readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   "),
-            readLine("Anzahl der Startkarten eingeben: ").toInt
+        if (e.controller.game.checkWin(e.controller.game.pList(0))) {
+          println(
+            e.controller.game.pList(0).getName() + " hat gewonnen! GZ"
           )
-        } else { game }
-      case _: Command =>
-        game.ERROR = -1
-        game
-
-  override def changeState(): Game =
-    game.pList(0).placed = false
-    game.currentstate = game.p2n
-    game
-
-}
-
-case class player2State(game: Game) extends State {
-  override def handle(command: Command): Game =
-    command match
-      case e: TakeCommand =>
-        game.take("P2")
-        game.ERROR = 0
-        game
-      case e: PlaceCommand =>
-        game.place(e.ind, game.pList(1))
-        game.ERROR = 0
-        game
-      case e: WinCommand =>
-        if (game.checkWin(game.pList(1))) {
-          println(game.pList(1).getName() + " hat gewonnen! GZ")
           readLine("ENTER fuer neues Spiel!")
-          return new Game(
+          return Game.newGame(
             readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   "),
-            readLine("Anzahl der Startkarten eingeben: ").toInt
+            readLine("Name Spieler2:                   ")
           )
-        } else { game }
-      case _: Command =>
-        game.ERROR = -1
-        game
+        } else { e.controller.game }
+      case e: NextCommand =>
+        Game(
+          e.controller.game.pList,
+          between12State,
+          0,
+          e.controller.game.cardStack,
+          e.controller.game.midCard
+        )
 
-  override def changeState(): Game =
-    game.pList(1).placed = false
-    game.currentstate = game.p1n
-    game
 }
 
-case class between12State(game: Game) extends State {
+object player2State extends State {
+  override def handle(command: Command): Game =
+    command match
+      case e: TakeCommand =>
+        e.controller.game = e.controller.game.take("P2")
+        e.controller.game.setError(0)
+      case e: PlaceCommand =>
+        e.controller.game = e.controller.game.place(e.ind, 1)
+        e.controller.game.setError(0)
+      case e: WinCommand =>
+        if (e.controller.game.checkWin(e.controller.game.pList(1))) {
+          println(
+            e.controller.game.pList(1).getName() + " hat gewonnen! GZ"
+          )
+          readLine("ENTER fuer neues Spiel!")
+          return Game.newGame(
+            readLine("Name Spieler1:                   "),
+            readLine("Name Spieler2:                   ")
+          )
+        } else { e.controller.game }
+      case e: NextCommand =>
+        Game(
+          e.controller.game.pList,
+          between21State,
+          0,
+          e.controller.game.cardStack,
+          e.controller.game.midCard
+        )
+
+}
+
+object between12State extends State {
 
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
-        game.ERROR = -1
-        game
+        e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        game.ERROR = -1
-        game
+        e.controller.game.setError(0)
       case e: WinCommand =>
-        game.ERROR = -1
-        game
-      case _: Command =>
-        game
+        e.controller.game.setError(-1)
+      case e: NextCommand =>
+        Game(
+          e.controller.game.pList,
+          player2State,
+          0,
+          e.controller.game.cardStack,
+          e.controller.game.midCard
+        )
 
-  override def changeState(): Game =
-    game.currentstate = game.p2s
-    game
 }
 
-case class between21State(game: Game) extends State {
+object between21State extends State {
 
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
-        game.ERROR = -1
-        game
+        e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        game.ERROR = -1
-        game
+        e.controller.game.setError(0)
       case e: WinCommand =>
-        game.ERROR = -1
-        game
-      case _: Command =>
-        game
+        e.controller.game.setError(-1)
+      case e: NextCommand =>
+        Game(
+          e.controller.game.pList,
+          player1State,
+          0,
+          e.controller.game.cardStack,
+          e.controller.game.midCard
+        )
 
-  override def changeState(): Game =
-    game.currentstate = game.p1s
-    game
 }
