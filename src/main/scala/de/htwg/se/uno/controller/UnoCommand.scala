@@ -10,13 +10,12 @@ case class TakeCommand(controller: Controller) extends Command(controller) {
   var newgame = controller.game
 
   override def execute =
-    controller.game.currentstate.handle(this)
-    newgame = controller.game
+    newgame = controller.game.currentstate.handle(this)
+    newgame
   override def undoStep =
-    controller.game = oldgame
-    println("Hello Kenobi")
+    oldgame
   override def redoStep =
-    controller.game = newgame
+    newgame
 }
 
 case class PlaceCommand(ind: Int, controller: Controller)
@@ -25,37 +24,36 @@ case class PlaceCommand(ind: Int, controller: Controller)
   val oldgame = controller.game
   var newgame = controller.game
   override def execute =
-    controller.game.currentstate.handle(this)
-    newgame = controller.game
+    newgame = controller.game.currentstate.handle(this)
+    newgame
   override def undoStep =
-    controller.game = oldgame
+    oldgame
   override def redoStep =
-    controller.game = newgame
+    newgame
+}
+case class WinCommand(controller: Controller) extends Command(controller) {
+  val oldgame = controller.game
+  var newgame = controller.game
+  override def execute =
+    newgame = controller.game.currentstate.handle(this)
+    newgame
+  override def undoStep =
+    oldgame
+  override def redoStep =
+    newgame
+
 }
 
 case class NextCommand(controller: Controller) extends Command(controller) {
   val oldgame = controller.game
   var newgame = controller.game
   override def execute =
-    controller.game.changeState()
-    newgame = controller.game
+    newgame = controller.game.currentstate.handle(this)
+    newgame
   override def undoStep =
-    controller.game = oldgame
+    oldgame
   override def redoStep =
-    controller.game = newgame
-}
-
-case class WinCommand(controller: Controller) extends Command(controller) {
-  val oldgame = controller.game
-  var newgame = controller.game
-  override def execute =
-    controller.game.currentstate.handle(this)
-    newgame = controller.game
-  override def undoStep =
-    controller.game = oldgame
-  override def redoStep =
-    controller.game = newgame
-
+    newgame
 }
 
 object UnoCommand { //Factory

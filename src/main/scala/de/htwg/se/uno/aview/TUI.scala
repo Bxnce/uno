@@ -16,7 +16,7 @@ class TUI(controller: Controller) extends Observer:
     "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
   )
 
-  def this() = this(new Controller(Game("Player 1", "Player 2", 0)))
+  def this() = this(new Controller(Game.newGame("Player 1", "Player 2")))
 
   def run(input: String) =
     convertinputString(input) match
@@ -39,10 +39,9 @@ class TUI(controller: Controller) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.game = Game(
+        controller.game = Game.newGame(
           readLine("Name Spieler1:                   "),
-          readLine("Name Spieler2:                   "),
-          readLine("Anzahl der Startkarten eingeben: ").toInt
+          readLine("Name Spieler2:                   ")
         )
         println(controller.toString)
         return SUCCESS
@@ -62,7 +61,7 @@ class TUI(controller: Controller) extends Observer:
           Console.println(s"${RED}Falscher place Aufruf!${RESET}")
           return ERROR
         } else {
-          val err = controller.place(in(1).toInt - 1)
+          controller.place(in(1).toInt - 1)
           if (controller.game.ERROR < 0) {
             Console.println(
               s"${RED}!!!place oder - ist nicht möglich in diesem Zustand!!!${RESET}"
