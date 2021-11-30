@@ -10,11 +10,6 @@ val game = Game("Bence", "Bence2", 7)
 
 print(game.toString)
 
-def place(ind: Int) =
-  if (game.playerDiff % 2 == 0) { //player1
-
-  }
-
 def removeInd(ind: Int, vec: Vector[Card]): Vector[Card] =
   if (ind == 0) {
     return vec.drop(1)
@@ -102,3 +97,10 @@ controller.game.p2.karten.size //shouldBe (4)
 controller.game.p1.karten(3) //shouldBe (R3)
 controller.game.p2.karten(3) //shouldBe (G3)
 print("Hallo")
+
+def test(i: Int): Int =
+  i * 2
+
+var xx = test
+
+xx(2)

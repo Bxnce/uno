@@ -11,10 +11,6 @@ val double_liste = List(3.14149, 2.7, 1.0)
 def f(x: Int) = x + 1
 f(8)
 
-int_liste.sorted
-string_liste.sorted
-double_liste.sorted
-
 class Mensch(Name: String, Alter: Int)
 
 //Vorlesungsbeispiel
@@ -61,3 +57,27 @@ if (playerDiff % 4 == 0) {
 val xxxx = System.lineSeparator()
 
 print("aaa" + xxxx + " bbbb")
+
+case class DeathToStrategy(s: String) {
+
+  def add(a: Int, b: Int): Int = a + b
+  def subtract(a: Int, b: Int): Int = a - b
+  def multiply(a: Int, b: Int): Int = a * b
+
+  def execute(callback: (Int, Int) => Int, x: Int, y: Int) = callback(x, y)
+
+  val printX = s match
+    case "add" =>
+      println("Add:      " + execute(add, 3, 4))
+    case "sub" =>
+      println("Subtract: " + execute(subtract, 3, 4))
+    case "mult" =>
+      println("Multiply: " + execute(multiply, 3, 4))
+
+}
+
+DeathToStrategy("add").printX
+
+val tmp: Tuple2[Int, Int] = (2, 3)
+
+tmp.toList(0)

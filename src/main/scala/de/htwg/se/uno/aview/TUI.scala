@@ -16,7 +16,7 @@ class TUI(controller: Controller) extends Observer:
     "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
   )
 
-  def this() = this(new Controller(Game("Player 1", "Player 2", 0)))
+  def this() = this(new Controller(Game.newGame("Player 1", "Player 2")))
 
   def run(input: String) =
     convertinputString(input) match
@@ -39,49 +39,20 @@ class TUI(controller: Controller) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.game = Game(
+        controller.game = Game.newGame(
           readLine("Name Spieler1:                   "),
-          readLine("Name Spieler2:                   "),
-          readLine("Anzahl der Startkarten eingeben: ").toInt
+          readLine("Name Spieler2:                   ")
         )
         println(controller.toString)
         return SUCCESS
 
-      case "add" =>
-        if (in.size == 3) {
-          val err = controller.add(in(1), in(2))
-          if (err == -3) {
-            Console.println(s"${RED}!!!Falschen Namen eingegeben!!!${RESET}")
-            return ERROR
-          } else if (err == -2) {
-            Console.println(s"${RED}!!!Karte ist nichtmehr im Stack!!!${RESET}")
-            return ERROR
-          } else if (err == -1) {
-            Console.println(s"${RED}!!!Ungültige Karte!!!${RESET}")
-            return ERROR
-          } else {
-            return SUCCESS
-          }
-        } else {
-          Console.println(s"${RED}Falscher add Aufruf!${RESET}")
-          return ERROR
-        }
-
       case "take" | "+" =>
-        if (in.size == 2) {
-          val err = controller.take(in(1))
-          if (err == -3) {
-            Console.println(s"${RED}!!!Falschen Namen eingegeben!!!${RESET}")
-            return ERROR
-          }
-        } else {
-          val err = controller.take()
-          if (err == -4) {
-            Console.println(
-              s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
-            )
-            return ERROR
-          }
+        controller.take()
+        if (controller.game.ERROR < 0) {
+          Console.println(
+            s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
+          )
+          return ERROR
         }
         return SUCCESS;
 
@@ -90,8 +61,8 @@ class TUI(controller: Controller) extends Observer:
           Console.println(s"${RED}Falscher place Aufruf!${RESET}")
           return ERROR
         } else {
-          val err = controller.place(in(1).toInt - 1)
-          if (err == -4) {
+          controller.place(in(1).toInt - 1)
+          if (controller.game.ERROR < 0) {
             Console.println(
               s"${RED}!!!place oder - ist nicht möglich in diesem Zustand!!!${RESET}"
             )
@@ -104,7 +75,12 @@ class TUI(controller: Controller) extends Observer:
       case "next" | "n" =>
         controller.next()
         return SUCCESS
-
+      case "z" =>
+        controller.undo()
+        return SUCCESS
+      case "y" =>
+        controller.redo()
+        return SUCCESS
       case _ =>
         print("Falsche Eingabe, es gibt folgende Befehle: \n")
         return ERROR
@@ -115,8 +91,7 @@ class TUI(controller: Controller) extends Observer:
               - help | h                       : zeigt alle Befehle fuer Uno
               - exit | q                       : verlaesst das Spiel
               - new  |                         : startet ein neues Spiel
-              - add <player> <card>            : fuegt eine Karte einem Spieler hinzu
-              - take <player> | + <player>     : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
+              - take | +                       : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
               - place <index> | - <index>      : Legt die Karte an diesem Index auf den Spielstapel
               - next | n                       : Beendet den Zug, der naechste Spieler ist dran       
               ${RESET}""" + "\n")

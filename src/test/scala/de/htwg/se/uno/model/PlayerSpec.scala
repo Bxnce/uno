@@ -21,19 +21,19 @@ class PlayerSpec extends AnyWordSpec {
     }
     "have a method print() that prints out the Players Cards" in {
       val p1 = Player("Spieler1")
-      p1.print() shouldBe (
+      p1.print() shouldEqual (
         "+--+\n" +
           "|  |\n" +
           "+--+\n"
       )
       p1.add(R0)
-      p1.print() shouldBe (
+      p1.print() shouldEqual (
         "+--+\n" +
           "|R0|\n" +
           "+--+\n"
       )
       p1.add(Y9)
-      p1.print() shouldBe (
+      p1.print() shouldEqual (
         "+--+--+\n" +
           "|R0|Y9|\n" +
           "+--+--+\n"
