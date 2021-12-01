@@ -14,7 +14,6 @@ object player1State extends State {
         e.controller.game = e.controller.game.take("P1")
         e.controller.game.setError(0)
       case e: PlaceCommand =>
-        println("hier")
         e.controller.game = e.controller.game.place(e.ind, 0)
         e.controller.game.setError(0)
       case e: WinCommand =>
