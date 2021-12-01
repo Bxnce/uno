@@ -7,7 +7,6 @@ import model.Game
 import util.Command
 
 object player1State extends State {
-
   //Errors aus State in Game
   override def handle(command: Command): Game =
     command match
@@ -37,7 +36,6 @@ object player1State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object player2State extends State {
@@ -68,11 +66,9 @@ object player2State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object between12State extends State {
-
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
@@ -89,11 +85,9 @@ object between12State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object between21State extends State {
-
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
@@ -110,5 +104,4 @@ object between21State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }

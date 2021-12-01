@@ -10,21 +10,19 @@ import model.Card._
 import model.CardLayout._
 import controller.Controller
 import util._
+import controller._
 
 class TUISpec extends AnyWordSpec {
   "TUI" when {
-    val game = Game("Bence", "Timo", 0)
+    var game = new Game("Bence", "Timo")
+    game = game.addTest("midStack", Y0)
+    game = game.add("P1", R0)
+    game = game.add("P1", R1)
+    game = game.add("P1", R2)
+    game = game.add("P2", G0)
+    game = game.add("P2", G1)
+    game = game.add("P2", G2)
     val controller = Controller(game)
-    controller.game.addTest("midStack", Y0) //liegt auf midStack
-    controller.game.add("P1", R0)
-    controller.game.add("P1", R1)
-    controller.game.add("P1", R2)
-    controller.game.add("P2", G0)
-    controller.game.add("P2", G1)
-    controller.game.add("P2", G2)
-    controller.next() // p1
-    controller.next() // p2n
-
     val tui = TUI(controller)
 
     "created with the given parameters " should {
@@ -53,9 +51,7 @@ class TUISpec extends AnyWordSpec {
         tui.convertinputString("a") shouldBe (tui.ERROR)
         tui.convertinputString("help") shouldBe (tui.SUCCESS)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2s
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p1n
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p1
+        tui.convertinputString("n") shouldBe (tui.SUCCESS) //player1State
 
         tui.convertinputString("+") shouldBe (tui.SUCCESS)
         controller.game.pList(0).karten.size shouldBe (4)
@@ -70,7 +66,7 @@ class TUISpec extends AnyWordSpec {
         tui.convertinputString("- 1") shouldBe (tui.ERROR)
 
         tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2s
-        controller.game.currentstate shouldBe (game.p2s)
+        controller.game.currentstate shouldBe (player2State)
       }
       "Have a method printhelp() that prints out the help message" in {}
       "override the method update" in {}

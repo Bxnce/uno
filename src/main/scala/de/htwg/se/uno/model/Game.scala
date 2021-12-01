@@ -79,7 +79,7 @@ case class Game(
         midCard.add(card)
       )
     } else {
-      this
+      setError(-1)
     }
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
@@ -118,11 +118,13 @@ case class Game(
     } else {
       false
     }
+
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {
       return true
     }
     return false
+
   def setError(err: Int): Game =
     copy(
       pList,
@@ -131,6 +133,7 @@ case class Game(
       cardStack,
       midCard
     )
+
   def playerFill(count: Int): Game =
     var tmp = this
     for (i <- 1 to count) {
@@ -138,6 +141,7 @@ case class Game(
       tmp = tmp.take("P2")
     }
     tmp
+
   override def toString: String =
     if (currentstate == player1State) {
       return pList(0).getName() + eol + pList(0).print() + eol + midCard
@@ -155,3 +159,13 @@ case class Game(
         .printFiller() + pList(1)
         .getName() + eol
     }
+
+  def addTest(p: String, card: Card): Game =
+    //val tmp = midCard.karten(0)
+    copy(
+      pList,
+      currentstate,
+      ERROR,
+      cardStack.decrease(card), //.increase(tmp)
+      midCard.removeInd(0).add(card)
+    )
