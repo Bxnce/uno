@@ -77,7 +77,7 @@ object between12State extends State {
       case e: TakeCommand =>
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        e.controller.game.setError(0)
+        e.controller.game.setError(-1)
       case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
@@ -98,7 +98,7 @@ object between21State extends State {
       case e: TakeCommand =>
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        e.controller.game.setError(0)
+        e.controller.game.setError(-1)
       case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
