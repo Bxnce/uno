@@ -8,6 +8,7 @@ import util.Command
 
 object player1State extends State {
   //Errors aus State in Game
+
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
@@ -29,7 +30,8 @@ object player1State extends State {
         } else { e.controller.game }
       case e: NextCommand =>
         Game(
-          e.controller.game.pList,
+          e.controller.game.pList
+            .updated(0, e.controller.game.pList(0).setFalse()),
           between12State,
           0,
           e.controller.game.cardStack,
@@ -59,7 +61,8 @@ object player2State extends State {
         } else { e.controller.game }
       case e: NextCommand =>
         Game(
-          e.controller.game.pList,
+          e.controller.game.pList
+            .updated(1, e.controller.game.pList(1).setFalse()),
           between21State,
           0,
           e.controller.game.cardStack,

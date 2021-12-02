@@ -10,6 +10,7 @@ import scala.io.StdIn
 import util._
 import controller._
 import Console.{RED, GREEN, RESET}
+import scala.util.{Try, Success, Failure}
 
 object Game {
   def newGame(player1: String, player2: String): Game =
@@ -26,13 +27,16 @@ case class Game(
 ):
   def this(player1: String, player2: String) =
     this(
-      List(Player(player1, Vector[Card]()), Player(player2, Vector[Card]())),
+      List(
+        Player(player1, Vector[Card](), false),
+        Player(player2, Vector[Card](), false)
+      ),
       between21State,
       0,
       new CardStack(
         Card.values.map(x => (x, 2)).toMap
       ),
-      Player("midcard", Vector[Card]())
+      Player("midcard", Vector[Card](), false)
     )
 
   //def this(): Game = this(player1,player2,kartenAnzahl)
@@ -88,7 +92,7 @@ case class Game(
     add(player, Card.values(rnd))
 
   def place(ind: Int, player: Int): Game =
-    if (checkPlace(ind, player)) {
+    if (checkPlace(ind, player) && !pList(player).placed) {
       copy(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
@@ -96,7 +100,8 @@ case class Game(
         cardStack.increase(pList(player).karten(ind)),
         Player(
           midCard.name,
-          midCard.karten.updated(0, pList(player).karten(ind))
+          midCard.karten.updated(0, pList(player).karten(ind)),
+          false
         )
       )
     } else {
@@ -107,16 +112,15 @@ case class Game(
     }
 
   def checkPlace(ind: Int, player: Int): Boolean =
-    if (
-      ((midCard
+    Try {
+      (midCard
         .karten(0)
         .getColor == pList(player).karten(ind).getColor) || (midCard
         .karten(0)
-        .getValue == pList(player).karten(ind).getValue))
-    ) {
-      true
-    } else {
-      false
+        .getValue == pList(player).karten(ind).getValue)
+    } match {
+      case Success(x) => x
+      case Failure(y) => false
     }
 
   def checkWin(player: Player): Boolean =
