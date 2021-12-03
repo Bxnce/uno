@@ -12,6 +12,7 @@ import controller.Controller
 import util._
 import controller._
 
+//test
 class TUISpec extends AnyWordSpec {
   "TUI" when {
     var game = new Game("Bence", "Timo")
