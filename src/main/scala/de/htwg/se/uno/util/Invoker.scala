@@ -1,39 +1,35 @@
 package de.htwg.se.uno
 package util
 
-import model.Game
-import controller.WinCommand
+import model._
 
 class Invoker {
   private var undoStack: List[Command] = Nil
   private var redoStack: List[Command] = Nil
-
-  def doStep(command: Command): Game = {
-    command match
-      case e: WinCommand =>
-      case _ =>
-        undoStack = command :: undoStack
-    command.execute
+  def doStep(command: Command) = {
+    undoStack = command :: undoStack
+    command.execute;
   }
 
-  def undoStep: Option[Game] = {
+  def undoStep = {
     undoStack match {
-      case Nil => None
+      case Nil =>
       case head :: stack => {
+        println("undo")
+        head.undoStep
         undoStack = stack
         redoStack = head :: redoStack
-        Some(head.undoStep)
       }
     }
   }
-
-  def redoStep: Option[Game] = {
+  def redoStep = {
     redoStack match {
-      case Nil => None
+      case Nil =>
       case head :: stack => {
+        println("redo")
+        head.redoStep
         redoStack = stack
         undoStack = head :: undoStack
-        Some(head.redoStep)
       }
     }
   }

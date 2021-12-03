@@ -8,29 +8,28 @@ import util.Invoker
 import model._
 import Console.{RED, RESET}
 
-case class Controller(var g: Game) extends Observable:
+case class Controller(var game: Game) extends Observable:
   private val invoker = new Invoker
-  var game = g
 
   def take() =
-    game = invoker.doStep(UnoCommand(this, "take"))
+    invoker.doStep(UnoCommand(this, "take"))
     notifyObservers
 
   def place(ind: Int) =
-    game = invoker.doStep(UnoCommand(ind, this))
-    game = invoker.doStep(UnoCommand(this, "win"))
+    invoker.doStep(UnoCommand(ind, this))
+    invoker.doStep(UnoCommand(this, "win"))
     notifyObservers
 
   def next() =
-    game = invoker.doStep(UnoCommand(this, "next"))
+    invoker.doStep(UnoCommand(this, "next"))
     notifyObservers
 
   def redo() =
-    game = invoker.redoStep.getOrElse(game)
+    invoker.redoStep
     notifyObservers
 
   def undo() =
-    game = invoker.undoStep.getOrElse(game)
+    invoker.undoStep
     notifyObservers
 
   override def toString: String =
