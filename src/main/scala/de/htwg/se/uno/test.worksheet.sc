@@ -77,3 +77,7 @@ case class DeathToStrategy(s: String) {
 }
 
 DeathToStrategy("add").printX
+
+val tmp: Tuple2[Int, Int] = (2, 3)
+
+tmp.toList(0)
