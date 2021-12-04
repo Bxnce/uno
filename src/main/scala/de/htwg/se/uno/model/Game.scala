@@ -121,7 +121,7 @@ case class Game(
       Console.println(
         s"${RED}!!!Karte kann nicht gelegt werden!!!${RESET}"
       )
-      this
+      setError(-1)
     }
 
   def checkWin(player: Player): Boolean =

@@ -186,6 +186,26 @@ class GameSpec extends AnyWordSpec {
       game2.pList(1).karten.size shouldBe (2)
       game2.midCard.karten.size shouldBe (1)
       game2.midCard.karten(0) shouldBe (G1)
+
+      var game3 = new Game("player1", "player2")
+      game3.currentstate shouldBe (between21State)
+      game3 = game1.addTest("midstack", R0)
+      game3.midCard.karten(0) shouldBe (R0)
+      game3 = game3.add("p1", B1)
+      game3.pList(0).karten.size shouldBe (1)
+      game3.midCard.karten.size shouldBe (1)
+
+      game3 = Game(
+        game3.pList,
+        player1State,
+        game3.ERROR,
+        game3.cardStack,
+        game3.midCard
+      )
+
+      game3.currentstate shouldBe (player1State)
+      game3 = game3.place(0, 0)
+      game3.ERROR shouldBe (-1)
     }
 
     "have a method checkWin(Player) that checks if the player has won" in {
