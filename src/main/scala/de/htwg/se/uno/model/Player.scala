@@ -31,10 +31,6 @@ case class Player(name: String, karten: Vector[Card], placed: Boolean) {
   def setFalse(): Player =
     copy(name, karten, false)
 
-  def getName(): String =
-    name
-
-  //Was passiert wenn man eine falsche Karte einfügen will
   def add(karte: Card): Player =
     copy(name, karten :+ karte)
 }

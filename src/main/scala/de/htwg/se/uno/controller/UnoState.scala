@@ -20,7 +20,7 @@ object player1State extends State {
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(0))) {
           println(
-            e.controller.game.pList(0).getName() + " hat gewonnen! GZ"
+            e.controller.game.pList(0).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(
@@ -51,7 +51,7 @@ object player2State extends State {
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(1))) {
           println(
-            e.controller.game.pList(1).getName() + " hat gewonnen! GZ"
+            e.controller.game.pList(1).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(

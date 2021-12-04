@@ -13,7 +13,19 @@ import util.State
 import controller._
 
 class GameSpec extends AnyWordSpec {
-  "Game" should {
+  "Object Game" should {
+    "have a method newGame(String, String) that creates a Game with the Constructor of the case Class" in {
+      val g1 = Game.newGame("Bence", "Timo")
+      g1.pList(0).name shouldBe ("Bence")
+      g1.pList(1).name shouldBe ("Timo")
+      g1.pList(0).karten.size shouldBe (7)
+      g1.pList(1).karten.size shouldBe (7)
+      g1.midCard.karten.size shouldBe (1)
+      g1.currentstate shouldEqual (between21State)
+    }
+  }
+
+  "Case Class Game" should {
     "should create a game with 2 Players and one Card in the middle" in {
       val g1 = new Game("player1", "player2").take("midstack")
       g1.currentstate shouldEqual (between21State)
@@ -24,166 +36,204 @@ class GameSpec extends AnyWordSpec {
     }
 
     "have a method add(String, Card) that adds a card to a players hand" in {
-      var game1 = Game.newGame("player1", "player2")
-      game1.pList(0).karten.size shouldBe (7)
-      game1.pList(1).karten.size shouldBe (7)
-      game1.midCard.karten.size shouldBe (1)
+      var game1 = new Game("player1", "player2")
+      game1.pList(0).karten.size shouldBe (0)
+      game1.pList(1).karten.size shouldBe (0)
+      game1.midCard.karten.size shouldBe (0)
 
       game1 = game1.add("p1", XX)
-      game1.pList(0).karten.size shouldBe (8)
+      game1.ERROR shouldEqual (0)
+      game1.pList(0).karten.size shouldBe (1)
 
       game1 = game1.add("p2", R0)
       game1.ERROR shouldEqual (0)
-      game1.pList(1).karten.size shouldBe (8)
+      game1.pList(1).karten.size shouldBe (1)
 
       game1 = game1.add("midstack", R0)
-      game1.midCard.karten.size shouldBe (2)
+      game1.midCard.karten.size shouldBe (1)
 
       game1 = game1.add("p3", G8)
       game1.ERROR shouldEqual (-1)
     }
+
     "have a method take(String) that adds a random card to a players hand" in {
+      var game1 = new Game("player1", "player2")
+      game1.pList(0).karten.size shouldBe (0)
+      game1.pList(1).karten.size shouldBe (0)
+
+      game1 = game1.take("p1")
+      game1.pList(0).karten.size shouldBe (1)
+
+      game1 = game1.take("p2")
+      game1.pList(1).karten.size shouldBe (1)
+    }
+
+    "have a method checkPlace(Int,Int) that checks if a player is allowed to place a specific card" in {
+      var game1 = new Game("player1", "player2")
+      game1 = game1.addTest("midcard", R0)
+      game1 = game1.add("p1", R1)
+      game1.checkPlace(0, 0) shouldBe (true)
+
       var game2 = new Game("player1", "player2")
-      game2.pList(0).karten.size shouldBe (0)
-      game2.pList(1).karten.size shouldBe (0)
-
-      game2 = game2.take("p1")
-      game2.pList(0).karten.size shouldBe (1)
-
-      game2 = game2.take("p2")
-      game2.pList(1).karten.size shouldBe (1)
+      game2 = game2.addTest("midcard", R0)
+      game2 = game2.add("p2", G0)
+      game2.checkPlace(0, 1) shouldBe (true)
     }
 
     "have a method place(Integer, player) that places a card onto the stack" in {
-      var game4 = new Game("player1", "player2")
-      game4.currentstate shouldBe (between21State)
-      game4 = game4.addTest("midstack", R0)
-      game4.midCard.karten(0) shouldBe (R0)
-      game4 = game4.add("p1", B0)
-      game4 = game4.add("p2", G0)
-      game4.pList(0).karten.size shouldBe (1)
-      game4.pList(1).karten.size shouldBe (1)
-      game4.midCard.karten.size shouldBe (1)
+      var game1 = new Game("player1", "player2")
+      game1.currentstate shouldBe (between21State)
+      game1 = game1.addTest("midstack", R0)
+      game1.midCard.karten(0) shouldBe (R0)
+      game1 = game1.add("p1", B0)
+      game1 = game1.add("p2", G0)
+      game1.pList(0).karten.size shouldBe (1)
+      game1.pList(1).karten.size shouldBe (1)
+      game1.midCard.karten.size shouldBe (1)
 
-      game4 = Game(
-        game4.pList,
+      game1 = Game(
+        game1.pList,
         player1State,
-        game4.ERROR,
-        game4.cardStack,
-        game4.midCard
+        game1.ERROR,
+        game1.cardStack,
+        game1.midCard
       )
-      game4.currentstate shouldBe (player1State)
-      game4 = game4.place(0, 0)
-      game4.ERROR shouldBe (0)
-      game4.pList(0).karten.size shouldBe (0)
-      game4.pList(1).karten.size shouldBe (1)
-      game4.midCard.karten.size shouldBe (1)
-      game4.midCard.karten(0) shouldBe (B0)
 
-      game4 = Game(
-        game4.pList,
+      game1.currentstate shouldBe (player1State)
+      game1 = game1.place(0, 0)
+      game1.ERROR shouldBe (0)
+      game1.pList(0).karten.size shouldBe (0)
+      game1.pList(1).karten.size shouldBe (1)
+      game1.midCard.karten.size shouldBe (1)
+      game1.midCard.karten(0) shouldBe (B0)
+
+      game1 = Game(
+        game1.pList,
         between12State,
-        game4.ERROR,
-        game4.cardStack,
-        game4.midCard
+        game1.ERROR,
+        game1.cardStack,
+        game1.midCard
       )
-      game4.currentstate shouldBe (between12State)
-      game4 = Game(
-        game4.pList,
+
+      game1.currentstate shouldBe (between12State)
+      game1 = Game(
+        game1.pList,
         player2State,
-        game4.ERROR,
-        game4.cardStack,
-        game4.midCard
+        game1.ERROR,
+        game1.cardStack,
+        game1.midCard
       )
-      game4.currentstate shouldBe (player2State)
-      game4 = game4.place(0, 1)
-      game4.ERROR shouldBe (0)
-      game4.pList(0).karten.size shouldBe (0)
-      game4.pList(1).karten.size shouldBe (0)
-      game4.midCard.karten.size shouldBe (1)
-      game4.midCard.karten(0) shouldBe (G0)
 
-      var game5 = new Game("player1", "player2")
-      game5 = game5.addTest("midStack", R1)
-      game5.midCard.karten(0) shouldBe (R1)
-      game5 = game5.add("p1", B0)
-      game5 = game5.add("p1", B1)
-      game5 = game5.add("p1", B2)
-      game5 = game5.add("p2", G0)
-      game5 = game5.add("p2", G1)
-      game5 = game5.add("p2", G2)
+      game1.currentstate shouldBe (player2State)
+      game1 = game1.place(0, 1)
+      game1.ERROR shouldBe (0)
+      game1.pList(0).karten.size shouldBe (0)
+      game1.pList(1).karten.size shouldBe (0)
+      game1.midCard.karten.size shouldBe (1)
+      game1.midCard.karten(0) shouldBe (G0)
 
-      game5.currentstate shouldBe (between21State)
-      game5.pList(0).karten.size shouldBe (3)
-      game5.pList(1).karten.size shouldBe (3)
-      game5.midCard.karten.size shouldBe (1)
+      var game2 = new Game("player1", "player2")
+      game2 = game2.addTest("midStack", R1)
+      game2.midCard.karten(0) shouldBe (R1)
+      game2 = game2.add("p1", B0)
+      game2 = game2.add("p1", B1)
+      game2 = game2.add("p1", B2)
+      game2 = game2.add("p2", G0)
+      game2 = game2.add("p2", G1)
+      game2 = game2.add("p2", G2)
 
-      game5 = Game(
-        game5.pList,
+      game2.currentstate shouldBe (between21State)
+      game2.pList(0).karten.size shouldBe (3)
+      game2.pList(1).karten.size shouldBe (3)
+      game2.midCard.karten.size shouldBe (1)
+
+      game2 = Game(
+        game2.pList,
         player1State,
-        game5.ERROR,
-        game5.cardStack,
-        game5.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game5.currentstate shouldBe (player1State)
-      game5 = game5.place(1, 0)
-      game5.ERROR shouldBe (0)
-      game5.pList(0).karten.size shouldBe (2)
-      game5.pList(1).karten.size shouldBe (3)
-      game5.midCard.karten.size shouldBe (1)
-      game5.midCard.karten(0) shouldBe (B1)
 
-      game5 = Game(
-        game5.pList,
+      game2.currentstate shouldBe (player1State)
+      game2 = game2.place(1, 0)
+      game2.ERROR shouldBe (0)
+      game2.pList(0).karten.size shouldBe (2)
+      game2.pList(1).karten.size shouldBe (3)
+      game2.midCard.karten.size shouldBe (1)
+      game2.midCard.karten(0) shouldBe (B1)
+
+      game2 = Game(
+        game2.pList,
         between12State,
-        game5.ERROR,
-        game5.cardStack,
-        game5.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game5.currentstate shouldBe (between12State)
-      game5 = Game(
-        game5.pList,
+      game2.currentstate shouldBe (between12State)
+      game2 = Game(
+        game2.pList,
         player2State,
-        game5.ERROR,
-        game5.cardStack,
-        game5.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game5.currentstate shouldBe (player2State)
-      game5 = game5.place(1, 1)
-      game5.ERROR shouldBe (0)
-      game5.pList(0).karten.size shouldBe (2)
-      game5.pList(1).karten.size shouldBe (2)
-      game5.midCard.karten.size shouldBe (1)
-      game5.midCard.karten(0) shouldBe (G1)
+
+      game2.currentstate shouldBe (player2State)
+      game2 = game2.place(1, 1)
+      game2.ERROR shouldBe (0)
+      game2.pList(0).karten.size shouldBe (2)
+      game2.pList(1).karten.size shouldBe (2)
+      game2.midCard.karten.size shouldBe (1)
+      game2.midCard.karten(0) shouldBe (G1)
+    }
+
+    "have a method checkWin(Player) that checks if the player has won" in {
+      var game1 = new Game("player1", "player2")
+      game1.checkWin(game1.pList(0)) shouldBe (true)
+
+      game1 = game1.add("p1", B0)
+      game1.checkWin(game1.pList(0)) shouldBe (false)
+    }
+
+    "have a method setError(Int), that sets the ERROR value of game to the given Int" in {
+      var game1 = new Game("player1", "player2")
+      game1.ERROR shouldBe (0)
+
+      game1 = game1.setError(-1)
+      game1.ERROR shouldBe (-1)
+
+      game1 = game1.setError(13)
+      game1.ERROR shouldBe (13)
     }
 
     "have a method playerFill() that fills the karten from one player with the parameter amount " in {
-      var gameXX = new Game("player1", "player2")
-      gameXX.pList(0).karten.size shouldBe (0)
-      gameXX.pList(1).karten.size shouldBe (0)
-      gameXX = gameXX.playerFill(2)
-      gameXX.pList(0).karten.size shouldBe (2)
-      gameXX.pList(1).karten.size shouldBe (2)
+      var game1 = new Game("player1", "player2")
+      game1.pList(0).karten.size shouldBe (0)
+      game1.pList(1).karten.size shouldBe (0)
+      game1 = game1.playerFill(2)
+      game1.pList(0).karten.size shouldBe (2)
+      game1.pList(1).karten.size shouldBe (2)
 
     }
     "override the method toString() and return a String in Form of" in {
-      var game7 = new Game("player1", "player2")
-      game7 = game7.addTest("Midstack", R0)
-      game7 = Game(
-        game7.pList,
+      var game1 = new Game("player1", "player2")
+      game1 = game1.addTest("Midstack", R0)
+      game1 = Game(
+        game1.pList,
         player1State,
-        game7.ERROR,
-        game7.cardStack,
-        game7.midCard
+        game1.ERROR,
+        game1.cardStack,
+        game1.midCard
       )
-      game7 = Game(
-        game7.pList,
+      game1 = Game(
+        game1.pList,
         between12State,
-        game7.ERROR,
-        game7.cardStack,
-        game7.midCard
+        game1.ERROR,
+        game1.cardStack,
+        game1.midCard
       )
-      game7.toString() shouldBe (
+      game1.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "| 0|" + eol +
@@ -198,19 +248,19 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-      /*
-      val game8 = new Game("player1", "player2")
-      game8.add("P1", B0)
-      game8.addTest("midStack", R0)
-      game8.add("P2", G0)
-      game8.copy(
-        game8.pList,
+
+      var game2 = new Game("player1", "player2")
+      game2 = game2.add("P1", B0)
+      game2 = game2.addTest("midStack", R0)
+      game2 = game2.add("P2", G0)
+      game2 = Game(
+        game2.pList,
         player1State,
-        game8.ERROR,
-        game8.cardStack,
-        game8.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game8.toString() shouldBe (
+      game2.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "|B0|" + eol +
@@ -225,14 +275,14 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-      game8.copy(
-        game8.pList,
+      game2 = Game(
+        game2.pList,
         between12State,
-        game8.ERROR,
-        game8.cardStack,
-        game8.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game8.toString() shouldBe (
+      game2.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "| 1|" + eol +
@@ -247,14 +297,14 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-      game8.copy(
-        game8.pList,
+      game2 = Game(
+        game2.pList,
         player2State,
-        game8.ERROR,
-        game8.cardStack,
-        game8.midCard
+        game2.ERROR,
+        game2.cardStack,
+        game2.midCard
       )
-      game8.toString() shouldBe (
+      game2.toString() shouldBe (
         "player1" + eol +
           "+--+" + eol +
           "| 1|" + eol +
@@ -269,7 +319,6 @@ class GameSpec extends AnyWordSpec {
           "+--+" + eol +
           "player2" + eol
       )
-       */
     }
   }
 }

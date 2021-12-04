@@ -20,6 +20,11 @@ class PlayerSpec extends AnyWordSpec {
       p2.karten.size shouldBe (1)
     }
 
+    "have a placed variable from type Boolean" in {
+      val p1 = Player("Spieler1", Vector[Card](), false)
+      p1.placed shouldBe (false)
+    }
+
     "have a method print() that prints out the Players Cards" in {
       val p1 = Player("Spieler1", Vector[Card](), false)
       p1.print() shouldEqual (
@@ -78,28 +83,8 @@ class PlayerSpec extends AnyWordSpec {
       p1.karten.size shouldBe (2)
       p1.karten(0) shouldBe (Y1)
       p1.karten(1) shouldBe (Y2)
-
-      var p2 = Player("p2", Vector[Card](G0, G1, G2, G3, G4), false)
-      p2.karten.size shouldBe (5)
-
-      p2 = p2.removeInd(2)
-      p2.karten.size shouldBe (4)
-      p2.karten(2) shouldBe (G3)
-
-      p2 = p2.removeInd(1)
-      p2.karten.size shouldBe (3)
-      p2.karten(1) shouldBe (G3)
-
-      p2 = p2.removeInd(1)
-      p2.karten.size shouldBe (2)
-      p2.karten(0) shouldBe (G0)
-      p2.karten(1) shouldBe (G4)
-
     }
-    "have a method getName() that returns the name of the Player" in {
-      val p1 = Player("Spieler1", Vector[Card](), false)
-      p1.getName() shouldBe ("Spieler1")
-    }
+
     "have a method add(Card) that adds a card to the Vector karten" in {
       //sehr unschön wenn man vals nimmt
       val p1 = Player("Spieler1", Vector[Card](), false)

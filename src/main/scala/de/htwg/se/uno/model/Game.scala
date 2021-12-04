@@ -48,13 +48,14 @@ case class Game(
   //Funktionen des Spiels
   //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Game =
+    //evtl. erst die Abfrage ob es ein richtiger Spieler ist da man sonst unnötig einmal take aufruft
     if (card.toString == "XX") {
       take(player)
     } else if (cardStack.cards(card) == 0) {
       take(player)
     } else if (
       player
-        .equalsIgnoreCase("P1") || player.equalsIgnoreCase(pList(0).getName())
+        .equalsIgnoreCase("P1") || player.equalsIgnoreCase(pList(0).name)
     ) {
       copy(
         pList.updated(0, pList(0).add(card)),
@@ -65,7 +66,7 @@ case class Game(
       )
     } else if (
       player
-        .equalsIgnoreCase("P2") || player.equalsIgnoreCase(pList(1).getName())
+        .equalsIgnoreCase("P2") || player.equalsIgnoreCase(pList(1).name)
     ) {
       copy(
         pList.updated(1, pList(1).add(card)),
@@ -91,6 +92,18 @@ case class Game(
     val rnd = r.nextInt(cardsInDeck - 1)
     add(player, Card.values(rnd))
 
+  def checkPlace(ind: Int, player: Int): Boolean =
+    Try {
+      (midCard
+        .karten(0)
+        .getColor == pList(player).karten(ind).getColor) || (midCard
+        .karten(0)
+        .getValue == pList(player).karten(ind).getValue)
+    } match {
+      case Success(x) => x
+      case Failure(y) => false
+    }
+
   def place(ind: Int, player: Int): Game =
     if (checkPlace(ind, player) && !pList(player).placed) {
       copy(
@@ -109,18 +122,6 @@ case class Game(
         s"${RED}!!!Karte kann nicht gelegt werden!!!${RESET}"
       )
       this
-    }
-
-  def checkPlace(ind: Int, player: Int): Boolean =
-    Try {
-      (midCard
-        .karten(0)
-        .getColor == pList(player).karten(ind).getColor) || (midCard
-        .karten(0)
-        .getValue == pList(player).karten(ind).getValue)
-    } match {
-      case Success(x) => x
-      case Failure(y) => false
     }
 
   def checkWin(player: Player): Boolean =
@@ -148,20 +149,17 @@ case class Game(
 
   override def toString: String =
     if (currentstate == player1State) {
-      return pList(0).getName() + eol + pList(0).print() + eol + midCard
+      return pList(0).name + eol + pList(0).print() + eol + midCard
         .print() + eol + pList(1)
-        .printFiller() + pList(1)
-        .getName() + eol
+        .printFiller() + pList(1).name + eol
     } else if (currentstate == player2State) {
-      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
         .print() + eol + pList(1)
-        .print() + pList(1)
-        .getName() + eol
+        .print() + pList(1).name + eol
     } else {
-      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
         .print() + eol + pList(1)
-        .printFiller() + pList(1)
-        .getName() + eol
+        .printFiller() + pList(1).name + eol
     }
 
   def addTest(p: String, card: Card): Game =
