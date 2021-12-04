@@ -34,9 +34,7 @@ class ControllerSpec extends AnyWordSpec {
       c.take()
       c.game.ERROR shouldBe (0)
     }
-    "override the method toString" in {
-      c.toString shouldEqual (c.game.toString)
-    }
+
     "have a method place() that places a Card from a player to the midStack" in {
       c.next() //p1n
       c.next() //p1s
@@ -53,5 +51,70 @@ class ControllerSpec extends AnyWordSpec {
       c.next() //p2s
       c.game.currentstate shouldEqual (player2State)
     }
+
+    var game1 = new Game("p1", "p2")
+    game1 = game1.addTest("midstack", R0)
+    game1 = game1.add("p1", R1)
+    var c1 = new Controller(game1)
+
+    "have a method undo() that undos the last Command" in {
+      c1.undo()
+      c1.game shouldEqual (game1)
+
+      c1.next()
+      c1.undo()
+      c1.game.currentstate shouldEqual (between21State)
+
+      c1.next()
+
+      c1.take()
+      c1.game.pList(0).karten.size shouldBe (2)
+      c1.undo()
+      c1.game.pList(0).karten.size shouldBe (1)
+
+      c1.take() //dass er nicht gewinnt
+      c1.place(0)
+      c1.game.pList(0).karten.size shouldBe (1)
+      c1.game.midCard.karten(0) shouldBe (R1)
+      c1.undo()
+      c1.game.pList(0).karten.size shouldBe (2)
+      c1.game.midCard.karten(0) shouldBe (R0)
+    }
+
+    var game2 = new Game("p1", "p2")
+    game2 = game2.addTest("midstack", R0)
+    game2 = game2.add("p1", R1)
+    var c2 = new Controller(game2)
+
+    "have a method redo() that redos the last step that happend" in {
+      c2.next()
+      c2.game.currentstate shouldEqual (player1State)
+      c2.undo()
+      c2.game.currentstate shouldEqual (between21State)
+      c2.redo()
+      c2.game.currentstate shouldEqual (player1State)
+
+      c2.take()
+      c2.game.pList(0).karten.size shouldBe (2)
+      c2.undo()
+      c2.game.pList(0).karten.size shouldBe (1)
+      c2.redo()
+      c2.game.pList(0).karten.size shouldBe (2)
+
+      c2.place(0)
+      c2.game.pList(0).karten.size shouldBe (1)
+      c2.game.midCard.karten(0) shouldBe (R1)
+      c2.undo()
+      c2.game.pList(0).karten.size shouldBe (2)
+      c2.game.midCard.karten(0) shouldBe (R0)
+      c2.redo()
+      c2.game.pList(0).karten.size shouldBe (1)
+      c2.game.midCard.karten(0) shouldBe (R1)
+    }
+
+    "override the method toString" in {
+      c.toString shouldEqual (c.game.toString)
+    }
+
   }
 }
