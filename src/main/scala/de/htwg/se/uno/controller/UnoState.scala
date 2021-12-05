@@ -7,21 +7,20 @@ import model.Game
 import util.Command
 
 object player1State extends State {
-
   //Errors aus State in Game
+
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
         e.controller.game = e.controller.game.take("P1")
         e.controller.game.setError(0)
       case e: PlaceCommand =>
-        println("hier")
         e.controller.game = e.controller.game.place(e.ind, 0)
         e.controller.game.setError(0)
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(0))) {
           println(
-            e.controller.game.pList(0).getName() + " hat gewonnen! GZ"
+            e.controller.game.pList(0).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(
@@ -31,13 +30,13 @@ object player1State extends State {
         } else { e.controller.game }
       case e: NextCommand =>
         Game(
-          e.controller.game.pList,
+          e.controller.game.pList
+            .updated(0, e.controller.game.pList(0).setFalse()),
           between12State,
           0,
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object player2State extends State {
@@ -52,7 +51,7 @@ object player2State extends State {
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(1))) {
           println(
-            e.controller.game.pList(1).getName() + " hat gewonnen! GZ"
+            e.controller.game.pList(1).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(
@@ -62,17 +61,16 @@ object player2State extends State {
         } else { e.controller.game }
       case e: NextCommand =>
         Game(
-          e.controller.game.pList,
+          e.controller.game.pList
+            .updated(1, e.controller.game.pList(1).setFalse()),
           between21State,
           0,
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object between12State extends State {
-
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
@@ -89,11 +87,9 @@ object between12State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }
 
 object between21State extends State {
-
   override def handle(command: Command): Game =
     command match
       case e: TakeCommand =>
@@ -110,5 +106,4 @@ object between21State extends State {
           e.controller.game.cardStack,
           e.controller.game.midCard
         )
-
 }

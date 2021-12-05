@@ -10,6 +10,7 @@ import scala.io.StdIn
 import util._
 import controller._
 import Console.{RED, GREEN, RESET}
+import scala.util.{Try, Success, Failure}
 
 object Game {
   def newGame(player1: String, player2: String): Game =
@@ -26,13 +27,16 @@ case class Game(
 ):
   def this(player1: String, player2: String) =
     this(
-      List(Player(player1, Vector[Card]()), Player(player2, Vector[Card]())),
+      List(
+        Player(player1, Vector[Card](), false),
+        Player(player2, Vector[Card](), false)
+      ),
       between21State,
       0,
       new CardStack(
         Card.values.map(x => (x, 2)).toMap
       ),
-      Player("midcard", Vector[Card]())
+      Player("midcard", Vector[Card](), false)
     )
 
   //def this(): Game = this(player1,player2,kartenAnzahl)
@@ -44,13 +48,14 @@ case class Game(
   //Funktionen des Spiels
   //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Game =
+    //evtl. erst die Abfrage ob es ein richtiger Spieler ist da man sonst unnötig einmal take aufruft
     if (card.toString == "XX") {
       take(player)
     } else if (cardStack.cards(card) == 0) {
       take(player)
     } else if (
       player
-        .equalsIgnoreCase("P1") || player.equalsIgnoreCase(pList(0).getName())
+        .equalsIgnoreCase("P1") || player.equalsIgnoreCase(pList(0).name)
     ) {
       copy(
         pList.updated(0, pList(0).add(card)),
@@ -61,7 +66,7 @@ case class Game(
       )
     } else if (
       player
-        .equalsIgnoreCase("P2") || player.equalsIgnoreCase(pList(1).getName())
+        .equalsIgnoreCase("P2") || player.equalsIgnoreCase(pList(1).name)
     ) {
       copy(
         pList.updated(1, pList(1).add(card)),
@@ -79,7 +84,7 @@ case class Game(
         midCard.add(card)
       )
     } else {
-      this
+      setError(-1)
     }
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
@@ -87,8 +92,20 @@ case class Game(
     val rnd = r.nextInt(cardsInDeck - 1)
     add(player, Card.values(rnd))
 
+  def checkPlace(ind: Int, player: Int): Boolean =
+    Try {
+      (midCard
+        .karten(0)
+        .getColor == pList(player).karten(ind).getColor) || (midCard
+        .karten(0)
+        .getValue == pList(player).karten(ind).getValue)
+    } match {
+      case Success(x) => x
+      case Failure(y) => false
+    }
+
   def place(ind: Int, player: Int): Game =
-    if (checkPlace(ind, player)) {
+    if (checkPlace(ind, player) && !pList(player).placed) {
       copy(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
@@ -96,33 +113,23 @@ case class Game(
         cardStack.increase(pList(player).karten(ind)),
         Player(
           midCard.name,
-          midCard.karten.updated(0, pList(player).karten(ind))
+          midCard.karten.updated(0, pList(player).karten(ind)),
+          false
         )
       )
     } else {
       Console.println(
         s"${RED}!!!Karte kann nicht gelegt werden!!!${RESET}"
       )
-      this
+      setError(-1)
     }
 
-  def checkPlace(ind: Int, player: Int): Boolean =
-    if (
-      ((midCard
-        .karten(0)
-        .getColor == pList(player).karten(ind).getColor) || (midCard
-        .karten(0)
-        .getValue == pList(player).karten(ind).getValue))
-    ) {
-      true
-    } else {
-      false
-    }
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {
       return true
     }
     return false
+
   def setError(err: Int): Game =
     copy(
       pList,
@@ -131,6 +138,7 @@ case class Game(
       cardStack,
       midCard
     )
+
   def playerFill(count: Int): Game =
     var tmp = this
     for (i <- 1 to count) {
@@ -138,20 +146,28 @@ case class Game(
       tmp = tmp.take("P2")
     }
     tmp
+
   override def toString: String =
     if (currentstate == player1State) {
-      return pList(0).getName() + eol + pList(0).print() + eol + midCard
+      return pList(0).name + eol + pList(0).print() + eol + midCard
         .print() + eol + pList(1)
-        .printFiller() + pList(1)
-        .getName() + eol
+        .printFiller() + pList(1).name + eol
     } else if (currentstate == player2State) {
-      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
         .print() + eol + pList(1)
-        .print() + pList(1)
-        .getName() + eol
+        .print() + pList(1).name + eol
     } else {
-      return pList(0).getName() + eol + pList(0).printFiller() + eol + midCard
+      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
         .print() + eol + pList(1)
-        .printFiller() + pList(1)
-        .getName() + eol
+        .printFiller() + pList(1).name + eol
     }
+
+  def addTest(p: String, card: Card): Game =
+    //val tmp = midCard.karten(0)
+    copy(
+      pList,
+      currentstate,
+      ERROR,
+      cardStack.decrease(card), //.increase(tmp)
+      midCard.removeInd(0).add(card)
+    )

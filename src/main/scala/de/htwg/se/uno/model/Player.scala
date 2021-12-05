@@ -3,7 +3,7 @@ package model
 import Card._
 import CardLayout._
 
-case class Player(name: String, karten: Vector[Card]) {
+case class Player(name: String, karten: Vector[Card], placed: Boolean) {
 
   def print(): String = //printet bei einem leeren Vektor trotzdem noch eine Karte aber ohne Wert
     if (karten.size == 0) {
@@ -26,12 +26,11 @@ case class Player(name: String, karten: Vector[Card]) {
   //entfernt den Eintrag in dem Vector an der Index Stelle
   def removeInd(ind: Int): Player =
     val (tmp1, tmp2) = karten.splitAt(ind)
-    copy(name, tmp1.toVector ++ tmp2.toVector.drop(1))
+    copy(name, tmp1.toVector ++ tmp2.toVector.drop(1), true)
 
-  def getName(): String =
-    name
+  def setFalse(): Player =
+    copy(name, karten, false)
 
-  //Was passiert wenn man eine falsche Karte einfügen will
   def add(karte: Card): Player =
     copy(name, karten :+ karte)
 }

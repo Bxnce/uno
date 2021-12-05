@@ -76,3 +76,5 @@ object toCard:
 var c = Card.values.map(x => (x, 2)).toMap
 
 c.updated(Card.G1, 1)
+
+import scala.util.{Try, Success, Failure}

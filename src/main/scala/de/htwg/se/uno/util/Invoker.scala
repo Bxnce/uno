@@ -26,8 +26,8 @@ class Invoker {
       }
     }
   }
-  def redoStep: Option[Game] = {
 
+  def redoStep: Option[Game] = {
     redoStack match {
       case Nil => None
       case head :: stack => {

@@ -25,12 +25,12 @@ case class Controller(var g: Game) extends Observable:
     game = invoker.doStep(UnoCommand(this, "next"))
     notifyObservers
 
-  def redo() =
-    game = invoker.redoStep.getOrElse(game)
-    notifyObservers
-
   def undo() =
     game = invoker.undoStep.getOrElse(game)
+    notifyObservers
+
+  def redo() =
+    game = invoker.redoStep.getOrElse(game)
     notifyObservers
 
   override def toString: String =
