@@ -16,8 +16,6 @@ class TUI(controller: Controller) extends Observer:
     "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
   )
 
-  def this() = this(new Controller(Game.newGame("Player 1", "Player 2")))
-
   def run(input: String) =
     convertinputString(input) match
       case ERROR   => printhelp()
@@ -39,11 +37,7 @@ class TUI(controller: Controller) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.game = Game.newGame(
-          readLine("Name Spieler1:                   "),
-          readLine("Name Spieler2:                   ")
-        )
-        println(controller.toString)
+        controller.newG()
         return SUCCESS
 
       case "take" | "+" =>

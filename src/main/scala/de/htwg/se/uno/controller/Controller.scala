@@ -1,6 +1,7 @@
 package de.htwg.se.uno
 package controller
 
+import scala.io.StdIn.readLine
 import model.Game
 import model.toCard._
 import util.Observable
@@ -8,9 +9,8 @@ import util.Invoker
 import model._
 import Console.{RED, RESET}
 
-case class Controller(var g: Game) extends Observable:
+case class Controller(var game: Game) extends Observable:
   private val invoker = new Invoker
-  var game = g
 
   def take() =
     game = invoker.doStep(UnoCommand(this, "take"))
@@ -19,6 +19,9 @@ case class Controller(var g: Game) extends Observable:
   def place(ind: Int) =
     game = invoker.doStep(UnoCommand(ind, this))
     game = invoker.doStep(UnoCommand(this, "win"))
+    if (game.ERROR != -1) {
+      game = invoker.doStep(UnoCommand(this, "next"))
+    }
     notifyObservers
 
   def next() =
@@ -31,6 +34,13 @@ case class Controller(var g: Game) extends Observable:
 
   def redo() =
     game = invoker.redoStep.getOrElse(game)
+    notifyObservers
+
+  def newG() =
+    game = Game.newGame(
+      readLine("Name Spieler1:                   "),
+      readLine("Name Spieler2:                   ")
+    )
     notifyObservers
 
   override def toString: String =

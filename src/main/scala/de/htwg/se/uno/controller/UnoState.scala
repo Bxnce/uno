@@ -16,7 +16,7 @@ object player1State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 0)
-        e.controller.game.setError(0)
+        e.controller.game
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(0))) {
           println(
@@ -47,7 +47,7 @@ object player2State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 1)
-        e.controller.game.setError(0)
+        e.controller.game
       case e: WinCommand =>
         if (e.controller.game.checkWin(e.controller.game.pList(1))) {
           println(

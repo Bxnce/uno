@@ -8,8 +8,9 @@ import Console.{BLUE, RESET}
 
 @main def Main: Unit =
   println("\n" * 50)
-  val tui = TUI()
-  val gui = GUI()
+  val controller = new Controller(Game.newGame("Player 1", "Player 2"))
+  val tui = TUI(controller)
+  val gui = GUI(controller)
 
   var input: String = ""
   while input != "q" && input != "exit" do

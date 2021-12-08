@@ -109,7 +109,7 @@ case class Game(
       copy(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
-        ERROR,
+        0,
         cardStack.increase(pList(player).karten(ind)),
         Player(
           midCard.name,
