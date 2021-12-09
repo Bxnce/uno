@@ -42,6 +42,8 @@ case class Controller(var game: Game) extends Observable:
       readLine("Name Spieler2:                   ")
     )
     notifyObservers
-
+  def newG(p1: String, p2: String) =
+    game = Game.newGame(p1, p2)
+    notifyObservers
   override def toString: String =
     game.toString()

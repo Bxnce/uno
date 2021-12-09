@@ -6,10 +6,58 @@ import scala.swing._
 import controller.Controller
 import de.htwg.se.uno.util.Observer
 
-class GUI(controller: Controller) extends Observer:
+class GUI(controller: Controller) extends MainFrame with Observer:
+
+  val inTa = new TextArea("Input here") {
+    maximumSize = new Dimension(100, 20)
+    minimumSize = new Dimension(100, 20)
+    preferredSize = new Dimension(100, 20)
+  }
+  val ngBut = new Button("New Game") {
+    reactions += { case event.ButtonClicked(_) =>
+      val tmp = inTa.text.split(" ")
+      controller.newG(tmp(0), tmp(1))
+    }
+  }
+  val nBut = new Button("Next") {
+    reactions += { case event.ButtonClicked(_) =>
+      controller.next()
+    }
+  }
+  val tBut = new Button("Take") {
+    reactions += { case event.ButtonClicked(_) =>
+      controller.take()
+    }
+  }
+  val pBut = new Button("Place") {
+    reactions += { case event.ButtonClicked(_) =>
+      printf("%d", inTa.text.toInt)
+      controller.place(inTa.text.toInt - 1)
+    }
+  }
+
+  val out = new TextPane() {
+    maximumSize = new Dimension(100, 200)
+    minimumSize = new Dimension(100, 200)
+    preferredSize = new Dimension(100, 200)
+  }
+  title = "Uno"
+  contents = new FlowPanel {
+    contents += inTa
+    contents += ngBut
+    contents += nBut
+    contents += tBut
+    contents += pBut
+    contents += out
+  }
+  pack()
+  centerOnScreen()
+  open()
   override def update: Unit =
-    print(controller.toString())
-  val r = scala.util.Random
+    out.text = "Bonjour"
+    out.repaint
+    this.repaint
+/*val r = scala.util.Random
   var ind = "Hier"
   val test: FlowPanel = new FlowPanel()
   test.contents += new Label("Test")
@@ -54,3 +102,4 @@ class GUI(controller: Controller) extends Observer:
     centerOnScreen()
     open()
   }
+ */

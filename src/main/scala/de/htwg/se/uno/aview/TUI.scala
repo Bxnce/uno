@@ -19,7 +19,7 @@ class TUI(controller: Controller) extends Observer:
   def run(input: String) =
     convertinputString(input) match
       case ERROR   => printhelp()
-      case EXIT    => print("Goodbye\n")
+      case EXIT    => System.exit(0)
       case SUCCESS => print("\n\n")
       case _       => print("Hier sollten sie nicht hinkommen\n")
 
