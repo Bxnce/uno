@@ -6,8 +6,12 @@ import scala.swing._
 import controller.Controller
 import de.htwg.se.uno.util.Observer
 
-class GUI(controller: Controller) extends MainFrame with Observer:
-
+class GUI(controller: Controller) extends MainFrame with Observer {
+  controller.add(this)
+  override def update: Unit =
+    out.text = controller.toString
+    out.repaint
+    this.repaint
   val inTa = new TextArea("Input here") {
     maximumSize = new Dimension(100, 20)
     minimumSize = new Dimension(100, 20)
@@ -37,9 +41,10 @@ class GUI(controller: Controller) extends MainFrame with Observer:
   }
 
   val out = new TextPane() {
-    maximumSize = new Dimension(100, 200)
-    minimumSize = new Dimension(100, 200)
-    preferredSize = new Dimension(100, 200)
+    font = new Font("Monaco", 0, 14)
+    maximumSize = new Dimension(1000, 200)
+    minimumSize = new Dimension(1000, 200)
+    preferredSize = new Dimension(1000, 200)
   }
   title = "Uno"
   contents = new FlowPanel {
@@ -53,10 +58,7 @@ class GUI(controller: Controller) extends MainFrame with Observer:
   pack()
   centerOnScreen()
   open()
-  override def update: Unit =
-    out.text = "Bonjour"
-    out.repaint
-    this.repaint
+}
 /*val r = scala.util.Random
   var ind = "Hier"
   val test: FlowPanel = new FlowPanel()
