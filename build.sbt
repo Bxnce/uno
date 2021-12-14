@@ -13,3 +13,5 @@ lazy val root = project
       .cross(CrossVersion.for3Use2_13)
   )
   .enablePlugins(JacocoCoverallsPlugin)
+//falls es zu Problemem mit Parallelität kommt
+//parallelExecution in Test := false
