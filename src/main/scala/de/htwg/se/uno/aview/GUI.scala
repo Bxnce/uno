@@ -8,6 +8,14 @@ import de.htwg.se.uno.util.Observer
 import scala.swing._
 import java.awt.Color
 
+import scala.util.Try
+import scala.util.Success
+import scala.util.Failure
+import javax.swing.ImageIcon
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
+import java.io.File
+
 class GUI(controller: Controller) extends MainFrame with Observer {
   controller.add(this)
   override def update: Unit =
@@ -74,6 +82,20 @@ class GUI(controller: Controller) extends MainFrame with Observer {
     minimumSize = new Dimension(415, 250)
     preferredSize = new Dimension(415, 250)
   }
+
+  val test = new BoxPanel(Orientation.Horizontal) {
+    title = "Test Icon"
+    val imagePath = "src/main/resources/cards/blue_0.png"
+    val image: BufferedImage =
+      Try(ImageIO.read(new File(imagePath))) match {
+        case s: Success[BufferedImage] => s.value
+        case f: Failure[BufferedImage] =>
+          new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB)
+      }
+    val imgIcon = new ImageIcon(image)
+    contents += new Label("", imgIcon, Alignment.Center)
+  }
+
   title = "Uno"
   val buttons = new BoxPanel(Orientation.Horizontal) {
 
@@ -89,6 +111,7 @@ class GUI(controller: Controller) extends MainFrame with Observer {
   val all = new BoxPanel(Orientation.Vertical) {
     contents += butandin
     contents += out
+    contents += test
   }
   contents = all
   pack()
