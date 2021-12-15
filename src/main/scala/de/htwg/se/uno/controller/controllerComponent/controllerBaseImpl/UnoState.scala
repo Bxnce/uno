@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package controller
+package controller.controllerComponent
 
 import scala.io.StdIn.readLine
 import util.State

@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package controller
+package controller.controllerComponent
 
 import scala.io.StdIn.readLine
 import model.Game
@@ -9,8 +9,8 @@ import util.Invoker
 import model._
 import Console.{RED, RESET}
 
-case class Controller(var game: Game) extends Observable:
-  private val invoker = new Invoker
+case class Controller(var game: Game) extends controllerInterface:
+  val invoker = new Invoker
 
   def take() =
     game = invoker.doStep(UnoCommand(this, "take"))

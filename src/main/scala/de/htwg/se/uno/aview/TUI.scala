@@ -2,12 +2,12 @@ package de.htwg.se.uno
 package aview
 
 import scala.io.StdIn.readLine
-import controller.Controller
+import controller.controllerComponent.controllerInterface
 import model.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
-class TUI(controller: Controller) extends Observer:
+class TUI(controller: controllerInterface) extends Observer:
   val ERROR = -1
   val EXIT = 0
   val SUCCESS = 1

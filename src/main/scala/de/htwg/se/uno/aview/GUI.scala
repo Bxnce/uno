@@ -3,7 +3,7 @@ package aview
 
 import scala.util.Random
 import scala.swing._
-import controller.Controller
+import controller.controllerComponent.controllerInterface
 import de.htwg.se.uno.util.Observer
 import scala.swing._
 import java.awt.Color
@@ -18,7 +18,7 @@ import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.io.File
 
-class GUI(controller: Controller) extends MainFrame with Observer {
+class GUI(controller: controllerInterface) extends MainFrame with Observer {
   controller.add(this)
   override def update: Unit =
     out.text = controller.toString
@@ -138,7 +138,7 @@ class GUI(controller: Controller) extends MainFrame with Observer {
     }
   }
 
-  def unofield(controller: Controller) = new GridPanel(2, maxCards) {
+  def unofield(controller: controllerInterface) = new GridPanel(2, maxCards) {
     val max = maxCards
     for {
       row <- 0 to 2 - 1

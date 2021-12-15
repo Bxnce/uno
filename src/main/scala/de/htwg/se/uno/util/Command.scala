@@ -1,10 +1,10 @@
 package de.htwg.se.uno
 package util
 
-import controller.Controller
+import controller.controllerComponent.controllerInterface
 import model.Game
 
-trait Command(controller: Controller) { //template Pattern eingebaut
+trait Command(controller: controllerInterface) { //template Pattern eingebaut
   val oldgame = controller.game
   var newgame = controller.game
 

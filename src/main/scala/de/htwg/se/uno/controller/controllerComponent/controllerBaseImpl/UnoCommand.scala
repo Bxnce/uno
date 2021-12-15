@@ -1,31 +1,34 @@
 package de.htwg.se.uno
-package controller
+package controller.controllerComponent
 
 import util.Command
-import controller.Controller
+import controller.controllerComponent.controllerInterface
 import model._
 
-case class TakeCommand(controller: Controller) extends Command(controller) {
+case class TakeCommand(controller: controllerInterface)
+    extends Command(controller) {
   override def execute =
     newgame = controller.game.currentstate.handle(this)
     newgame
 }
 
-case class PlaceCommand(ind: Int, controller: Controller)
+case class PlaceCommand(ind: Int, controller: controllerInterface)
     extends Command(controller) {
 
   override def execute =
     newgame = controller.game.currentstate.handle(this)
     newgame
 }
-case class WinCommand(controller: Controller) extends Command(controller) {
+case class WinCommand(controller: controllerInterface)
+    extends Command(controller) {
 
   override def execute =
     newgame = controller.game.currentstate.handle(this)
     newgame
 }
 
-case class NextCommand(controller: Controller) extends Command(controller) {
+case class NextCommand(controller: controllerInterface)
+    extends Command(controller) {
 
   override def execute =
     newgame = controller.game.currentstate.handle(this)
@@ -33,7 +36,7 @@ case class NextCommand(controller: Controller) extends Command(controller) {
 }
 
 object UnoCommand { //Factory
-  def apply(controller: Controller, dec: String) =
+  def apply(controller: controllerInterface, dec: String) =
     dec match
       case "take" =>
         new TakeCommand(controller)
@@ -42,6 +45,6 @@ object UnoCommand { //Factory
       case "win" =>
         new WinCommand(controller)
 
-  def apply(ind: Int, controller: Controller) =
+  def apply(ind: Int, controller: controllerInterface) =
     new PlaceCommand(ind, controller)
 }

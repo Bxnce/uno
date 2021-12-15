@@ -8,7 +8,7 @@ import CardLayout._
 import Card._
 import scala.io.StdIn
 import util._
-import controller._
+import controller.controllerComponent._
 import Console.{RED, GREEN, RESET}
 import scala.util.{Try, Success, Failure}
 

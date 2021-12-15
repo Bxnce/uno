@@ -2,7 +2,7 @@ package de.htwg.se.uno
 package util
 
 import model.Game
-import controller.WinCommand
+import controller.controllerComponent.WinCommand
 
 class Invoker {
   private var undoStack: List[Command] = Nil
