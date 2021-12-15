@@ -4,6 +4,7 @@ package controller.controllerComponent
 import util.Command
 import controller.controllerComponent.controllerInterface
 import model._
+import model.CardLayout.eol
 
 case class TakeCommand(controller: controllerInterface)
     extends Command(controller) {
@@ -35,6 +36,38 @@ case class NextCommand(controller: controllerInterface)
     newgame
 }
 
+case class toStringCommand(controller: controllerInterface)
+    extends Command(controller) {
+
+  override def execute =
+    controller.game
+  override def toString: String =
+    if (controller.game.currentstate == player1State) {
+      return controller.game.pList(0).name + eol + controller.game
+        .pList(0)
+        .print() + eol + controller.game.midCard
+        .print() + eol + controller.game
+        .pList(1)
+        .printFiller() + controller.game.pList(1).name + eol
+    } else if (controller.game.currentstate == player2State) {
+      return controller.game.pList(0).name + eol + controller.game
+        .pList(0)
+        .printFiller() + eol + controller.game.midCard
+        .print() + eol + controller.game
+        .pList(1)
+        .print() + controller.game.pList(1).name + eol
+    } else {
+      return controller.game
+        .pList(0)
+        .name + eol + controller.game
+        .pList(0)
+        .printFiller() + eol + controller.game.midCard
+        .print() + eol + controller.game
+        .pList(1)
+        .printFiller() + controller.game.pList(1).name + eol
+    }
+}
+
 object UnoCommand { //Factory
   def apply(controller: controllerInterface, dec: String) =
     dec match
@@ -44,6 +77,8 @@ object UnoCommand { //Factory
         new NextCommand(controller)
       case "win" =>
         new WinCommand(controller)
+      case "print" =>
+        new toStringCommand(controller)
 
   def apply(ind: Int, controller: controllerInterface) =
     new PlaceCommand(ind, controller)

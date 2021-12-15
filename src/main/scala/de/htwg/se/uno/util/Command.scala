@@ -15,17 +15,3 @@ trait Command(controller: controllerInterface) { //template Pattern eingebaut
   def redoStep: Game =
     newgame
 }
-
-/*
-trait CommandTemplate(controller: Controller) extends Command {
-  val oldgame = controller.game
-  var newgame = controller.game
-
-  override def execute =
-    oldgame
-  override def undoStep =
-    oldgame
-  override def redoStep =
-    newgame
-
-}*/

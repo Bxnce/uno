@@ -91,4 +91,4 @@ class TUI(controller: controllerInterface) extends Observer:
               ${RESET}""" + "\n")
 
   override def update: Unit =
-    print(controller.toString())
+    controller.toString()

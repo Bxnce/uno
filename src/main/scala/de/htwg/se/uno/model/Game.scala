@@ -8,13 +8,12 @@ import CardLayout._
 import Card._
 import scala.io.StdIn
 import util._
-import controller.controllerComponent._
 import Console.{RED, GREEN, RESET}
 import scala.util.{Try, Success, Failure}
 
 object Game {
-  def newGame(player1: String, player2: String): Game =
-    new Game(player1, player2).playerFill(7).take("midstack")
+  def newGame(player1: String, player2: String, startstate: State): Game =
+    new Game(player1, player2, startstate).playerFill(7).take("midstack")
 
 }
 
@@ -25,13 +24,13 @@ case class Game(
     cardStack: CardStack,
     midCard: Player
 ):
-  def this(player1: String, player2: String) =
+  def this(player1: String, player2: String, startstate: State) =
     this(
       List(
         Player(player1, Vector[Card](), false),
         Player(player2, Vector[Card](), false)
       ),
-      between21State,
+      startstate,
       0,
       new CardStack(
         Card.values.map(x => (x, 2)).toMap
@@ -146,21 +145,6 @@ case class Game(
       tmp = tmp.take("P2")
     }
     tmp
-
-  override def toString: String =
-    if (currentstate == player1State) {
-      return pList(0).name + eol + pList(0).print() + eol + midCard
-        .print() + eol + pList(1)
-        .printFiller() + pList(1).name + eol
-    } else if (currentstate == player2State) {
-      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
-        .print() + eol + pList(1)
-        .print() + pList(1).name + eol
-    } else {
-      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
-        .print() + eol + pList(1)
-        .printFiller() + pList(1).name + eol
-    }
 
   def addTest(p: String, card: Card): Game =
     //val tmp = midCard.karten(0)

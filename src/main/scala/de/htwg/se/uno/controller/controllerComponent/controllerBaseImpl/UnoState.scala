@@ -25,7 +25,8 @@ object player1State extends State {
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(
             readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   ")
+            readLine("Name Spieler2:                   "),
+            between21State
           )
         } else { e.controller.game }
       case e: NextCommand =>
@@ -56,7 +57,8 @@ object player2State extends State {
           readLine("ENTER fuer neues Spiel!")
           return Game.newGame(
             readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   ")
+            readLine("Name Spieler2:                   "),
+            between21State
           )
         } else { e.controller.game }
       case e: NextCommand =>

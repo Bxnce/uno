@@ -8,7 +8,9 @@ import Console.{BLUE, RESET}
 
 @main def Main: Unit =
   println("\n" * 50)
-  val controller = new Controller(Game.newGame("Spieler1", "Spieler2"))
+  val controller = new Controller(
+    Game.newGame("Spieler1", "Spieler2", between12State)
+  )
   val tui = TUI(controller)
   val gui = GUI(controller)
 
