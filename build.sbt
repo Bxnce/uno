@@ -14,4 +14,4 @@ lazy val root = project
   )
   .enablePlugins(JacocoCoverallsPlugin)
 //falls es zu Problemem mit Parallelität kommt
-//parallelExecution in Test := false
+parallelExecution in Test := false

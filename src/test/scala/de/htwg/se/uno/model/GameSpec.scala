@@ -17,19 +17,17 @@ import de.htwg.se.uno.controller.controllerComponent.between12State
 import de.htwg.se.uno.controller.controllerComponent.player2State
 
 class GameSpec extends AnyWordSpec {
-  "Object Game" should {
-    "have a method newGame(String, String) that creates a Game with the Constructor of the case Class" in {
+  "Case Class Game" should {
+    "have a second constructor that takes (String,String,State) and creates a new Game" in {
       val g1 = new Game("Bence", "Timo", between21State)
       g1.pList(0).name shouldBe ("Bence")
       g1.pList(1).name shouldBe ("Timo")
-      g1.pList(0).karten.size shouldBe (7)
-      g1.pList(1).karten.size shouldBe (7)
-      g1.midCard.karten.size shouldBe (1)
+      g1.pList(0).karten.size shouldBe (0)
+      g1.pList(1).karten.size shouldBe (0)
+      g1.midCard.karten.size shouldBe (0)
       g1.currentstate shouldEqual (between21State)
     }
-  }
 
-  "Case Class Game" should {
     "should create a game with 2 Players and one Card in the middle" in {
       val g1 = new Game("player1", "player2", between21State).take("midcard")
       g1.currentstate shouldEqual (between21State)
@@ -43,7 +41,7 @@ class GameSpec extends AnyWordSpec {
       var game1 = new Game("player1", "player2", between21State).take("midcard")
       game1.pList(0).karten.size shouldBe (0)
       game1.pList(1).karten.size shouldBe (0)
-      game1.midCard.karten.size shouldBe (0)
+      game1.midCard.karten.size shouldBe (1)
 
       game1 = game1.add("p1", XX)
       game1.ERROR shouldEqual (0)
@@ -238,111 +236,6 @@ class GameSpec extends AnyWordSpec {
       game1 = game1.playerFill(2)
       game1.pList(0).karten.size shouldBe (2)
       game1.pList(1).karten.size shouldBe (2)
-
-    }
-    "override the method toString() and return a String in Form of" in {
-      var game1 = new Game("player1", "player2", between21State)
-      game1 = game1.addTest("Midstack", R0)
-      game1 = Game(
-        game1.pList,
-        player1State,
-        game1.ERROR,
-        game1.cardStack,
-        game1.midCard
-      )
-      game1 = Game(
-        game1.pList,
-        between12State,
-        game1.ERROR,
-        game1.cardStack,
-        game1.midCard
-      )
-      game1.toString() shouldBe (
-        "player1" + eol +
-          "+--+" + eol +
-          "| 0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 0|" + eol +
-          "+--+" + eol +
-          "player2" + eol
-      )
-
-      var game2 = new Game("player1", "player2", between21State)
-      game2 = game2.add("P1", B0)
-      game2 = game2.addTest("midStack", R0)
-      game2 = game2.add("P2", G0)
-      game2 = Game(
-        game2.pList,
-        player1State,
-        game2.ERROR,
-        game2.cardStack,
-        game2.midCard
-      )
-      game2.toString() shouldBe (
-        "player1" + eol +
-          "+--+" + eol +
-          "|B0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "player2" + eol
-      )
-      game2 = Game(
-        game2.pList,
-        between12State,
-        game2.ERROR,
-        game2.cardStack,
-        game2.midCard
-      )
-      game2.toString() shouldBe (
-        "player1" + eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "player2" + eol
-      )
-      game2 = Game(
-        game2.pList,
-        player2State,
-        game2.ERROR,
-        game2.cardStack,
-        game2.midCard
-      )
-      game2.toString() shouldBe (
-        "player1" + eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|G0|" + eol +
-          "+--+" + eol +
-          "player2" + eol
-      )
     }
   }
 }

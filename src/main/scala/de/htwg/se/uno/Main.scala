@@ -14,7 +14,7 @@ import Console.{BLUE, RESET}
     new Game("place_h", "place_h", between21State)
   )
   val tui = TUI(controller)
-  val gui = GUI(controller)
+  //val gui = GUI(controller)
 
   var input: String = ""
   while input != "q" && input != "exit" do

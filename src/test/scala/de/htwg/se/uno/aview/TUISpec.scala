@@ -57,11 +57,10 @@ class TUISpec extends AnyWordSpec {
         controller.game.pList(0).karten.size shouldBe (4)
 
         tui.convertinputString("-") shouldBe (tui.ERROR)
-        tui.convertinputString("- 1") shouldBe (tui.SUCCESS)
+        tui.convertinputString("- 1") shouldBe (tui.SUCCESS) //p2n
         controller.game.pList(0).karten.size shouldBe (3)
         controller.game.midCard.karten(0) shouldBe (R0)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2n
         tui.convertinputString("+") shouldBe (tui.ERROR)
         tui.convertinputString("- 1") shouldBe (tui.ERROR)
 

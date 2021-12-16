@@ -38,7 +38,7 @@ case class Game(
   def init(): Game =
     this
       .playerFill(7)
-      .take("midstack")
+      .take("midcard")
 
   def getNext(game: gameInterface, player: Int, state: State): Game =
     if (player == -1) {
@@ -85,7 +85,7 @@ case class Game(
         cardStack.decrease(card),
         midCard
       )
-    } else if (player.equals("midstack")) {
+    } else if (player.equals("midcard")) {
       copy(
         pList,
         currentstate,
