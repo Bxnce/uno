@@ -2,10 +2,11 @@ package de.htwg.se.uno
 package controller.controllerComponent
 
 import util.Invoker
-import model._
+import model.gameComponent._
 import util.Observable
+
 trait controllerInterface extends Observable {
-  var game: Game
+  var game: gameInterface
   val invoker: Invoker
   def take(): Unit
   def place(ind: Int): Unit

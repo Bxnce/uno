@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model
+package model.gameComponent
 
 import scala.collection.immutable.HashMap
 import Card._

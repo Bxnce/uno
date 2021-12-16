@@ -3,8 +3,8 @@ package controller.controllerComponent
 
 import util.Command
 import controller.controllerComponent.controllerInterface
-import model._
-import model.CardLayout.eol
+import model.gameComponent._
+import model.gameComponent.CardLayout.eol
 
 case class TakeCommand(controller: controllerInterface)
     extends Command(controller) {

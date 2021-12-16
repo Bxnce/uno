@@ -8,8 +8,8 @@ import de.htwg.se.uno.util.Observer
 import scala.swing._
 import java.awt.Color
 
-import model.CardColor
-import model.CardValue
+import model.gameComponent.CardColor
+import model.gameComponent.CardValue
 import scala.util.Try
 import scala.util.Success
 import scala.util.Failure

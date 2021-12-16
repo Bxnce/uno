@@ -1,9 +1,8 @@
 package de.htwg.se.uno
 package util
 
-import model.Game._
-import model.Game
+import model.gameComponent.gameInterface
 
 trait State {
-  def handle(command: Command): Game
+  def handle(command: Command): gameInterface
 }

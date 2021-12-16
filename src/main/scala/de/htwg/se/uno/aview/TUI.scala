@@ -3,7 +3,7 @@ package aview
 
 import scala.io.StdIn.readLine
 import controller.controllerComponent.controllerInterface
-import model.Game
+import model.gameComponent.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
@@ -91,4 +91,4 @@ class TUI(controller: controllerInterface) extends Observer:
               ${RESET}""" + "\n")
 
   override def update: Unit =
-    controller.toString()
+    print(controller.toString())

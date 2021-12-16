@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model
+package model.gameComponent
 
 import scala.io.StdIn.readLine
 import Player._
@@ -11,11 +11,14 @@ import util._
 import Console.{RED, GREEN, RESET}
 import scala.util.{Try, Success, Failure}
 
-object Game {
-  def newGame(player1: String, player2: String, startstate: State): Game =
+/*object Game {
+  def apply(
+      player1: String,
+      player2: String,
+      startstate: State
+  ): Game =
     new Game(player1, player2, startstate).playerFill(7).take("midstack")
-
-}
+}*/
 
 case class Game(
     pList: List[Player],
@@ -23,7 +26,7 @@ case class Game(
     ERROR: Int,
     cardStack: CardStack,
     midCard: Player
-):
+) extends gameInterface:
   def this(player1: String, player2: String, startstate: State) =
     this(
       List(
@@ -40,10 +43,10 @@ case class Game(
 
   //def this(): Game = this(player1,player2,kartenAnzahl)
   //Var's und Val'
-
+  def init(): Game =
+    this.playerFill(7).take("midstack")
   val cardsInDeck = Card.values.size - 1
   val r = scala.util.Random
-
   //Funktionen des Spiels
   //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Game =

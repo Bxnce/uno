@@ -3,13 +3,14 @@ package controller.controllerComponent
 
 import scala.io.StdIn.readLine
 import util.State
-import model.Game
+import model.gameComponent.gameInterface
+import model.gameComponent.Game
 import util.Command
 
 object player1State extends State {
   //Errors aus State in Game
 
-  override def handle(command: Command): Game =
+  override def handle(command: Command): gameInterface =
     command match
       case e: TakeCommand =>
         e.controller.game = e.controller.game.take("P1")
@@ -23,7 +24,7 @@ object player1State extends State {
             e.controller.game.pList(0).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
-          return Game.newGame(
+          return gameInterface.apply(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
             between21State
@@ -41,7 +42,7 @@ object player1State extends State {
 }
 
 object player2State extends State {
-  override def handle(command: Command): Game =
+  override def handle(command: Command): gameInterface =
     command match
       case e: TakeCommand =>
         e.controller.game = e.controller.game.take("P2")
@@ -55,7 +56,7 @@ object player2State extends State {
             e.controller.game.pList(1).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
-          return Game.newGame(
+          return gameInterface.apply(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
             between21State
@@ -73,7 +74,7 @@ object player2State extends State {
 }
 
 object between12State extends State {
-  override def handle(command: Command): Game =
+  override def handle(command: Command): gameInterface =
     command match
       case e: TakeCommand =>
         e.controller.game.setError(-1)
@@ -92,7 +93,7 @@ object between12State extends State {
 }
 
 object between21State extends State {
-  override def handle(command: Command): Game =
+  override def handle(command: Command): gameInterface =
     command match
       case e: TakeCommand =>
         e.controller.game.setError(-1)

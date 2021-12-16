@@ -1,14 +1,14 @@
 package de.htwg.se.uno
 package util
 
-import model.Game
+import model.gameComponent.gameInterface
 import controller.controllerComponent.WinCommand
 
 class Invoker {
   private var undoStack: List[Command] = Nil
   private var redoStack: List[Command] = Nil
 
-  def doStep(command: Command): Game = {
+  def doStep(command: Command): gameInterface = {
     command match
       case e: WinCommand =>
       case _ =>
@@ -16,7 +16,7 @@ class Invoker {
     command.execute
   }
 
-  def undoStep: Option[Game] = {
+  def undoStep: Option[gameInterface] = {
     undoStack match {
       case Nil => None
       case head :: stack => {
@@ -27,7 +27,7 @@ class Invoker {
     }
   }
 
-  def redoStep: Option[Game] = {
+  def redoStep: Option[gameInterface] = {
     redoStack match {
       case Nil => None
       case head :: stack => {

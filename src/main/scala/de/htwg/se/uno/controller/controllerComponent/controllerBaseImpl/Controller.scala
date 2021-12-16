@@ -2,14 +2,14 @@ package de.htwg.se.uno
 package controller.controllerComponent
 
 import scala.io.StdIn.readLine
-import model.Game
-import model.toCard._
+import model.gameComponent.Game
+import model.gameComponent.toCard._
 import util.Observable
 import util.Invoker
-import model._
+import model.gameComponent._
 import Console.{RED, RESET}
 
-case class Controller(var game: Game) extends controllerInterface:
+case class Controller(var game: gameInterface) extends controllerInterface:
   val invoker = new Invoker
 
   def take() =
@@ -36,14 +36,14 @@ case class Controller(var game: Game) extends controllerInterface:
     notifyObservers
 
   def newG() =
-    game = Game.newGame(
+    game = Game(
       readLine("Name Spieler1:                   "),
       readLine("Name Spieler2:                   "),
       between21State
     )
     notifyObservers
   def newG(p1: String, p2: String) =
-    game = Game.newGame(p1, p2, between21State)
+    game = Game(p1, p2, between21State)
     notifyObservers
   override def toString: String =
     UnoCommand(this, "print").toString
