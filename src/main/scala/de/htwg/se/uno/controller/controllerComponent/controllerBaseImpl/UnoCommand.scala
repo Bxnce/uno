@@ -42,29 +42,33 @@ case class toStringCommand(controller: controllerInterface)
   override def execute =
     controller.game
   override def toString: String =
-    if (controller.game.currentstate == player1State) {
-      return controller.game.pList(0).name + eol + controller.game
-        .pList(0)
-        .print() + eol + controller.game.midCard
-        .print() + eol + controller.game
-        .pList(1)
-        .printFiller() + controller.game.pList(1).name + eol
-    } else if (controller.game.currentstate == player2State) {
-      return controller.game.pList(0).name + eol + controller.game
-        .pList(0)
-        .printFiller() + eol + controller.game.midCard
-        .print() + eol + controller.game
-        .pList(1)
-        .print() + controller.game.pList(1).name + eol
+    if (!controller.game.pList(0).name.equals("place_h")) {
+      if (controller.game.currentstate == player1State) {
+        return controller.game.pList(0).name + eol + controller.game
+          .pList(0)
+          .print() + eol + controller.game.midCard
+          .print() + eol + controller.game
+          .pList(1)
+          .printFiller() + controller.game.pList(1).name + eol
+      } else if (controller.game.currentstate == player2State) {
+        return controller.game.pList(0).name + eol + controller.game
+          .pList(0)
+          .printFiller() + eol + controller.game.midCard
+          .print() + eol + controller.game
+          .pList(1)
+          .print() + controller.game.pList(1).name + eol
+      } else {
+        return controller.game
+          .pList(0)
+          .name + eol + controller.game
+          .pList(0)
+          .printFiller() + eol + controller.game.midCard
+          .print() + eol + controller.game
+          .pList(1)
+          .printFiller() + controller.game.pList(1).name + eol
+      }
     } else {
-      return controller.game
-        .pList(0)
-        .name + eol + controller.game
-        .pList(0)
-        .printFiller() + eol + controller.game.midCard
-        .print() + eol + controller.game
-        .pList(1)
-        .printFiller() + controller.game.pList(1).name + eol
+      return ""
     }
 }
 

@@ -139,20 +139,22 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
   }
 
   def unofield(controller: controllerInterface) = new GridPanel(2, maxCards) {
-    val max = maxCards
-    for {
-      row <- 0 to 2 - 1
-      col <- 0 until max
-    } {
-      contents += (col match {
-        case -1 =>
-          new Label((row + 1).toString) {
-            preferredSize = new Dimension(30, 100)
+    if (!controller.game.pList(0).name.equals("place_h")) {
+      val max = maxCards
+      for {
+        row <- 0 to 2 - 1
+        col <- 0 until max
+      } {
+        contents += (col match {
+          case -1 =>
+            new Label((row + 1).toString) {
+              preferredSize = new Dimension(30, 100)
+            }
+          case _ => {
+            new Label("", newCard(row, col), Alignment.Center)
           }
-        case _ => {
-          new Label("", newCard(row, col), Alignment.Center)
-        }
-      })
+        })
+      }
     }
   }
 
