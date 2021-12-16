@@ -1,16 +1,16 @@
 package de.htwg.se.uno
-package controller
+package controller.controllerComponent
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.Game
-import model.Card._
+import model.gameComponent.Game
+import model.gameComponent.Card._
 import controller._
 
 class ControllerSpec extends AnyWordSpec {
   "Controller" should {
-    var game = new Game("p1", "p2")
+    var game = new Game("p1", "p2", between21State)
     game = game.addTest("midstack", R0)
     game = game.add("p1", B0)
     var c = new Controller(game)
@@ -52,7 +52,7 @@ class ControllerSpec extends AnyWordSpec {
       c.game.currentstate shouldEqual (player2State)
     }
 
-    var game1 = new Game("p1", "p2")
+    var game1 = new Game("p1", "p2", between21State)
     game1 = game1.addTest("midstack", R0)
     game1 = game1.add("p1", R1)
     var c1 = new Controller(game1)
@@ -81,7 +81,7 @@ class ControllerSpec extends AnyWordSpec {
       c1.game.midCard.karten(0) shouldBe (R0)
     }
 
-    var game2 = new Game("p1", "p2")
+    var game2 = new Game("p1", "p2", between21State)
     game2 = game2.addTest("midstack", R0)
     game2 = game2.add("p1", R1)
     var c2 = new Controller(game2)

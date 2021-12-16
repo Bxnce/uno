@@ -11,15 +11,6 @@ import util._
 import Console.{RED, GREEN, RESET}
 import scala.util.{Try, Success, Failure}
 
-/*object Game {
-  def apply(
-      player1: String,
-      player2: String,
-      startstate: State
-  ): Game =
-    new Game(player1, player2, startstate).playerFill(7).take("midstack")
-}*/
-
 case class Game(
     pList: List[Player],
     currentstate: State,
@@ -41,10 +32,27 @@ case class Game(
       Player("midcard", Vector[Card](), false)
     )
 
-  //def this(): Game = this(player1,player2,kartenAnzahl)
+  //def this(): Game = this(player1,player2)
   //Var's und Val'
+
   def init(): Game =
-    this.playerFill(7).take("midstack")
+    this
+      .playerFill(7)
+      .take("midstack")
+
+  def getNext(game: gameInterface, player: Int, state: State): Game =
+    if (player == -1) {
+      Game(game.pList, state, 0, game.cardStack, game.midCard)
+    } else {
+      Game(
+        game.pList
+          .updated(player, game.pList(player).setFalse()),
+        state,
+        0,
+        game.cardStack,
+        game.midCard
+      )
+    }
   val cardsInDeck = Card.values.size - 1
   val r = scala.util.Random
   //Funktionen des Spiels
@@ -150,7 +158,6 @@ case class Game(
     tmp
 
   def addTest(p: String, card: Card): Game =
-    //val tmp = midCard.karten(0)
     copy(
       pList,
       currentstate,

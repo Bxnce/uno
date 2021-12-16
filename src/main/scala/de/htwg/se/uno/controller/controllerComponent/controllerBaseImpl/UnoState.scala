@@ -24,21 +24,14 @@ object player1State extends State {
             e.controller.game.pList(0).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
-          return gameInterface.apply(
+          return new Game(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
             between21State
           )
         } else { e.controller.game }
       case e: NextCommand =>
-        Game(
-          e.controller.game.pList
-            .updated(0, e.controller.game.pList(0).setFalse()),
-          between12State,
-          0,
-          e.controller.game.cardStack,
-          e.controller.game.midCard
-        )
+        e.controller.game.getNext(e.controller.game, 0, between12State)
 }
 
 object player2State extends State {
@@ -56,21 +49,14 @@ object player2State extends State {
             e.controller.game.pList(1).name + " hat gewonnen! GZ"
           )
           readLine("ENTER fuer neues Spiel!")
-          return gameInterface.apply(
+          return new Game(
             readLine("Name Spieler1:                   "),
             readLine("Name Spieler2:                   "),
             between21State
           )
         } else { e.controller.game }
       case e: NextCommand =>
-        Game(
-          e.controller.game.pList
-            .updated(1, e.controller.game.pList(1).setFalse()),
-          between21State,
-          0,
-          e.controller.game.cardStack,
-          e.controller.game.midCard
-        )
+        e.controller.game.getNext(e.controller.game, 1, between21State)
 }
 
 object between12State extends State {
@@ -83,13 +69,7 @@ object between12State extends State {
       case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
-        Game(
-          e.controller.game.pList,
-          player2State,
-          0,
-          e.controller.game.cardStack,
-          e.controller.game.midCard
-        )
+        e.controller.game.getNext(e.controller.game, -1, player2State)
 }
 
 object between21State extends State {
@@ -102,11 +82,5 @@ object between21State extends State {
       case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
-        Game(
-          e.controller.game.pList,
-          player1State,
-          0,
-          e.controller.game.cardStack,
-          e.controller.game.midCard
-        )
+        e.controller.game.getNext(e.controller.game, -1, player1State)
 }

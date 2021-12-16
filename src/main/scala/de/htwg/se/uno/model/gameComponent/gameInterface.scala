@@ -19,7 +19,7 @@ trait gameInterface {
   def setError(err: Int): gameInterface
   def playerFill(count: Int): gameInterface
   def addTest(p: String, card: Card): gameInterface
-  def apply(player1: String, player2: String, startstate: State): gameInterface
   def init(): gameInterface
+  def getNext(game: gameInterface, player: Int, state: State): gameInterface
 
 }

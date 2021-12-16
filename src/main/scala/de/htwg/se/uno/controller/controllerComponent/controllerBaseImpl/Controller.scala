@@ -36,14 +36,14 @@ case class Controller(var game: gameInterface) extends controllerInterface:
     notifyObservers
 
   def newG() =
-    game = Game(
+    game = new Game(
       readLine("Name Spieler1:                   "),
       readLine("Name Spieler2:                   "),
       between21State
-    )
+    ).init()
     notifyObservers
   def newG(p1: String, p2: String) =
-    game = Game(p1, p2, between21State)
+    game = new Game(p1, p2, between21State).init()
     notifyObservers
   override def toString: String =
     UnoCommand(this, "print").toString
