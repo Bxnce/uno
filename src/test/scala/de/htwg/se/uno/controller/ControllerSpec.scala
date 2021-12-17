@@ -1,16 +1,17 @@
 package de.htwg.se.uno
-package controller
+package controller.controllerComponent
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.Game
-import model.Card._
+import model.gameComponent.Game
+import model.gameComponent.Card._
+import model.gameComponent.CardLayout.eol
 import controller._
 
 class ControllerSpec extends AnyWordSpec {
   "Controller" should {
-    var game = new Game("p1", "p2")
+    var game = new Game("p1", "p2", between21State)
     game = game.addTest("midstack", R0)
     game = game.add("p1", B0)
     var c = new Controller(game)
@@ -41,7 +42,6 @@ class ControllerSpec extends AnyWordSpec {
       c.place(0)
       c.game.ERROR shouldBe (0)
       c.game.midCard.karten(0) shouldBe (B0)
-      c.next() //p2n
       c.game.currentstate shouldBe (between12State)
       c.place(0)
       c.game.ERROR shouldBe (-1)
@@ -52,7 +52,7 @@ class ControllerSpec extends AnyWordSpec {
       c.game.currentstate shouldEqual (player2State)
     }
 
-    var game1 = new Game("p1", "p2")
+    var game1 = new Game("p1", "p2", between21State)
     game1 = game1.addTest("midstack", R0)
     game1 = game1.add("p1", R1)
     var c1 = new Controller(game1)
@@ -65,7 +65,7 @@ class ControllerSpec extends AnyWordSpec {
       c1.undo()
       c1.game.currentstate shouldEqual (between21State)
 
-      c1.next()
+      c1.next() //p1s
 
       c1.take()
       c1.game.pList(0).karten.size shouldBe (2)
@@ -73,15 +73,16 @@ class ControllerSpec extends AnyWordSpec {
       c1.game.pList(0).karten.size shouldBe (1)
 
       c1.take() //dass er nicht gewinnt
-      c1.place(0)
+      c1.place(0) //p2n
       c1.game.pList(0).karten.size shouldBe (1)
       c1.game.midCard.karten(0) shouldBe (R1)
       c1.undo()
+      c1.undo() //man bracuht jetzt 2 Undos, da Place ja direkt danach noch ein next ausführt
       c1.game.pList(0).karten.size shouldBe (2)
       c1.game.midCard.karten(0) shouldBe (R0)
     }
 
-    var game2 = new Game("p1", "p2")
+    var game2 = new Game("p1", "p2", between21State)
     game2 = game2.addTest("midstack", R0)
     game2 = game2.add("p1", R1)
     var c2 = new Controller(game2)
@@ -105,6 +106,7 @@ class ControllerSpec extends AnyWordSpec {
       c2.game.pList(0).karten.size shouldBe (1)
       c2.game.midCard.karten(0) shouldBe (R1)
       c2.undo()
+      c2.undo()
       c2.game.pList(0).karten.size shouldBe (2)
       c2.game.midCard.karten(0) shouldBe (R0)
       c2.redo()
@@ -113,7 +115,43 @@ class ControllerSpec extends AnyWordSpec {
     }
 
     "override the method toString" in {
-      c.toString shouldEqual (c.game.toString)
+      var game2 = new Game("p1", "p2", between21State)
+      game2 = game2.addTest("midstack", R0)
+      game2 = game2.add("p1", R1)
+      game2 = game2.add("p2", G1)
+      var c2 = new Controller(game2)
+
+      c2.toString shouldBe (
+        "p1" + eol +
+          "+--+" + eol +
+          "| 1|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "|R0|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "| 1|" + eol +
+          "+--+" + eol +
+          "p2" + eol
+      )
+      c2.next()
+      c2.toString shouldBe (
+        "p1" + eol +
+          "+--+" + eol +
+          "|R1|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "|R0|" + eol +
+          "+--+" + eol +
+          eol +
+          "+--+" + eol +
+          "| 1|" + eol +
+          "+--+" + eol +
+          "p2" + eol
+      )
     }
 
   }

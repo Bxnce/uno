@@ -2,12 +2,12 @@ package de.htwg.se.uno
 package aview
 
 import scala.io.StdIn.readLine
-import controller.Controller
-import model.Game
+import controller.controllerComponent.controllerInterface
+import model.gameComponent.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
-class TUI(controller: Controller) extends Observer:
+class TUI(controller: controllerInterface) extends Observer:
   val ERROR = -1
   val EXIT = 0
   val SUCCESS = 1
@@ -16,12 +16,10 @@ class TUI(controller: Controller) extends Observer:
     "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
   )
 
-  def this() = this(new Controller(Game.newGame("Player 1", "Player 2")))
-
   def run(input: String) =
     convertinputString(input) match
       case ERROR   => printhelp()
-      case EXIT    => print("Goodbye\n")
+      case EXIT    => System.exit(0)
       case SUCCESS => print("\n\n")
       case _       => print("Hier sollten sie nicht hinkommen\n")
 
@@ -39,11 +37,7 @@ class TUI(controller: Controller) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.game = Game.newGame(
-          readLine("Name Spieler1:                   "),
-          readLine("Name Spieler2:                   ")
-        )
-        println(controller.toString)
+        controller.newG()
         return SUCCESS
 
       case "take" | "+" =>

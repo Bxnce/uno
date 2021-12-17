@@ -4,17 +4,17 @@ package aview
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.Game
-import model.Game._
-import model.Card._
-import model.CardLayout._
-import controller.Controller
+import model.gameComponent.Game
+import model.gameComponent.Game._
+import model.gameComponent.Card._
+import model.gameComponent.CardLayout._
+import controller.controllerComponent.Controller
 import util._
-import controller._
+import controller.controllerComponent._
 
 class TUISpec extends AnyWordSpec {
   "TUI" when {
-    var game = new Game("Bence", "Timo")
+    var game = new Game("Bence", "Timo", between21State)
     game = game.addTest("midStack", Y0)
     game = game.add("P1", R0)
     game = game.add("P1", R1)
@@ -57,11 +57,10 @@ class TUISpec extends AnyWordSpec {
         controller.game.pList(0).karten.size shouldBe (4)
 
         tui.convertinputString("-") shouldBe (tui.ERROR)
-        tui.convertinputString("- 1") shouldBe (tui.SUCCESS)
+        tui.convertinputString("- 1") shouldBe (tui.SUCCESS) //p2n
         controller.game.pList(0).karten.size shouldBe (3)
         controller.game.midCard.karten(0) shouldBe (R0)
 
-        tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2n
         tui.convertinputString("+") shouldBe (tui.ERROR)
         tui.convertinputString("- 1") shouldBe (tui.ERROR)
 

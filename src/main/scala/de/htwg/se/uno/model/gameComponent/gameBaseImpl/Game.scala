@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model
+package model.gameComponent
 
 import scala.io.StdIn.readLine
 import Player._
@@ -8,15 +8,8 @@ import CardLayout._
 import Card._
 import scala.io.StdIn
 import util._
-import controller._
 import Console.{RED, GREEN, RESET}
 import scala.util.{Try, Success, Failure}
-
-object Game {
-  def newGame(player1: String, player2: String): Game =
-    new Game(player1, player2).playerFill(7).take("midstack")
-
-}
 
 case class Game(
     pList: List[Player],
@@ -24,14 +17,14 @@ case class Game(
     ERROR: Int,
     cardStack: CardStack,
     midCard: Player
-):
-  def this(player1: String, player2: String) =
+) extends gameInterface:
+  def this(player1: String, player2: String, startstate: State) =
     this(
       List(
         Player(player1, Vector[Card](), false),
         Player(player2, Vector[Card](), false)
       ),
-      between21State,
+      startstate,
       0,
       new CardStack(
         Card.values.map(x => (x, 2)).toMap
@@ -39,12 +32,29 @@ case class Game(
       Player("midcard", Vector[Card](), false)
     )
 
-  //def this(): Game = this(player1,player2,kartenAnzahl)
+  //def this(): Game = this(player1,player2)
   //Var's und Val'
 
+  def init(): Game =
+    this
+      .playerFill(7)
+      .take("midcard")
+
+  def getNext(game: gameInterface, player: Int, state: State): Game =
+    if (player == -1) {
+      Game(game.pList, state, 0, game.cardStack, game.midCard)
+    } else {
+      Game(
+        game.pList
+          .updated(player, game.pList(player).setFalse()),
+        state,
+        0,
+        game.cardStack,
+        game.midCard
+      )
+    }
   val cardsInDeck = Card.values.size - 1
   val r = scala.util.Random
-
   //Funktionen des Spiels
   //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Game =
@@ -75,7 +85,7 @@ case class Game(
         cardStack.decrease(card),
         midCard
       )
-    } else if (player.equals("midstack")) {
+    } else if (player.equals("midcard")) {
       copy(
         pList,
         currentstate,
@@ -109,7 +119,7 @@ case class Game(
       copy(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
-        ERROR,
+        0,
         cardStack.increase(pList(player).karten(ind)),
         Player(
           midCard.name,
@@ -147,23 +157,7 @@ case class Game(
     }
     tmp
 
-  override def toString: String =
-    if (currentstate == player1State) {
-      return pList(0).name + eol + pList(0).print() + eol + midCard
-        .print() + eol + pList(1)
-        .printFiller() + pList(1).name + eol
-    } else if (currentstate == player2State) {
-      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
-        .print() + eol + pList(1)
-        .print() + pList(1).name + eol
-    } else {
-      return pList(0).name + eol + pList(0).printFiller() + eol + midCard
-        .print() + eol + pList(1)
-        .printFiller() + pList(1).name + eol
-    }
-
   def addTest(p: String, card: Card): Game =
-    //val tmp = midCard.karten(0)
     copy(
       pList,
       currentstate,
