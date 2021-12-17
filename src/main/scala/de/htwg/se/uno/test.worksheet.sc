@@ -17,7 +17,7 @@ class Mensch(Name: String, Alter: Int)
 case class Cell(value: Int) {
 
   def isSet: Boolean = value != 0 // ---> Methode
-
+ 
 }
 
 val cell1 = Cell(1)
