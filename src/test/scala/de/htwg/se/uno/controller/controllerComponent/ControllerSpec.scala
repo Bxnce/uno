@@ -134,37 +134,9 @@ class ControllerSpec extends AnyWordSpec {
       game2 = game2.add("p2", G1)
       var c2 = new Controller(game2)
 
-      c2.toString shouldBe (
-        "p1" + eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "p2" + eol
-      )
+      c2.toString shouldBe (UnoCommand(c2, "print").toString)
       c2.next()
-      c2.toString shouldBe (
-        "p1" + eol +
-          "+--+" + eol +
-          "|R1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "p2" + eol
-      )
+      c2.toString shouldBe (UnoCommand(c2, "print").toString)
     }
 
   }
