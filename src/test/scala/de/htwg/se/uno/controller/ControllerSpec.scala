@@ -114,6 +114,19 @@ class ControllerSpec extends AnyWordSpec {
       c2.game.midCard.karten(0) shouldBe (R1)
     }
 
+    "have a method newG(String,String) that creates a new Game" in {
+      var game2 = new Game("p1", "p2", between21State)
+      c = new Controller(game2)
+
+      c.newG("Bence", "Timo")
+      c.game.pList(0).name shouldBe ("Bence")
+      c.game.pList(1).name shouldBe ("Timo")
+      c.game.pList(0).karten.size shouldBe (7)
+      c.game.pList(1).karten.size shouldBe (7)
+      c.game.midCard.karten.size shouldBe (1)
+      c.game.currentstate shouldEqual (between21State)
+    }
+
     "override the method toString" in {
       var game2 = new Game("p1", "p2", between21State)
       game2 = game2.addTest("midstack", R0)
