@@ -66,6 +66,14 @@ class TUISpec extends AnyWordSpec {
 
         tui.convertinputString("n") shouldBe (tui.SUCCESS) //p2s
         controller.game.currentstate shouldBe (player2State)
+
+        tui.convertinputString("+")
+        controller.game.pList(1).karten.size shouldBe (4)
+        tui.convertinputString("z") shouldBe (tui.SUCCESS)
+        controller.game.pList(1).karten.size shouldBe (3)
+        tui.convertinputString("y") shouldBe (tui.SUCCESS)
+        controller.game.pList(1).karten.size shouldBe (4)
+
       }
       "Have a method printhelp() that prints out the help message" in {}
       "override the method update" in {}
