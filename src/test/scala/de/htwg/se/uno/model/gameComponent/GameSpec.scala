@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model.gameComponent
+package model.gameComponent.gameBaseImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
@@ -10,11 +10,10 @@ import CardLayout._
 import Card._
 import util.State
 
-import controller._
-import de.htwg.se.uno.controller.controllerComponent.between21State
-import de.htwg.se.uno.controller.controllerComponent.player1State
-import de.htwg.se.uno.controller.controllerComponent.between12State
-import de.htwg.se.uno.controller.controllerComponent.player2State
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.between21State
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player1State
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.between12State
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player2State
 
 class GameSpec extends AnyWordSpec {
   "Case Class Game" should {

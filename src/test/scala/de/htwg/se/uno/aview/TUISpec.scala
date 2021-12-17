@@ -4,13 +4,13 @@ package aview
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.gameComponent.Game
-import model.gameComponent.Game._
-import model.gameComponent.Card._
-import model.gameComponent.CardLayout._
-import controller.controllerComponent.Controller
+import model.gameComponent.gameBaseImpl.Game
+import model.gameComponent.gameBaseImpl.Game._
+import model.gameComponent.gameBaseImpl.Card._
+import model.gameComponent.gameBaseImpl.CardLayout._
+import controller.controllerComponent.controllerBaseImpl.Controller
 import util._
-import controller.controllerComponent._
+import controller.controllerComponent.controllerBaseImpl._
 
 class TUISpec extends AnyWordSpec {
   "TUI" when {

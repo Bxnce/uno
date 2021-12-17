@@ -1,6 +1,7 @@
 package de.htwg.se.uno
 package model.gameComponent
 
+import model.gameComponent.gameBaseImpl._
 import util.State
 
 trait gameInterface {

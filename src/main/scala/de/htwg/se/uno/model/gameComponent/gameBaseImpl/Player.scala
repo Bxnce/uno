@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model.gameComponent
+package model.gameComponent.gameBaseImpl
 import Card._
 import CardLayout._
 

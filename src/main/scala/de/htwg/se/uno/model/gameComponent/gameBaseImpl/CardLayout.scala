@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model.gameComponent
+package model.gameComponent.gameBaseImpl
 
 object CardLayout {
   val eol = "\n"

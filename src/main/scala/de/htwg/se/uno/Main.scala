@@ -1,10 +1,10 @@
 package de.htwg.se.uno
 
 import aview._
-import model.gameComponent.Game
-import model.gameComponent.Player
-import model.gameComponent.Card
-import controller.controllerComponent._
+import model.gameComponent.gameBaseImpl.Game
+import model.gameComponent.gameBaseImpl.Player
+import model.gameComponent.gameBaseImpl.Card
+import controller.controllerComponent.controllerBaseImpl._
 import scala.io.StdIn.readLine //import controller._
 import Console.{BLUE, RESET}
 

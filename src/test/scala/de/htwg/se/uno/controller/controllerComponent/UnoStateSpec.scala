@@ -1,12 +1,12 @@
 package de.htwg.se.uno
-package controller.controllerComponent
+package controller.controllerComponent.controllerBaseImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.gameComponent.Game
-import model.gameComponent.Card._
-import model.gameComponent.CardLayout.eol
+import model.gameComponent.gameBaseImpl.Game
+import model.gameComponent.gameBaseImpl.Card._
+import model.gameComponent.gameBaseImpl.CardLayout.eol
 
 class UnoStateSpec extends AnyWordSpec {
   "UnoState" should {

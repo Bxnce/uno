@@ -1,10 +1,12 @@
 package de.htwg.se.uno
-package controller.controllerComponent
+package controller.controllerComponent.controllerBaseImpl
+
+//import controller.controllerComponent
 
 import scala.io.StdIn.readLine
 import util.State
 import model.gameComponent.gameInterface
-import model.gameComponent.Game
+import model.gameComponent.gameBaseImpl.Game
 import util.Command
 
 object player1State extends State {

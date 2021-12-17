@@ -3,7 +3,7 @@ package aview
 
 import scala.io.StdIn.readLine
 import controller.controllerComponent.controllerInterface
-import model.gameComponent.Game
+import model.gameComponent.gameBaseImpl.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
