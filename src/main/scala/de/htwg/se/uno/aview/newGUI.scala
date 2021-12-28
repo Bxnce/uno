@@ -7,6 +7,7 @@ import controller.controllerComponent.controllerInterface
 import de.htwg.se.uno.util.Observer
 import scala.swing._
 import java.awt.Color
+import controller.controllerComponent._
 
 import model.gameComponent.gameBaseImpl.CardColor
 import model.gameComponent.gameBaseImpl.CardValue
@@ -17,14 +18,15 @@ import javax.swing.ImageIcon
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.io.File
+import controller._
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player1State
 
-class GUI(controller: controllerInterface) extends MainFrame with Observer {
+class GUI2(controller: controllerInterface) extends MainFrame with Observer {
   controller.add(this)
   override def update: Unit =
     out.text = controller.toString
     out.repaint
-    unofield(controller)
-    test.repaint
+    refCards
     this.repaint
   val inTa = new TextArea("Input here") {
     maximumSize = new Dimension(100, 25)
@@ -80,14 +82,7 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
     }
   }
 
-  val out = new TextPane() {
-    font = new Font("Monaco", 14, 14)
-    maximumSize = new Dimension(415, 250)
-    minimumSize = new Dimension(415, 250)
-    preferredSize = new Dimension(415, 250)
-  }
-
-  def newCard(player: Int, index: Int): ImageIcon = {
+  def newCard(player: Int, index: Int): ImageIcon = { //returns image of a Card
     val c = controller.game.pList(player).karten(index)
     var color: String = ""
 
@@ -123,49 +118,42 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
     new ImageIcon(image)
   }
 
-  def maxCards: Int = {
-    val a = controller.game.pList(0).karten.size
-    val b = controller.game.pList(1).karten.size
+  def getMax: Int =
+    val mList = List(
+      controller.game.pList(0).karten.size,
+      controller.game.pList(1).karten.size
+    )
+    mList.max
 
-    if (a > b) {
-      a
-    } else {
-      b
-    }
-  }
-
-  val maxTest = new Button("Max") {
-    reactions += { case event.ButtonClicked(_) =>
-      val a = maxCards
-      inTa.text = a.toString
-    }
-  }
-
-  def unofield(controller: controllerInterface) = new GridPanel(2, maxCards) {
+  def printCards() = new GridPanel(1, getMax) {
     if (!controller.game.pList(0).name.equals("place_h")) {
-      val max = maxCards
-      for {
-        row <- 0 to 2 - 1
-        col <- 0 until max
-      } {
-        contents += (col match {
-          case -1 =>
-            new Label((row + 1).toString) {
-              preferredSize = new Dimension(30, 100)
-            }
-          case _ => {
-            new Label("", newCard(row, col), Alignment.Center)
-          }
-        })
+      val max = getMax
+      for { i <- 0 to max - 1 } {
+        contents += (controller.game.currentstate match
+          case player1State =>
+            new Label("", newCard(0, i), Alignment.Center)
+          case player2State =>
+            new Label("", newCard(1, i), Alignment.Center)
+        )
       }
     }
   }
 
-  val test = new BorderPanel {
-    add(unofield(controller), BorderPanel.Position.Center)
-    //contents += maxTest
+  var cardsShow = new BorderPanel {
+    add(printCards(), BorderPanel.Position.Center)
   }
 
+  def refCards =
+    cardsShow = new BorderPanel {
+      add(printCards(), BorderPanel.Position.Center)
+    }
+
+  val out = new TextPane() {
+    font = new Font("Monaco", 14, 14)
+    maximumSize = new Dimension(415, 250)
+    minimumSize = new Dimension(415, 250)
+    preferredSize = new Dimension(415, 250)
+  }
   title = "Uno"
   val buttons = new BoxPanel(Orientation.Horizontal) {
 
@@ -181,7 +169,7 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
   val all = new BoxPanel(Orientation.Vertical) {
     contents += butandin
     contents += out
-    contents += test
+    contents += cardsShow
   }
   contents = all
   pack()
