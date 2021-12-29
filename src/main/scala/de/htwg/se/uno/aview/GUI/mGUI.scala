@@ -37,7 +37,7 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
     contents += butts.ret
     contents += cardMid
     contents += cardsPlayer
-    //contents += output
+    contents += output
   }
 
   pack()

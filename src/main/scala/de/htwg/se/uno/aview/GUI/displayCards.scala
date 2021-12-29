@@ -30,10 +30,18 @@ case class displayCards(controller: controllerInterface) {
     var color = ""
     var value = ""
     c.getColor match
-      case CardColor.Red      => color = "red_"
-      case CardColor.Blue     => color = "blue_"
-      case CardColor.Green    => color = "green_"
-      case CardColor.Yellow   => color = "yellow_"
+      case CardColor.Red =>
+        color = "red_"
+        println("rot")
+      case CardColor.Blue =>
+        color = "blue_"
+        println("blau")
+      case CardColor.Green =>
+        color = "green_"
+        println("gruen")
+      case CardColor.Yellow =>
+        color = "yellow_"
+        println("gelb")
       case CardColor.SpecialC => color = ""
       case CardColor.ErrorC   => color = ""
     c.getValue match
