@@ -14,6 +14,7 @@ import de.htwg.se.uno.aview.GUI.mGUI
   val controller = new Controller(
     new Game("place_h", "place_h", between21State)
   )
+  controller.game = controller.game.init()
   val tui = TUI(controller)
   val gui = mGUI(controller)
 
