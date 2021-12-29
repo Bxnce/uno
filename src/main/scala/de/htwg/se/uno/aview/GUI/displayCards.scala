@@ -11,40 +11,52 @@ import scala.util.Success
 import scala.util.Try
 import java.io.File
 import javax.imageio.ImageIO
-import scala.swing.BoxPanel
+import scala.swing.GridPanel
 import scala.collection.mutable.ListBuffer
 import controller._
 import scala.swing.Orientation
+import de.htwg.se.uno.util.State
+import scala.swing.Label
+import scala.swing.Alignment
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player1State
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player2State
+import java.awt.GridLayout
 
-final case class displayCards(controller: controllerInterface) {
+case class displayCards(controller: controllerInterface) {
 
   def getImageIcon(player: Player, ind: Int): ImageIcon =
 
-    val play = player.karten
+    val c = player.karten(ind)
     var color = ""
     var value = ""
-
-    play(ind).getColor match
-      case CardColor.Red      => val color = "red_"
-      case CardColor.Blue     => val color = "blue_"
-      case CardColor.Green    => val color = "green_"
-      case CardColor.Yellow   => val color = "yellow_"
-      case CardColor.SpecialC => val color = ""
-      case CardColor.ErrorC   => val color = ""
-
-    play(ind).getValue match
-      case CardValue.Zero    => val value = "0"
-      case CardValue.One     => val value = "1"
-      case CardValue.Two     => val value = "2"
-      case CardValue.Three   => val value = "3"
-      case CardValue.Four    => val value = "4"
-      case CardValue.Five    => val value = "5"
-      case CardValue.Six     => val value = "6"
-      case CardValue.Seven   => val value = "7"
-      case CardValue.Eight   => val value = "8"
-      case CardValue.Nine    => val value = "9"
-      case CardValue.Special => val value = ""
-      case CardValue.Error   => val value = ""
+    c.getColor match
+      case CardColor.Red =>
+        color = "red_"
+        println("rot")
+      case CardColor.Blue =>
+        color = "blue_"
+        println("blau")
+      case CardColor.Green =>
+        color = "green_"
+        println("gruen")
+      case CardColor.Yellow =>
+        color = "yellow_"
+        println("gelb")
+      case CardColor.SpecialC => color = ""
+      case CardColor.ErrorC   => color = ""
+    c.getValue match
+      case CardValue.Zero    => value = "0"
+      case CardValue.One     => value = "1"
+      case CardValue.Two     => value = "2"
+      case CardValue.Three   => value = "3"
+      case CardValue.Four    => value = "4"
+      case CardValue.Five    => value = "5"
+      case CardValue.Six     => value = "6"
+      case CardValue.Seven   => value = "7"
+      case CardValue.Eight   => value = "8"
+      case CardValue.Nine    => value = "9"
+      case CardValue.Special => value = ""
+      case CardValue.Error   => value = ""
 
     val imagePath = "src/main/resources/cards/" + color + value + ".png"
 
@@ -57,16 +69,37 @@ final case class displayCards(controller: controllerInterface) {
 
   def getCardImagesAsList: ListBuffer[ImageIcon] =
     var currentPlayer: Player = controller.game.pList(0)
+    val currentstate = controller.game.currentstate
 
-    controller.game.currentstate match
-      case player1state => currentPlayer = controller.game.pList(0)
-      case player2state => currentPlayer = controller.game.pList(1)
-      case _            =>
-    if(controller.gamn)
-    val xx = new ListBuffer[ImageIcon]
-    xx
+    var imageList = new ListBuffer[ImageIcon];
 
-  def createBoxLayout(): BoxPanel =
-    new BoxPanel(Orientation.Horizontal)
+    if (currentstate.equals(player1State)) {
+      currentPlayer = controller.game.pList(0)
+      for (i <- 0 to currentPlayer.karten.size - 1) {
+        imageList += getImageIcon(currentPlayer, i);
+      }
+    } else if (currentstate.equals(player2State)) {
+      currentPlayer = controller.game.pList(1)
+      for (i <- 0 to currentPlayer.karten.size - 1) {
+        imageList += getImageIcon(currentPlayer, i);
+      }
+    } else {}
+    imageList
 
+  def createBoxLayout: GridPanel =
+    val imageList = getCardImagesAsList
+    new GridPanel(2, imageList.size) {
+      for (i <- 0 to imageList.size - 1) {
+        contents += new Label {
+          icon = imageList(i)
+        }
+      }
+    }
+
+  def getCardImageMid: GridPanel =
+    new GridPanel(1, 1) {
+      contents += new Label {
+        icon = getImageIcon(controller.game.midCard, 0)
+      }
+    }
 }
