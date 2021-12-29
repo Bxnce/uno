@@ -1,5 +1,7 @@
 package de.htwg.se.uno
-package model.gameComponent
+package model.gameComponent.gameBaseImpl
+
+import model.gameComponent.gameInterface
 
 import scala.io.StdIn.readLine
 import Player._

@@ -8,8 +8,8 @@ import de.htwg.se.uno.util.Observer
 import scala.swing._
 import java.awt.Color
 
-import model.gameComponent.CardColor
-import model.gameComponent.CardValue
+import model.gameComponent.gameBaseImpl.CardColor
+import model.gameComponent.gameBaseImpl.CardValue
 import scala.util.Try
 import scala.util.Success
 import scala.util.Failure
@@ -18,7 +18,7 @@ import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.io.File
 
-class GUI(controller: controllerInterface) extends MainFrame with Observer {
+class GUI_old(controller: controllerInterface) extends MainFrame with Observer {
   controller.add(this)
   override def update: Unit =
     out.text = controller.toString
@@ -96,6 +96,7 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
       case CardColor.Blue   => color = "blue_"
       case CardColor.Green  => color = "green_"
       case CardColor.Yellow => color = "yellow_"
+      case _                =>
     }
 
     var number: String = ""
@@ -110,6 +111,7 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
       case CardValue.Seven => number = "7"
       case CardValue.Eight => number = "8"
       case CardValue.Nine  => number = "9"
+      case _               =>
     }
     val imagePath = "src/main/resources/cards/" + color + number + ".png"
     val image: BufferedImage =
@@ -124,6 +126,7 @@ class GUI(controller: controllerInterface) extends MainFrame with Observer {
   def maxCards: Int = {
     val a = controller.game.pList(0).karten.size
     val b = controller.game.pList(1).karten.size
+
     if (a > b) {
       a
     } else {

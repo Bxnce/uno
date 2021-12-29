@@ -1,12 +1,12 @@
 package de.htwg.se.uno
-package controller.controllerComponent
+package controller.controllerComponent.controllerBaseImpl
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import model.gameComponent.Game
-import model.gameComponent.Card._
-import model.gameComponent.CardLayout.eol
+import model.gameComponent.gameBaseImpl.Game
+import model.gameComponent.gameBaseImpl.Card._
+import model.gameComponent.gameBaseImpl.CardLayout.eol
 import controller._
 
 class ControllerSpec extends AnyWordSpec {
@@ -114,6 +114,19 @@ class ControllerSpec extends AnyWordSpec {
       c2.game.midCard.karten(0) shouldBe (R1)
     }
 
+    "have a method newG(String,String) that creates a new Game" in {
+      var game2 = new Game("p1", "p2", between21State)
+      c = new Controller(game2)
+
+      c.newG("Bence", "Timo")
+      c.game.pList(0).name shouldBe ("Bence")
+      c.game.pList(1).name shouldBe ("Timo")
+      c.game.pList(0).karten.size shouldBe (7)
+      c.game.pList(1).karten.size shouldBe (7)
+      c.game.midCard.karten.size shouldBe (1)
+      c.game.currentstate shouldEqual (between21State)
+    }
+
     "override the method toString" in {
       var game2 = new Game("p1", "p2", between21State)
       game2 = game2.addTest("midstack", R0)
@@ -121,37 +134,9 @@ class ControllerSpec extends AnyWordSpec {
       game2 = game2.add("p2", G1)
       var c2 = new Controller(game2)
 
-      c2.toString shouldBe (
-        "p1" + eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "p2" + eol
-      )
+      c2.toString shouldBe (UnoCommand(c2, "print").toString)
       c2.next()
-      c2.toString shouldBe (
-        "p1" + eol +
-          "+--+" + eol +
-          "|R1|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "|R0|" + eol +
-          "+--+" + eol +
-          eol +
-          "+--+" + eol +
-          "| 1|" + eol +
-          "+--+" + eol +
-          "p2" + eol
-      )
+      c2.toString shouldBe (UnoCommand(c2, "print").toString)
     }
 
   }

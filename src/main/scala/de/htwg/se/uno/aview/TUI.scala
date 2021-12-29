@@ -3,7 +3,7 @@ package aview
 
 import scala.io.StdIn.readLine
 import controller.controllerComponent.controllerInterface
-import model.gameComponent.Game
+import model.gameComponent.gameBaseImpl.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 
@@ -69,10 +69,10 @@ class TUI(controller: controllerInterface) extends Observer:
       case "next" | "n" =>
         controller.next()
         return SUCCESS
-      case "z" =>
+      case "undo" | "z" =>
         controller.undo()
         return SUCCESS
-      case "y" =>
+      case "redo" | "y" =>
         controller.redo()
         return SUCCESS
       case _ =>
@@ -87,7 +87,9 @@ class TUI(controller: controllerInterface) extends Observer:
               - new  |                         : startet ein neues Spiel
               - take | +                       : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
               - place <index> | - <index>      : Legt die Karte an diesem Index auf den Spielstapel
-              - next | n                       : Beendet den Zug, der naechste Spieler ist dran       
+              - next | n                       : Beendet den Zug, der naechste Spieler ist dran   
+              - undo | z                       : Undo, macht den letzten schritt rückgängig 
+              - redo | y                       : Redo, macht das letzte undo rückgängig    
               ${RESET}""" + "\n")
 
   override def update: Unit =

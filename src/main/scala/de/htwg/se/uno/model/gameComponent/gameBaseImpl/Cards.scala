@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package model.gameComponent
+package model.gameComponent.gameBaseImpl
 
 enum CardValue:
   case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Special,

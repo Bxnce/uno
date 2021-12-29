@@ -1,9 +1,11 @@
 package de.htwg.se.uno
-package controller.controllerComponent
+package controller.controllerComponent.controllerBaseImpl
+
+import controller.controllerComponent._
 
 import scala.io.StdIn.readLine
-import model.gameComponent.Game
-import model.gameComponent.toCard._
+import model.gameComponent.gameBaseImpl.Game
+import model.gameComponent.gameBaseImpl.toCard._
 import util.Observable
 import util.Invoker
 import model.gameComponent._

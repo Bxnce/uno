@@ -1,10 +1,13 @@
 package de.htwg.se.uno
-package controller.controllerComponent
+package controller.controllerComponent.controllerBaseImpl
+
+//import controller.controllerComponent
 
 import util.Command
 import controller.controllerComponent.controllerInterface
+import model.gameComponent.gameBaseImpl._
 import model.gameComponent._
-import model.gameComponent.CardLayout.eol
+import model.gameComponent.gameBaseImpl.CardLayout.eol
 
 case class TakeCommand(controller: controllerInterface)
     extends Command(controller) {
