@@ -3,12 +3,18 @@ package aview.GUI
 
 import controller.controllerComponent.controllerInterface
 import de.htwg.se.uno.util.Observer
-import scala.swing.{BoxPanel, Orientation, GridPanel, Label, MainFrame}
+import scala.swing.{
+  BoxPanel,
+  Orientation,
+  GridPanel,
+  Label,
+  MainFrame,
+  BorderPanel,
+  Frame,
+  FlowPanel
+}
 import java.awt.{Image, Toolkit, Color, Dimension}
 import javax.swing.BorderFactory
-import scala.swing.BorderPanel
-import scala.swing.Frame
-import scala.swing.FlowPanel
 import java.awt.FlowLayout
 
 class mGUI(controller: controllerInterface) extends MainFrame with Observer {
