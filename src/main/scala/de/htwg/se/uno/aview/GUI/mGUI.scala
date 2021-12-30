@@ -4,10 +4,12 @@ package aview.GUI
 import controller.controllerComponent.controllerInterface
 import de.htwg.se.uno.util.Observer
 import scala.swing.{BoxPanel, Orientation, GridPanel, Label, MainFrame}
-import java.awt.{Color, Dimension}
+import java.awt.{Image, Toolkit, Color, Dimension}
 import javax.swing.BorderFactory
-import java.awt.Image
-import java.awt.Toolkit
+import scala.swing.BorderPanel
+import scala.swing.Frame
+import scala.swing.FlowPanel
+import java.awt.FlowLayout
 
 class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   title = "BEST UNO EUW"
@@ -19,28 +21,43 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   val preShow = createGame(controller).ret
   var cardsPlayer = displayCards(controller).createBoxLayout
   var cardMid = displayCards(controller).getCardImageMid
+  val cardStack = displayCards(controller).getStackImage
 
   contents = preShow
 
   override def update: Unit =
     output.text = controller.toString
 
-    show.contents -= cardMid
+    show.contents -= midCardandStack
+    midCardandStack.contents -= cardMid
     show.contents -= cardsPlayer
+
     cardMid = displayCards(controller).getCardImageMid
     cardsPlayer = displayCards(controller).createBoxLayout
-    show.contents += cardMid
+
+    midCardandStack.contents += cardMid
+    show.contents += midCardandStack
     show.contents += cardsPlayer
 
     contents = show
 
-  val show = new BoxPanel(Orientation.Vertical) {
-    contents += butts.ret
+  val midCardandStack = new FlowPanel() {
+    contents += cardStack
     contents += cardMid
+  }
+
+  val upperLine = new BoxPanel(Orientation.Horizontal) {
+    contents += midCardandStack
+    contents += butts.ret
+  }
+
+  val show = new BoxPanel(Orientation.Vertical) {
+    contents += upperLine
     contents += cardsPlayer
   }
 
   pack()
+  resizable = false
   minimumSize = new Dimension(550, 300)
   maximumSize = new Dimension(550, 300)
   preferredSize = new Dimension(300, 500)

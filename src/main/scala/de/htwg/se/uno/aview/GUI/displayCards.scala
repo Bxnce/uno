@@ -10,7 +10,14 @@ import scala.util.{Try, Success, Failure}
 import java.io.File
 import javax.imageio.ImageIO
 import scala.collection.mutable.ListBuffer
-import scala.swing.{Alignment, Label, Orientation, GridPanel}
+import scala.swing.{
+  Alignment,
+  Label,
+  Orientation,
+  GridPanel,
+  FlowPanel,
+  BoxPanel
+}
 import java.awt.{GridLayout, Color}
 import scala.swing.event.MouseClicked
 
@@ -95,6 +102,17 @@ case class displayCards(controller: controllerInterface) {
     new GridPanel(1, 1) {
       contents += new Label {
         icon = getImageIcon(controller.game.midCard, 0)
+      }
+    }
+
+  def getStackImage: GridPanel =
+    new GridPanel(1, 1) {
+      contents += new Label {
+        listenTo(mouse.clicks)
+        reactions += { case e: MouseClicked =>
+          controller.take()
+        }
+        icon = ImageIcon("src/main/resources/cards/back.png")
       }
     }
 }
