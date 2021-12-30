@@ -2,25 +2,17 @@ package de.htwg.se.uno
 package aview.GUI
 
 import model.gameComponent.gameBaseImpl._
-import javax.swing.ImageIcon
+import controller.controllerComponent.controllerBaseImpl._
 import controller.controllerComponent.controllerInterface
-import scala.util.Success
+import javax.swing.{ImageIcon, BorderFactory}
 import java.awt.image.BufferedImage
-import scala.util.Failure
-import scala.util.Success
-import scala.util.Try
+import scala.util.{Try, Success, Failure}
 import java.io.File
 import javax.imageio.ImageIO
-import scala.swing.GridPanel
 import scala.collection.mutable.ListBuffer
-import controller._
-import scala.swing.Orientation
-import de.htwg.se.uno.util.State
-import scala.swing.Label
-import scala.swing.Alignment
-import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player1State
-import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.player2State
-import java.awt.GridLayout
+import scala.swing.{Alignment, Label, Orientation, GridPanel}
+import java.awt.{GridLayout, Color}
+import scala.swing.event.MouseClicked
 
 case class displayCards(controller: controllerInterface) {
 
@@ -30,18 +22,10 @@ case class displayCards(controller: controllerInterface) {
     var color = ""
     var value = ""
     c.getColor match
-      case CardColor.Red =>
-        color = "red_"
-        println("rot")
-      case CardColor.Blue =>
-        color = "blue_"
-        println("blau")
-      case CardColor.Green =>
-        color = "green_"
-        println("gruen")
-      case CardColor.Yellow =>
-        color = "yellow_"
-        println("gelb")
+      case CardColor.Red      => color = "red_"
+      case CardColor.Blue     => color = "blue_"
+      case CardColor.Green    => color = "green_"
+      case CardColor.Yellow   => color = "yellow_"
       case CardColor.SpecialC => color = ""
       case CardColor.ErrorC   => color = ""
     c.getValue match
@@ -89,9 +73,20 @@ case class displayCards(controller: controllerInterface) {
   def createBoxLayout: GridPanel =
     val imageList = getCardImagesAsList
     new GridPanel(2, imageList.size) {
+      if (imageList.size != 0) then
+        border = BorderFactory.createLineBorder(Color.BLACK, 3)
       for (i <- 0 to imageList.size - 1) {
         contents += new Label {
           icon = imageList(i)
+          listenTo(mouse.clicks)
+          reactions += { case e: MouseClicked =>
+            controller.place(i)
+            if (controller.game.ERROR != 0) then
+              errorPop(
+                "Diese Karte kann nicht gelegt werden!",
+                imageList(i)
+              ).ret.open()
+          }
         }
       }
     }
