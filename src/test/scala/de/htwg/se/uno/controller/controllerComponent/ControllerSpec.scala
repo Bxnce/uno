@@ -62,11 +62,13 @@ class ControllerSpec extends AnyWordSpec {
       c1.game shouldEqual (game1)
 
       c1.next()
+      c1.game.currentstate shouldEqual (player1State)
       c1.undo()
       c1.game.currentstate shouldEqual (between21State)
 
       c1.next() //p1s
 
+      c1.game.pList(0).karten.size shouldBe (1)
       c1.take()
       c1.game.pList(0).karten.size shouldBe (2)
       c1.undo()
@@ -77,7 +79,6 @@ class ControllerSpec extends AnyWordSpec {
       c1.game.pList(0).karten.size shouldBe (1)
       c1.game.midCard.karten(0) shouldBe (R1)
       c1.undo()
-      c1.undo() //man bracuht jetzt 2 Undos, da Place ja direkt danach noch ein next ausführt
       c1.game.pList(0).karten.size shouldBe (2)
       c1.game.midCard.karten(0) shouldBe (R0)
     }
@@ -105,7 +106,6 @@ class ControllerSpec extends AnyWordSpec {
       c2.place(0)
       c2.game.pList(0).karten.size shouldBe (1)
       c2.game.midCard.karten(0) shouldBe (R1)
-      c2.undo()
       c2.undo()
       c2.game.pList(0).karten.size shouldBe (2)
       c2.game.midCard.karten(0) shouldBe (R0)

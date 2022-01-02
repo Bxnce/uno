@@ -11,6 +11,7 @@ trait gameInterface {
   val cardStack: CardStack
   val midCard: Player
   val cardsInDeck: Int
+  val winner: Int
 
   def add(player: String, card: Card): gameInterface
   def take(player: String): gameInterface

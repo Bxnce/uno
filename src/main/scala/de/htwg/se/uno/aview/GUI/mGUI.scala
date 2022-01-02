@@ -16,6 +16,7 @@ import scala.swing.{
 import java.awt.{Image, Toolkit, Color, Dimension}
 import javax.swing.BorderFactory
 import java.awt.FlowLayout
+import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.winState
 
 class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   title = "BEST UNO EUW"
@@ -34,6 +35,9 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   override def update: Unit =
     output.text = controller.toString
 
+    if (controller.game.currentstate == winState) {
+      winPop(controller).ret.open()
+    }
     show.contents -= midCardandStack
     midCardandStack.contents -= cardMid
     show.contents -= cardsPlayer

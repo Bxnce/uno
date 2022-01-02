@@ -37,7 +37,7 @@ class TUI(controller: controllerInterface) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.newG()
+        controller.newG(readLine("Name1:    "), readLine("Name2:    "))
         return SUCCESS
 
       case "take" | "+" =>

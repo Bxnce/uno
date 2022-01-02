@@ -60,6 +60,13 @@ case class toStringCommand(controller: controllerInterface)
           .print() + eol + controller.game
           .pList(1)
           .print() + controller.game.pList(1).name + eol
+      } else if (controller.game.currentstate == winState) {
+        return controller.game
+          .pList(
+            controller.game.winner
+          )
+          .name
+          + " hat gewonnen! 'next' fuer neues Spiel!"
       } else {
         return controller.game
           .pList(0)

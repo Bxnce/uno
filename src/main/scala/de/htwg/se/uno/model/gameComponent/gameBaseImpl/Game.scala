@@ -18,7 +18,8 @@ case class Game(
     currentstate: State,
     ERROR: Int,
     cardStack: CardStack,
-    midCard: Player
+    midCard: Player,
+    winner: Int
 ) extends gameInterface:
   def this(player1: String, player2: String, startstate: State) =
     this(
@@ -31,20 +32,18 @@ case class Game(
       new CardStack(
         Card.values.map(x => (x, 2)).toMap
       ),
-      Player("midcard", Vector[Card](), false)
+      Player("midcard", Vector[Card](), false),
+      -1
     )
-
-  //def this(): Game = this(player1,player2)
-  //Var's und Val'
 
   def init(): Game =
     this
-      .playerFill(7)
+      .playerFill(1)
       .take("midcard")
 
   def getNext(game: gameInterface, player: Int, state: State): Game =
     if (player == -1) {
-      Game(game.pList, state, 0, game.cardStack, game.midCard)
+      Game(game.pList, state, 0, game.cardStack, game.midCard, player)
     } else {
       Game(
         game.pList
@@ -52,9 +51,11 @@ case class Game(
         state,
         0,
         game.cardStack,
-        game.midCard
+        game.midCard,
+        player
       )
     }
+
   val cardsInDeck = Card.values.size - 1
   val r = scala.util.Random
   //Funktionen des Spiels
