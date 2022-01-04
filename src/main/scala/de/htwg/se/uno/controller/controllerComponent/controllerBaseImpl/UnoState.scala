@@ -22,7 +22,12 @@ object player1State extends State {
         if (e.controller.game.checkWin(e.controller.game.pList(0))) {
           e.controller.game.getNext(e.controller.game, 0, winState)
         } else {
-          e.controller.game.getNext(e.controller.game, 0, between12State)
+          if (e.controller.game.ERROR != -1) {
+            e.controller.game.getNext(e.controller.game, 0, between12State)
+          } else {
+            e.controller.game.setError(0)
+            e.controller.game
+          }
         }
       case e: WinCommand =>
         e.controller.game.setError(-1)
@@ -41,7 +46,12 @@ object player2State extends State {
         if (e.controller.game.checkWin(e.controller.game.pList(1))) {
           e.controller.game.getNext(e.controller.game, 1, winState)
         } else {
-          e.controller.game.getNext(e.controller.game, 0, between12State)
+          if (e.controller.game.ERROR != -1) {
+            e.controller.game.getNext(e.controller.game, 0, between21State)
+          } else {
+            e.controller.game.setError(0)
+            e.controller.game
+          }
         }
       case e: WinCommand =>
         e.controller.game.setError(-1)
