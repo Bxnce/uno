@@ -2,6 +2,7 @@ package de.htwg.se.uno
 package aview.GUI
 
 import controller.controllerComponent.controllerInterface
+import controller.controllerComponent.controllerBaseImpl.winState
 import de.htwg.se.uno.util.Observer
 import scala.swing.{
   BoxPanel,
@@ -16,37 +17,43 @@ import scala.swing.{
 import java.awt.{Image, Toolkit, Color, Dimension}
 import javax.swing.BorderFactory
 import java.awt.FlowLayout
-import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.winState
 
 class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   title = "BEST UNO EUW"
   controller.add(this)
-  iconImage =
-    Toolkit.getDefaultToolkit.getImage("src/main/resources/cards/unknown.png")
+  iconImage = Toolkit.getDefaultToolkit.getImage(
+    "src/main/resources/cards/uno_back.png"
+  )
+  var dpCont = displayCards(controller)
   val butts = buttonsPanel(controller)
   val output = stringout
   val preShow = createGame(controller).ret
-  var cardsPlayer = displayCards(controller).createBoxLayout
-  var cardMid = displayCards(controller).getCardImageMid
-  val cardStack = displayCards(controller).getStackImage
+  var cardsPlayer = dpCont.createBoxLayout
+  var cardMid = dpCont.getCardImageMid
+  val cardStack = dpCont.getStackImage
+  var textOut = dpCont.getText
 
   contents = preShow
 
   override def update: Unit =
-    output.text = controller.toString
+    dpCont = displayCards(controller)
 
     if (controller.game.currentstate == winState) {
       winPop(controller).ret.open()
     }
+
+    show.contents -= textOut
     show.contents -= midCardandStack
     midCardandStack.contents -= cardMid
     show.contents -= cardsPlayer
 
-    cardMid = displayCards(controller).getCardImageMid
-    cardsPlayer = displayCards(controller).createBoxLayout
+    cardMid = dpCont.getCardImageMid
+    cardsPlayer = dpCont.createBoxLayout
+    textOut = dpCont.getText
 
     midCardandStack.contents += cardMid
     show.contents += midCardandStack
+    show.contents += textOut
     show.contents += cardsPlayer
 
     contents = show
@@ -57,20 +64,21 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   }
 
   val upperLine = new BoxPanel(Orientation.Horizontal) {
+    border = BorderFactory.createEmptyBorder(10, 0, 10, 0)
     contents += midCardandStack
     contents += butts.ret
   }
 
   val show = new BoxPanel(Orientation.Vertical) {
     contents += upperLine
+    contents += textOut
     contents += cardsPlayer
+    minimumSize = new Dimension(550, 500)
+    maximumSize = new Dimension(550, 500)
+    preferredSize = new Dimension(550, 500)
+    resizable = false
   }
-
   pack()
-  resizable = false
-  minimumSize = new Dimension(550, 300)
-  maximumSize = new Dimension(550, 300)
-  preferredSize = new Dimension(300, 500)
   centerOnScreen()
   open()
 }

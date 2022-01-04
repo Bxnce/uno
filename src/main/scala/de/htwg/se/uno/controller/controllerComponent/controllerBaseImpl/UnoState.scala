@@ -10,7 +10,6 @@ import model.gameComponent.gameBaseImpl.Game
 import util.Command
 
 object player1State extends State {
-  //Errors aus State in Game
 
   override def handle(command: Command): gameInterface =
     command match
@@ -19,15 +18,14 @@ object player1State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 0)
-        if (e.controller.game.checkWin(e.controller.game.pList(0))) {
-          e.controller.game.getNext(e.controller.game, 0, winState)
-        } else {
-          if (e.controller.game.ERROR != -1) {
-            e.controller.game.getNext(e.controller.game, 0, between12State)
+        if (e.controller.game.ERROR != -1) {
+          if (e.controller.game.checkWin(e.controller.game.pList(0))) {
+            e.controller.game.getNext(e.controller.game, 0, winState)
           } else {
-            e.controller.game.setError(0)
-            e.controller.game
+            e.controller.game.getNext(e.controller.game, 0, between12State)
           }
+        } else {
+          e.controller.game
         }
       case e: WinCommand =>
         e.controller.game.setError(-1)
@@ -43,15 +41,14 @@ object player2State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 1)
-        if (e.controller.game.checkWin(e.controller.game.pList(1))) {
-          e.controller.game.getNext(e.controller.game, 1, winState)
-        } else {
-          if (e.controller.game.ERROR != -1) {
-            e.controller.game.getNext(e.controller.game, 0, between21State)
+        if (e.controller.game.ERROR != -1) {
+          if (e.controller.game.checkWin(e.controller.game.pList(1))) {
+            e.controller.game.getNext(e.controller.game, 1, winState)
           } else {
-            e.controller.game.setError(0)
-            e.controller.game
+            e.controller.game.getNext(e.controller.game, 1, between21State)
           }
+        } else {
+          e.controller.game
         }
       case e: WinCommand =>
         e.controller.game.setError(-1)

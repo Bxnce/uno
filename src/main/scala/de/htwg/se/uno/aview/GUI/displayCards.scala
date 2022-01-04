@@ -16,10 +16,12 @@ import scala.swing.{
   Orientation,
   GridPanel,
   FlowPanel,
-  BoxPanel
+  BoxPanel,
+  Dimension
 }
 import java.awt.{GridLayout, Color}
 import scala.swing.event.MouseClicked
+import scala.swing.Font
 
 case class displayCards(controller: controllerInterface) {
 
@@ -88,18 +90,63 @@ case class displayCards(controller: controllerInterface) {
           listenTo(mouse.clicks)
           reactions += { case e: MouseClicked =>
             controller.place(i)
-            if (controller.game.ERROR != 0) then
+            if (controller.game.ERROR != 0) {
               errorPop(
                 "Diese Karte kann nicht gelegt werden!",
                 imageList(i)
               ).ret.open()
+              controller.game = controller.game.setError(0)
+            }
           }
         }
       }
     }
 
+  def getText: BoxPanel = new BoxPanel(Orientation.Horizontal) {
+    val currentstate = controller.game.currentstate
+    contents += new Label() {
+      font = new Font("Arial", 3, 22)
+      if (currentstate.equals(player1State)) {
+        text = controller.game
+          .pList(0)
+          .name + "'s turn; opponent has " + controller.game
+          .pList(1)
+          .karten
+          .size
+          .toString + " card(s)"
+      } else if (currentstate.equals(player2State)) {
+        text = controller.game
+          .pList(1)
+          .name + "'s turn; opponent has " + controller.game
+          .pList(0)
+          .karten
+          .size
+          .toString + " card(s)"
+      } else if (currentstate.equals(between12State)) {
+        foreground = Color.RED
+        text = controller.game
+          .pList(0)
+          .name + " is next and has " + controller.game
+          .pList(0)
+          .karten
+          .size
+          .toString + " card(s)"
+      } else if (currentstate.equals(between21State)) {
+        foreground = Color.RED
+        text = controller.game
+          .pList(1)
+          .name + " is next and has " + controller.game
+          .pList(1)
+          .karten
+          .size
+          .toString + " card(s)"
+      }
+    }
+  }
+
   def getCardImageMid: GridPanel =
     new GridPanel(1, 1) {
+      border = BorderFactory.createEmptyBorder(0, 50, 0, 0)
       contents += new Label {
         icon = getImageIcon(controller.game.midCard, 0)
       }
@@ -107,12 +154,13 @@ case class displayCards(controller: controllerInterface) {
 
   def getStackImage: GridPanel =
     new GridPanel(1, 1) {
+      border = BorderFactory.createEmptyBorder(0, 0, 0, 50)
       contents += new Label {
         listenTo(mouse.clicks)
         reactions += { case e: MouseClicked =>
           controller.take()
         }
-        icon = ImageIcon("src/main/resources/cards/back.png")
+        icon = ImageIcon("src/main/resources/cards/uno_back.png")
       }
     }
 }

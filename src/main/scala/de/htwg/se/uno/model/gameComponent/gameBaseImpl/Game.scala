@@ -38,7 +38,7 @@ case class Game(
 
   def init(): Game =
     this
-      .playerFill(1)
+      .playerFill(7)
       .take("midcard")
 
   def getNext(game: gameInterface, player: Int, state: State): Game =
@@ -116,6 +116,10 @@ case class Game(
       case Success(x) => x
       case Failure(y) => false
     }
+  /*if(midCard.karten(0).getColor.equals(pList(player).karten(ind).getColor) || midCard.karten(0).getValue.equals(pList(player).karten(ind).getValue))
+      {true} else {
+        false
+      }*/
 
   def place(ind: Int, player: Int): Game =
     if (checkPlace(ind, player) && !pList(player).placed) {
@@ -123,7 +127,9 @@ case class Game(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
         0,
-        cardStack.increase(pList(player).karten(ind)),
+        cardStack.increase(
+          pList(player).karten(ind)
+        ), //warum wird die Karte vom spieler und nicht die vom midstack dazugelegt ??
         Player(
           midCard.name,
           midCard.karten.updated(0, pList(player).karten(ind)),
