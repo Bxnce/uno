@@ -25,8 +25,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Project and export Coverage to Coveralls
+<<<<<<< HEAD
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+=======
+         env:
+           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+>>>>>>> fbd1568aacb5907664479060aac46116a7afaada
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
