@@ -92,7 +92,7 @@ case class displayCards(controller: controllerInterface) {
             controller.place(i)
             if (controller.game.ERROR != 0) {
               errorPop(
-                "Diese Karte kann nicht gelegt werden!",
+                "This card can not be placed!",
                 imageList(i)
               ).ret.open()
               controller.game = controller.game.setError(0)
@@ -125,18 +125,18 @@ case class displayCards(controller: controllerInterface) {
       } else if (currentstate.equals(between12State)) {
         foreground = Color.RED
         text = controller.game
-          .pList(0)
+          .pList(1)
           .name + " is next and has " + controller.game
-          .pList(0)
+          .pList(1)
           .karten
           .size
           .toString + " card(s)"
       } else if (currentstate.equals(between21State)) {
         foreground = Color.RED
         text = controller.game
-          .pList(1)
+          .pList(0)
           .name + " is next and has " + controller.game
-          .pList(1)
+          .pList(0)
           .karten
           .size
           .toString + " card(s)"
