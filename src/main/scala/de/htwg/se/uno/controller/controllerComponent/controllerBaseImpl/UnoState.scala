@@ -27,8 +27,6 @@ object player1State extends State {
         } else {
           e.controller.game
         }
-      case e: WinCommand =>
-        e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 0, between12State)
 }
@@ -50,8 +48,6 @@ object player2State extends State {
         } else {
           e.controller.game
         }
-      case e: WinCommand =>
-        e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 1, between21State)
 }
@@ -62,8 +58,6 @@ object between12State extends State {
       case e: TakeCommand =>
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        e.controller.game.setError(-1)
-      case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player2State)
@@ -76,8 +70,6 @@ object between21State extends State {
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
         e.controller.game.setError(-1)
-      case e: WinCommand =>
-        e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player1State)
 }
@@ -88,8 +80,6 @@ object winState extends State {
       case e: TakeCommand =>
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        e.controller.game.setError(-1)
-      case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.WinG(

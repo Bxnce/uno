@@ -23,13 +23,6 @@ case class PlaceCommand(ind: Int, controller: controllerInterface)
     newgame = controller.game.currentstate.handle(this)
     newgame
 }
-case class WinCommand(controller: controllerInterface)
-    extends Command(controller) {
-
-  override def execute =
-    newgame = controller.game.currentstate.handle(this)
-    newgame
-}
 
 case class NextCommand(controller: controllerInterface)
     extends Command(controller) {
@@ -89,8 +82,6 @@ object UnoCommand { //Factory
         new TakeCommand(controller)
       case "next" =>
         new NextCommand(controller)
-      case "win" =>
-        new WinCommand(controller)
       case "print" =>
         new toStringCommand(controller)
 

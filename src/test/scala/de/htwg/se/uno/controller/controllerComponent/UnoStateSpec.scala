@@ -17,7 +17,6 @@ class UnoStateSpec extends AnyWordSpec {
     var c = new Controller(game)
     val takeC = UnoCommand(c, "take")
     val placeC = UnoCommand(0, c)
-    val winC = UnoCommand(c, "win")
     val nextC = UnoCommand(c, "next")
 
     "player1State should have a method handle() that matches the commands" in {
@@ -28,17 +27,11 @@ class UnoStateSpec extends AnyWordSpec {
       c.game.pList(0).karten.size shouldBe (1)
       c.game.midCard.karten(0) shouldEqual (B0)
 
-      c.game = player1State.handle(winC)
-      c.game.ERROR shouldBe (-1)
-
       c.game = player1State.handle(nextC)
       c.game.currentstate shouldBe (between12State)
     }
 
     "player2State should have a method handle() that matches the commands" in {
-      c.game = player2State.handle(winC)
-      c.game.ERROR shouldBe (-1)
-
       c.game = player2State.handle(nextC)
       c.game.currentstate shouldBe (between21State)
 
@@ -57,9 +50,6 @@ class UnoStateSpec extends AnyWordSpec {
       c.game = between12State.handle(placeC)
       c.game.ERROR shouldBe (-1)
 
-      c.game = between12State.handle(winC)
-      c.game.ERROR shouldBe (-1)
-
       c.game = between12State.handle(nextC)
       c.game.ERROR shouldBe (0)
     }
@@ -70,24 +60,18 @@ class UnoStateSpec extends AnyWordSpec {
       c.game = between21State.handle(placeC)
       c.game.ERROR shouldBe (-1)
 
-      c.game = between21State.handle(winC)
-      c.game.ERROR shouldBe (-1)
-
       c.game = between21State.handle(nextC)
       c.game.ERROR shouldBe (0)
     }
 
     "winState should have a method handle() that matches the commands" in {
-      c.game = between21State.handle(takeC)
+      c.game = winState.handle(takeC)
       c.game.ERROR shouldBe (-1)
 
-      c.game = between21State.handle(placeC)
+      c.game = winState.handle(placeC)
       c.game.ERROR shouldBe (-1)
 
-      c.game = between21State.handle(winC)
-      c.game.ERROR shouldBe (-1)
-
-      c.game = between21State.handle(nextC)
+      c.game = winState.handle(nextC)
       c.game.ERROR shouldBe (0)
     }
   }
