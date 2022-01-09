@@ -120,3 +120,10 @@ Timo
 ![GUI_create](https://media.giphy.com/media/BuomVNSdoNSzO4I00e/giphy.gif)<br/>
 ![GUI](https://media.giphy.com/media/WHAiEh2GOSL35SZAEo/giphy.gif)
 
+<br/>
+<br/>
+<br/>
+Authors:
+[@Bence Stuhlmann](https://github.com/Bxnce)
+[@Timo Haas](https://github.com/haasentimo)
+
