@@ -1,5 +1,5 @@
 # A SCALA UNO Project | *work in progress*
-Only playable on one computer and atm only "normal" cards no special cards
+Only playable on one computer and atm only "normal" cards no special cards.<br/>
 TUI and GUI are both working and running synchron.
 
 
@@ -12,7 +12,7 @@ CodeCov | [![codecov](https://codecov.io/gh/Bxnce/uno/branch/main/graph/badge.sv
 
 
 ## TUI commands and example
-Command | Output 
+Command | Description 
 --------|--------
 help      / h          | prints all commands
 exit      / q          | quits the program
@@ -117,6 +117,6 @@ Timo
 
 ## GUI - simple and functional
 
-![GUI_create]()
+![GUI_create](https://media.giphy.com/media/BuomVNSdoNSzO4I00e/giphy.gif)<br/>
 ![GUI](https://media.giphy.com/media/WHAiEh2GOSL35SZAEo/giphy.gif)
 
