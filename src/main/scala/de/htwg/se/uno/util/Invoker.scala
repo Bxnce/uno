@@ -2,7 +2,6 @@ package de.htwg.se.uno
 package util
 
 import model.gameComponent.gameInterface
-import controller.controllerComponent.controllerBaseImpl.WinCommand
 
 class Invoker {
   private var undoStack: List[Command] = Nil
@@ -10,7 +9,6 @@ class Invoker {
 
   def doStep(command: Command): gameInterface = {
     command match
-      case e: WinCommand =>
       case _ =>
         undoStack = command :: undoStack
     command.execute

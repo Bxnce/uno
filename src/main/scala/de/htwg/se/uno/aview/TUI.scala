@@ -37,7 +37,7 @@ class TUI(controller: controllerInterface) extends Observer:
         return SUCCESS
 
       case "new" =>
-        controller.newG()
+        controller.newG(readLine("Name1:    "), readLine("Name2:    "))
         return SUCCESS
 
       case "take" | "+" =>
@@ -60,6 +60,7 @@ class TUI(controller: controllerInterface) extends Observer:
             Console.println(
               s"${RED}!!!place oder - ist nicht möglich in diesem Zustand!!!${RESET}"
             )
+            controller.game = controller.game.setError(0)
             return ERROR
           } else {
             return SUCCESS

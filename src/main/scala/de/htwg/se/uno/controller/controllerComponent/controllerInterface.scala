@@ -13,7 +13,7 @@ trait controllerInterface extends Observable {
   def next(): Unit
   def undo(): Unit
   def redo(): Unit
-  def newG(): Unit
   def newG(p1: String, p2: String): Unit
+  def WinG(p1: String, p2: String): Unit
   override def toString: String
 }

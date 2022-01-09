@@ -1,9 +1,7 @@
 package de.htwg.se.uno
 package aview.GUI
 
-import scala.swing.TextPane
-import scala.swing.Dimension
-import scala.swing.Font
+import scala.swing.{TextPane, Dimension, Font}
 
 object stringout extends TextPane {
 

@@ -10,7 +10,6 @@ import model.gameComponent.gameBaseImpl.Game
 import util.Command
 
 object player1State extends State {
-  //Errors aus State in Game
 
   override def handle(command: Command): gameInterface =
     command match
@@ -19,19 +18,15 @@ object player1State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 0)
-        e.controller.game
-      case e: WinCommand =>
-        if (e.controller.game.checkWin(e.controller.game.pList(0))) {
-          println(
-            e.controller.game.pList(0).name + " hat gewonnen! GZ"
-          )
-          readLine("ENTER fuer neues Spiel!")
-          return new Game(
-            readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   "),
-            between21State
-          )
-        } else { e.controller.game }
+        if (e.controller.game.ERROR != -1) {
+          if (e.controller.game.checkWin(e.controller.game.pList(0))) {
+            e.controller.game.getNext(e.controller.game, 0, winState)
+          } else {
+            e.controller.game.getNext(e.controller.game, 0, between12State)
+          }
+        } else {
+          e.controller.game
+        }
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 0, between12State)
 }
@@ -44,19 +39,15 @@ object player2State extends State {
         e.controller.game.setError(0)
       case e: PlaceCommand =>
         e.controller.game = e.controller.game.place(e.ind, 1)
-        e.controller.game
-      case e: WinCommand =>
-        if (e.controller.game.checkWin(e.controller.game.pList(1))) {
-          println(
-            e.controller.game.pList(1).name + " hat gewonnen! GZ"
-          )
-          readLine("ENTER fuer neues Spiel!")
-          return new Game(
-            readLine("Name Spieler1:                   "),
-            readLine("Name Spieler2:                   "),
-            between21State
-          )
-        } else { e.controller.game }
+        if (e.controller.game.ERROR != -1) {
+          if (e.controller.game.checkWin(e.controller.game.pList(1))) {
+            e.controller.game.getNext(e.controller.game, 1, winState)
+          } else {
+            e.controller.game.getNext(e.controller.game, 1, between21State)
+          }
+        } else {
+          e.controller.game
+        }
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 1, between21State)
 }
@@ -67,8 +58,6 @@ object between12State extends State {
       case e: TakeCommand =>
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
-        e.controller.game.setError(-1)
-      case e: WinCommand =>
         e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player2State)
@@ -81,8 +70,21 @@ object between21State extends State {
         e.controller.game.setError(-1)
       case e: PlaceCommand =>
         e.controller.game.setError(-1)
-      case e: WinCommand =>
-        e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player1State)
+}
+
+object winState extends State {
+  override def handle(command: Command): gameInterface =
+    command match
+      case e: TakeCommand =>
+        e.controller.game.setError(-1)
+      case e: PlaceCommand =>
+        e.controller.game.setError(-1)
+      case e: NextCommand =>
+        e.controller.WinG(
+          e.controller.game.pList(0).name,
+          e.controller.game.pList(1).name
+        )
+        e.controller.game
 }

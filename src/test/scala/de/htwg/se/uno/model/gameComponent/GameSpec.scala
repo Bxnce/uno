@@ -97,7 +97,8 @@ class GameSpec extends AnyWordSpec {
         player1State,
         game1.ERROR,
         game1.cardStack,
-        game1.midCard
+        game1.midCard,
+        -1
       )
 
       game1.currentstate shouldBe (player1State)
@@ -113,7 +114,8 @@ class GameSpec extends AnyWordSpec {
         between12State,
         game1.ERROR,
         game1.cardStack,
-        game1.midCard
+        game1.midCard,
+        -1
       )
 
       game1.currentstate shouldBe (between12State)
@@ -122,7 +124,8 @@ class GameSpec extends AnyWordSpec {
         player2State,
         game1.ERROR,
         game1.cardStack,
-        game1.midCard
+        game1.midCard,
+        -1
       )
 
       game1.currentstate shouldBe (player2State)
@@ -153,7 +156,8 @@ class GameSpec extends AnyWordSpec {
         player1State,
         game2.ERROR,
         game2.cardStack,
-        game2.midCard
+        game2.midCard,
+        game2.winner
       )
 
       game2.currentstate shouldBe (player1State)
@@ -169,7 +173,8 @@ class GameSpec extends AnyWordSpec {
         between12State,
         game2.ERROR,
         game2.cardStack,
-        game2.midCard
+        game2.midCard,
+        game2.winner
       )
       game2.currentstate shouldBe (between12State)
       game2 = Game(
@@ -177,7 +182,8 @@ class GameSpec extends AnyWordSpec {
         player2State,
         game2.ERROR,
         game2.cardStack,
-        game2.midCard
+        game2.midCard,
+        game2.winner
       )
 
       game2.currentstate shouldBe (player2State)
@@ -201,7 +207,8 @@ class GameSpec extends AnyWordSpec {
         player1State,
         game3.ERROR,
         game3.cardStack,
-        game3.midCard
+        game3.midCard,
+        game3.winner
       )
 
       game3.currentstate shouldBe (player1State)
