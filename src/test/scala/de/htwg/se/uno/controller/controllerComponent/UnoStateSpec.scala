@@ -25,9 +25,7 @@ class UnoStateSpec extends AnyWordSpec {
       c.game.pList(0).karten.size shouldBe (3)
 
       c.game = player1State.handle(placeC)
-      c.game.pList(0).karten.size shouldBe (2)
-      c.game.midCard.karten(0) shouldEqual (B0)
-
+      c.game.ERROR shouldBe (0)
       c.game = player1State.handle(placeC)
       c.game.ERROR shouldBe (-1)
 
