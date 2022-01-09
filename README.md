@@ -11,7 +11,7 @@ CoverAlls w/o GUI 95%| [![Coverage Status](https://coveralls.io/repos/github/Bxn
 CodeCov | [![codecov](https://codecov.io/gh/Bxnce/uno/branch/main/graph/badge.svg?token=BIRT0EN7FR)](https://codecov.io/gh/Bxnce/uno)
 
 
-## TUI commands and example
+### TUI commands and example
 Command | Description 
 --------|--------
 help      / h          | prints all commands
@@ -115,15 +115,13 @@ Bence
 Timo
 ```
 
-## GUI - simple and functional
+### GUI - simple and functional
 
 ![GUI_create](https://media.giphy.com/media/BuomVNSdoNSzO4I00e/giphy.gif)<br/>
 ![GUI](https://media.giphy.com/media/WHAiEh2GOSL35SZAEo/giphy.gif)
-
 <br/>
 <br/>
-<br/>
-Authors:
-[@Bence Stuhlmann](https://github.com/Bxnce)
-[@Timo Haas](https://github.com/haasentimo)
+### Authors: 
+[@Bence Stuhlmann](https://github.com/Bxnce "Bences GitHub") <br/>
+[@Timo Haas](https://github.com/haasentimo "Timos GitHub")
 
