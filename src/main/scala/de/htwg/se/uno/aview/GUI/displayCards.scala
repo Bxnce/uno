@@ -48,6 +48,8 @@ case class displayCards(controller: controllerInterface) {
       case CardValue.Seven   => value = "7"
       case CardValue.Eight   => value = "8"
       case CardValue.Nine    => value = "9"
+      case CardValue.Take2   => value = "+2"
+      case CardValue.Skip    => value = "skip"
       case CardValue.Special => value = ""
       case CardValue.Error   => value = ""
 
@@ -91,11 +93,25 @@ case class displayCards(controller: controllerInterface) {
           reactions += { case e: MouseClicked =>
             controller.place(i)
             if (controller.game.ERROR != 0) {
-              errorPop(
-                "This card can not be placed!",
-                imageList(i)
-              ).ret.open()
-              controller.game = controller.game.setError(0)
+              controller.game.midCard.karten(0).getValue match
+                case CardValue.Take2 =>
+                  errorPop(
+                    "You're not allowed to place a card after a '+2'",
+                    imageList(i)
+                  ).ret.open()
+                  controller.game = controller.game.setError(0)
+                case CardValue.Skip =>
+                  errorPop(
+                    "You're not allowed to place a card because you were skipped",
+                    imageList(i)
+                  ).ret.open()
+                  controller.game = controller.game.setError(0)
+                case _ =>
+                  errorPop(
+                    "This card can not be placed!",
+                    imageList(i)
+                  ).ret.open()
+                  controller.game = controller.game.setError(0)
             }
           }
         }
