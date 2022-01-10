@@ -13,7 +13,7 @@ class TUI(controller: controllerInterface) extends Observer:
   val SUCCESS = 1
   controller.add(this)
   print(
-    "\n\nWillkommen zu Uno! Um zur Uebersicht der Befehle zu kommen bitte help eingeben\n\n"
+    "\n\nWelcome to UNO! type help for all commands\n\n"
   )
 
   def run(input: String) =
@@ -25,7 +25,7 @@ class TUI(controller: controllerInterface) extends Observer:
 
   def convertinputString(input: String): Int =
     if (input.size == 0)
-      print("Keine Eingabe!\n")
+      print("no input!\n")
       return ERROR
     val in = input.split(" ")
 
@@ -44,7 +44,7 @@ class TUI(controller: controllerInterface) extends Observer:
         controller.take()
         if (controller.game.ERROR < 0) {
           Console.println(
-            s"${RED}!!!take oder + ist in diesem Zustand nicht möglich!!!${RESET}"
+            s"${RED}!!!take or + is not possible in this state!!!${RESET}"
           )
           return ERROR
         }
@@ -52,13 +52,13 @@ class TUI(controller: controllerInterface) extends Observer:
 
       case "place" | "-" =>
         if (in.size < 2) {
-          Console.println(s"${RED}Falscher place Aufruf!${RESET}")
+          Console.println(s"${RED}Wrong place command!${RESET}")
           return ERROR
         } else {
           controller.place(in(1).toInt - 1)
           if (controller.game.ERROR < 0) {
             Console.println(
-              s"${RED}!!!place oder - ist nicht möglich in diesem Zustand!!!${RESET}"
+              s"${RED}!!!place or - is not possible in this state!!!${RESET}"
             )
             controller.game = controller.game.setError(0)
             return ERROR
@@ -77,20 +77,20 @@ class TUI(controller: controllerInterface) extends Observer:
         controller.redo()
         return SUCCESS
       case _ =>
-        print("Falsche Eingabe, es gibt folgende Befehle: \n")
+        print("Wrong input these are all valid commands:\n")
         return ERROR
 
   def printhelp() =
     Console.print(s"""${GREEN}
-              Befehlsuebersicht fuer Uno:
-              - help | h                       : zeigt alle Befehle fuer Uno
-              - exit | q                       : verlaesst das Spiel
-              - new  |                         : startet ein neues Spiel
-              - take | +                       : fuegt eine Zufaellige Karte zum jeweiligen Spieler hinzu 
-              - place <index> | - <index>      : Legt die Karte an diesem Index auf den Spielstapel
-              - next | n                       : Beendet den Zug, der naechste Spieler ist dran   
-              - undo | z                       : Undo, macht den letzten schritt rückgängig 
-              - redo | y                       : Redo, macht das letzte undo rückgängig    
+              all commands for UNO:
+              - help | h                       : shows all commands
+              - exit | q                       : leaves the game
+              - new  |                         : creates a new game
+              - take | +                       : adds a random card from the stack to the player
+              - place <index> | - <index>      : places the card at <index>
+              - next | n                       : goes to the next state   
+              - undo | z                       : undo the last command
+              - redo | y                       : redo, undos the last undo
               ${RESET}""" + "\n")
 
   override def update: Unit =
