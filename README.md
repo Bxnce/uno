@@ -1,5 +1,5 @@
 # A SCALA UNO Project | *work in progress*
-Only playable on one computer and atm only "normal" cards no special cards.<br/>
+Only playable on one computer. "+4" and color wildcard<br/>
 TUI and GUI are both working and running synchron.
 
 
