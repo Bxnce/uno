@@ -85,6 +85,20 @@ class PlayerSpec extends AnyWordSpec {
       p1.karten(1) shouldBe (Y2)
     }
 
+    "have a method setFalse(), that sets the placed value to false " in {
+      var p1 = Player("p1", Vector[Card](), true)
+      p1.placed shouldBe (true)
+      p1 = p1.setFalse()
+      p1.placed shouldBe (false)
+    }
+
+    "have a method setTrue(), that sets the placed value to true " in {
+      var p1 = Player("p1", Vector[Card](), false)
+      p1.placed shouldBe (false)
+      p1 = p1.setTrue()
+      p1.placed shouldBe (true)
+    }
+
     "have a method add(Card) that adds a card to the Vector karten" in {
       //sehr unschön wenn man vals nimmt
       val p1 = Player("Spieler1", Vector[Card](), false)

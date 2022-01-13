@@ -102,7 +102,7 @@ case class Game(
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
   def take(player: String): Game =
-    val rnd = r.nextInt(cardsInDeck - 1)
+    val rnd = r.nextInt(cardsInDeck) // -1 entfernt
     add(player, Card.values(rnd))
 
   def checkPlace(ind: Int, player: Int): Boolean =
@@ -111,7 +111,9 @@ case class Game(
         .karten(0)
         .getColor == pList(player).karten(ind).getColor) || (midCard
         .karten(0)
-        .getValue == pList(player).karten(ind).getValue)
+        .getValue == pList(player).karten(ind).getValue || pList(player)
+        .karten(ind)
+        .getColor == CardColor.Black)
     } match {
       case Success(x) => x
       case Failure(y) => false
@@ -154,6 +156,9 @@ case class Game(
               tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
             case 1 =>
               tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
+        case CardValue.Wildcard =>
+          //chooseColor("Green")
+          tmp
         case _ =>
           tmp
     } else {
@@ -162,6 +167,17 @@ case class Game(
       )
       setError(-1)
     }
+
+  def chooseColor(farbe: String): Game = //funktioniert aktuell noch nicht
+    farbe match
+      case "Blue" =>
+        copy(pList, currentstate, ERROR, cardStack, midCard.add(B))
+      case "Red" =>
+        copy(pList, currentstate, ERROR, cardStack, midCard.add(R))
+      case "Green" =>
+        copy(pList, currentstate, ERROR, cardStack, midCard.add(G))
+      case "Yellow" =>
+        copy(pList, currentstate, ERROR, cardStack, midCard.add(Y))
 
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {
