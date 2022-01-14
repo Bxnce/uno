@@ -144,6 +144,13 @@ case class Game(
               takeCards(tmp, 2, 1, "P2")
             case 1 =>
               takeCards(tmp, 2, 0, "P1")
+              tmp = tmp.take("P2")
+              tmp = tmp.take("P2")
+              tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
+            case 1 =>
+              tmp = tmp.take("P1")
+              tmp = tmp.take("P1")
+              tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
         case CardValue.Skip =>
           player match
             case 0 =>

@@ -12,6 +12,7 @@ class CardsSpec extends AnyWordSpec {
     "be one of 4 colors (Red, Blue, Green, Yellow) and have a value between 0 and 9" in {
       val red: Array[Card] = Card.values.filter(c => c.getColor == Red)
       red.size should be(13)
+
       red.map(c => c.getValue).toSet shouldBe Set(
         Zero,
         One,
