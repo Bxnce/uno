@@ -123,7 +123,8 @@ case class Game(
 
   def place(ind: Int, player: Int): Game =
     if (checkPlace(ind, player) && !pList(player).placed) {
-      copy(
+      val tmpVal = pList(player).karten(ind).getValue
+      var tmp: Game = copy(
         pList.updated(player, pList(player).removeInd(ind)),
         currentstate,
         0,
@@ -136,6 +137,25 @@ case class Game(
           false
         )
       )
+      tmpVal match
+        case CardValue.Take2 =>
+          player match
+            case 0 =>
+              tmp = tmp.take("P2")
+              tmp = tmp.take("P2")
+              tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
+            case 1 =>
+              tmp = tmp.take("P1")
+              tmp = tmp.take("P1")
+              tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
+        case CardValue.Skip =>
+          player match
+            case 0 =>
+              tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
+            case 1 =>
+              tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
+        case _ =>
+          tmp
     } else {
       Console.println(
         s"${RED}!!!Karte kann nicht gelegt werden!!!${RESET}"

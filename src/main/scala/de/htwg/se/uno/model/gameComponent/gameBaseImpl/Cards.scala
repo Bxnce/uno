@@ -2,8 +2,8 @@ package de.htwg.se.uno
 package model.gameComponent.gameBaseImpl
 
 enum CardValue:
-  case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Special,
-  Error
+  case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Take2, Skip,
+  Special, Error
 
 enum CardColor:
   case Red, Blue, Green, Yellow, SpecialC, ErrorC
@@ -19,6 +19,8 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case R7 extends Card(CardColor.Red, CardValue.Seven, "R7")
   case R8 extends Card(CardColor.Red, CardValue.Eight, "R8")
   case R9 extends Card(CardColor.Red, CardValue.Nine, "R9")
+  case RP extends Card(CardColor.Red, CardValue.Take2, "R+")
+  case RS extends Card(CardColor.Red, CardValue.Skip, "RS")
 
   case B0 extends Card(CardColor.Blue, CardValue.Zero, "B0")
   case B1 extends Card(CardColor.Blue, CardValue.One, "B1")
@@ -30,6 +32,8 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case B7 extends Card(CardColor.Blue, CardValue.Seven, "B7")
   case B8 extends Card(CardColor.Blue, CardValue.Eight, "B8")
   case B9 extends Card(CardColor.Blue, CardValue.Nine, "B9")
+  case BP extends Card(CardColor.Blue, CardValue.Take2, "B+")
+  case BS extends Card(CardColor.Blue, CardValue.Skip, "BS")
 
   case G0 extends Card(CardColor.Green, CardValue.Zero, "G0")
   case G1 extends Card(CardColor.Green, CardValue.One, "G1")
@@ -41,6 +45,8 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case G7 extends Card(CardColor.Green, CardValue.Seven, "G7")
   case G8 extends Card(CardColor.Green, CardValue.Eight, "G8")
   case G9 extends Card(CardColor.Green, CardValue.Nine, "G9")
+  case GP extends Card(CardColor.Green, CardValue.Take2, "G+")
+  case GS extends Card(CardColor.Green, CardValue.Skip, "GS")
 
   case Y0 extends Card(CardColor.Yellow, CardValue.Zero, "Y0")
   case Y1 extends Card(CardColor.Yellow, CardValue.One, "Y1")
@@ -52,6 +58,8 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case Y7 extends Card(CardColor.Yellow, CardValue.Seven, "Y7")
   case Y8 extends Card(CardColor.Yellow, CardValue.Eight, "Y8")
   case Y9 extends Card(CardColor.Yellow, CardValue.Nine, "Y9")
+  case YP extends Card(CardColor.Yellow, CardValue.Take2, "Y+")
+  case YS extends Card(CardColor.Yellow, CardValue.Skip, "YS")
 
   case XX extends Card(CardColor.ErrorC, CardValue.Error, "XX")
 

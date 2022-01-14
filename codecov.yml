@@ -1,7 +1,8 @@
 ignore:
   - "**/aview/GUI/"
-  - "**/Main.scala"
+  - "**/Uno.scala"
   - "**/resources/"
+  - "**/UnoModel.scala"
 
 coverage:
   status:
