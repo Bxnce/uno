@@ -102,7 +102,9 @@ case class Game(
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
   def take(player: String): Game =
-    val rnd = r.nextInt(cardsInDeck) // -1 entfernt
+    val rnd = r.nextInt(
+      cardsInDeck - 4
+    ) // damit die Blank Cards nicht gezogen werden können
     add(player, Card.values(rnd))
 
   def checkPlace(ind: Int, player: Int): Boolean =
@@ -131,7 +133,7 @@ case class Game(
         currentstate,
         0,
         cardStack.increase(
-          pList(player).karten(ind)
+          midCard.karten(0)
         ), //warum wird die Karte vom spieler und nicht die vom midstack dazugelegt ??
         Player(
           midCard.name,
@@ -157,8 +159,16 @@ case class Game(
             case 1 =>
               tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
         case CardValue.Wildcard =>
-          //chooseColor("Green")
-          tmp
+          val farbe: String = "Green"
+          farbe match
+            case "Blue" =>
+              chooseColor(tmp, "Blue")
+            case "Red" =>
+              chooseColor(tmp, "Red")
+            case "Green" =>
+              chooseColor(tmp, "Green")
+            case "Yellow" =>
+              chooseColor(tmp, "Yellow")
         case _ =>
           tmp
     } else {
@@ -168,16 +178,43 @@ case class Game(
       setError(-1)
     }
 
-  def chooseColor(farbe: String): Game = //funktioniert aktuell noch nicht
+  def chooseColor(
+      tmp: Game,
+      farbe: String
+  ): Game = //funktioniert aktuell noch nicht
     farbe match
       case "Blue" =>
-        copy(pList, currentstate, ERROR, cardStack, midCard.add(B))
+        tmp.copy(
+          tmp.pList,
+          tmp.currentstate,
+          tmp.ERROR,
+          tmp.cardStack,
+          tmp.midCard.removeInd(0).add(B)
+        )
       case "Red" =>
-        copy(pList, currentstate, ERROR, cardStack, midCard.add(R))
+        tmp.copy(
+          tmp.pList,
+          tmp.currentstate,
+          tmp.ERROR,
+          tmp.cardStack,
+          tmp.midCard.removeInd(0).add(R)
+        )
       case "Green" =>
-        copy(pList, currentstate, ERROR, cardStack, midCard.add(G))
+        tmp.copy(
+          tmp.pList,
+          tmp.currentstate,
+          tmp.ERROR,
+          tmp.cardStack,
+          tmp.midCard.removeInd(0).add(G)
+        )
       case "Yellow" =>
-        copy(pList, currentstate, ERROR, cardStack, midCard.add(Y))
+        tmp.copy(
+          tmp.pList,
+          tmp.currentstate,
+          tmp.ERROR,
+          tmp.cardStack,
+          tmp.midCard.removeInd(0).add(Y)
+        )
 
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {

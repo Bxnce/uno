@@ -61,11 +61,11 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case YP extends Card(CardColor.Yellow, CardValue.Take2, "Y+")
   case YS extends Card(CardColor.Yellow, CardValue.Skip, "YS")
 
-  case W extends Card(CardColor.Black, CardValue.Wildcard, "W")
-  case R extends Card(CardColor.Red, CardValue.Special, "R")
-  case B extends Card(CardColor.Blue, CardValue.Special, "B")
-  case G extends Card(CardColor.Green, CardValue.Special, "G")
-  case Y extends Card(CardColor.Yellow, CardValue.Special, "Y")
+  case W extends Card(CardColor.Black, CardValue.Wildcard, "WC")
+  case R extends Card(CardColor.Red, CardValue.Special, "RC")
+  case B extends Card(CardColor.Blue, CardValue.Special, "BC")
+  case G extends Card(CardColor.Green, CardValue.Special, "GC")
+  case Y extends Card(CardColor.Yellow, CardValue.Special, "YC")
 
   case XX extends Card(CardColor.ErrorC, CardValue.Error, "XX")
 
