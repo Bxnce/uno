@@ -11,7 +11,8 @@ class CardsSpec extends AnyWordSpec {
     import CardValue._
     "be one of 4 colors (Red, Blue, Green, Yellow) and have a value between 0 and 9" in {
       val red: Array[Card] = Card.values.filter(c => c.getColor == Red)
-      red.size should be(12)
+      red.size should be(13)
+
       red.map(c => c.getValue).toSet shouldBe Set(
         Zero,
         One,
@@ -24,10 +25,11 @@ class CardsSpec extends AnyWordSpec {
         Eight,
         Nine,
         Take2,
-        Skip
+        Skip,
+        Special
       )
       val blue: Array[Card] = Card.values.filter(c => c.getColor == Blue)
-      blue.size should be(12)
+      blue.size should be(13)
       blue.map(c => c.getValue).toSet shouldBe Set(
         Zero,
         One,
@@ -40,10 +42,11 @@ class CardsSpec extends AnyWordSpec {
         Eight,
         Nine,
         Take2,
-        Skip
+        Skip,
+        Special
       )
       val green: Array[Card] = Card.values.filter(c => c.getColor == Green)
-      green.size should be(12)
+      green.size should be(13)
       green.map(c => c.getValue).toSet shouldBe Set(
         Zero,
         One,
@@ -56,10 +59,11 @@ class CardsSpec extends AnyWordSpec {
         Eight,
         Nine,
         Take2,
-        Skip
+        Skip,
+        Special
       )
       val yellow: Array[Card] = Card.values.filter(c => c.getColor == Yellow)
-      yellow.size should be(12)
+      yellow.size should be(13)
       yellow.map(c => c.getValue).toSet shouldBe Set(
         Zero,
         One,
@@ -72,7 +76,8 @@ class CardsSpec extends AnyWordSpec {
         Eight,
         Nine,
         Take2,
-        Skip
+        Skip,
+        Special
       )
       val error = (XX)
       error.getColor shouldBe (CardColor.ErrorC)

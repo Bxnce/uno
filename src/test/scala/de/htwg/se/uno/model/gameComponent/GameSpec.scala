@@ -33,7 +33,7 @@ class GameSpec extends AnyWordSpec {
       g1.midCard.karten.size shouldBe (1)
       g1.pList(0).karten.size shouldBe (0)
       g1.pList(1).karten.size shouldBe (0)
-      g1.cardsInDeck shouldBe (48)
+      g1.cardsInDeck shouldBe (54)
     }
 
     "have a method add(String, Card) that adds a card to a players hand" in {

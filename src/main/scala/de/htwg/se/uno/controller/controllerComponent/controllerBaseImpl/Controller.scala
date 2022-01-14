@@ -41,5 +41,9 @@ case class Controller(var game: gameInterface) extends controllerInterface:
   def WinG(p1: String, p2: String) =
     game = new Game(p1, p2, between21State).init()
 
+  def colorChoose(color: String) =
+    game = invoker.doStep(UnoCommand(color, this))
+    notifyObservers
+
   override def toString: String =
     UnoCommand(this, "print").toString

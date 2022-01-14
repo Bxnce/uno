@@ -31,27 +31,30 @@ case class displayCards(controller: controllerInterface) {
     var color = ""
     var value = ""
     c.getColor match
-      case CardColor.Red      => color = "red_"
-      case CardColor.Blue     => color = "blue_"
-      case CardColor.Green    => color = "green_"
-      case CardColor.Yellow   => color = "yellow_"
-      case CardColor.SpecialC => color = ""
-      case CardColor.ErrorC   => color = ""
+      case CardColor.Red    => color = "red"
+      case CardColor.Blue   => color = "blue"
+      case CardColor.Green  => color = "green"
+      case CardColor.Yellow => color = "yellow"
+      case CardColor.Black  => color = "black"
+      case CardColor.ErrorC => color = ""
+
     c.getValue match
-      case CardValue.Zero    => value = "0"
-      case CardValue.One     => value = "1"
-      case CardValue.Two     => value = "2"
-      case CardValue.Three   => value = "3"
-      case CardValue.Four    => value = "4"
-      case CardValue.Five    => value = "5"
-      case CardValue.Six     => value = "6"
-      case CardValue.Seven   => value = "7"
-      case CardValue.Eight   => value = "8"
-      case CardValue.Nine    => value = "9"
-      case CardValue.Take2   => value = "+2"
-      case CardValue.Skip    => value = "skip"
-      case CardValue.Special => value = ""
-      case CardValue.Error   => value = ""
+      case CardValue.Zero     => value = "_0"
+      case CardValue.One      => value = "_1"
+      case CardValue.Two      => value = "_2"
+      case CardValue.Three    => value = "_3"
+      case CardValue.Four     => value = "_4"
+      case CardValue.Five     => value = "_5"
+      case CardValue.Six      => value = "_6"
+      case CardValue.Seven    => value = "_7"
+      case CardValue.Eight    => value = "_8"
+      case CardValue.Nine     => value = "_9"
+      case CardValue.Take2    => value = "_+2"
+      case CardValue.Skip     => value = "_skip"
+      case CardValue.Wildcard => value = "_wildcard"
+      case CardValue.Take4    => value = "_+4"
+      case CardValue.Special  => value = ""
+      case CardValue.Error    => value = ""
 
     val imagePath = "src/main/resources/cards/" + color + value + ".png"
 
@@ -92,6 +95,15 @@ case class displayCards(controller: controllerInterface) {
           listenTo(mouse.clicks)
           reactions += { case e: MouseClicked =>
             controller.place(i)
+            if (
+              controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Wildcard || controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Take4
+            ) {
+              colorChoosePop(controller).ret.open
+            }
             if (controller.game.ERROR != 0) {
               controller.game.midCard.karten(0).getValue match
                 case CardValue.Take2 =>

@@ -102,7 +102,9 @@ case class Game(
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
   def take(player: String): Game =
-    val rnd = r.nextInt(cardsInDeck - 1)
+    val rnd = r.nextInt(
+      cardsInDeck - 4
+    ) // damit die Blank Cards nicht gezogen werden können
     add(player, Card.values(rnd))
 
   def checkPlace(ind: Int, player: Int): Boolean =
@@ -111,15 +113,13 @@ case class Game(
         .karten(0)
         .getColor == pList(player).karten(ind).getColor) || (midCard
         .karten(0)
-        .getValue == pList(player).karten(ind).getValue)
+        .getValue == pList(player).karten(ind).getValue || pList(player)
+        .karten(ind)
+        .getColor == CardColor.Black)
     } match {
       case Success(x) => x
       case Failure(y) => false
     }
-  /*if(midCard.karten(0).getColor.equals(pList(player).karten(ind).getColor) || midCard.karten(0).getValue.equals(pList(player).karten(ind).getValue))
-      {true} else {
-        false
-      }*/
 
   def place(ind: Int, player: Int): Game =
     if (checkPlace(ind, player) && !pList(player).placed) {
@@ -129,7 +129,7 @@ case class Game(
         currentstate,
         0,
         cardStack.increase(
-          pList(player).karten(ind)
+          midCard.karten(0)
         ), //warum wird die Karte vom spieler und nicht die vom midstack dazugelegt ??
         Player(
           midCard.name,
@@ -141,6 +141,9 @@ case class Game(
         case CardValue.Take2 =>
           player match
             case 0 =>
+              takeCards(tmp, 2, 1, "P2")
+            case 1 =>
+              takeCards(tmp, 2, 0, "P1")
               tmp = tmp.take("P2")
               tmp = tmp.take("P2")
               tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
@@ -154,6 +157,12 @@ case class Game(
               tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
             case 1 =>
               tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
+        case CardValue.Take4 =>
+          player match
+            case 0 =>
+              takeCards(tmp, 4, 1, "P2")
+            case 1 =>
+              takeCards(tmp, 4, 0, "P1")
         case _ =>
           tmp
     } else {
@@ -162,6 +171,39 @@ case class Game(
       )
       setError(-1)
     }
+
+  def takeCards(g: Game, num: Int, p: Int, pn: String): Game =
+    var tmp = g
+    for (i <- 1 to num) {
+      tmp = tmp.take(pn)
+    }
+    tmp
+  //tmp.copy(tmp.pList.updated(p, tmp.pList(p).setTrue()))    //falls man den Spieler nach dem Ziehen sperren möchte(offizielle Regeln)
+
+  def chooseColor(color: String): Game =
+    print("Farbe:" + "'" + color + "'" + "\n")
+    val tmp = this
+    color match
+      case "Blue" | "B" =>
+        changeMid(tmp, B)
+      case "Red" | "R" =>
+        changeMid(tmp, R)
+      case "Green" | "G" =>
+        changeMid(tmp, G)
+      case "Yellow" | "Y" =>
+        changeMid(tmp, Y)
+      case _ =>
+        print("hier")
+        tmp
+
+  def changeMid(tmp: Game, c: Card): Game =
+    tmp.copy(
+      tmp.pList,
+      tmp.currentstate,
+      tmp.ERROR,
+      tmp.cardStack,
+      tmp.midCard.removeInd(0).add(c)
+    )
 
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {

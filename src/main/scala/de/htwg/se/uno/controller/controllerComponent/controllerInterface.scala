@@ -15,5 +15,6 @@ trait controllerInterface extends Observable {
   def redo(): Unit
   def newG(p1: String, p2: String): Unit
   def WinG(p1: String, p2: String): Unit
+  def colorChoose(color: String): Unit
   override def toString: String
 }
