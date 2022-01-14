@@ -11,11 +11,7 @@ import model.gameComponent.gameBaseImpl.Game
 class UnoModule extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[gameInterface]).to(classOf[Game])
-    bind(classOf[controllerInterface]).to(classOf[Controller])
-    /*bind(classOf[gameInterface])
-      .annotatedWithName("start")
-      .toInstance(new Game("place_h", "place_h", between21State))*/
+    bind(classOf[controllerInterface]).toInstance(Controller(new Game("place_h","place_h",between21State)))
   }
 
 }
