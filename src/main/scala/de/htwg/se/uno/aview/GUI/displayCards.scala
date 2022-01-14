@@ -52,6 +52,7 @@ case class displayCards(controller: controllerInterface) {
       case CardValue.Take2    => value = "_+2"
       case CardValue.Skip     => value = "_skip"
       case CardValue.Wildcard => value = "_wildcard"
+      case CardValue.Take4    => value = "_+4"
       case CardValue.Special  => value = ""
       case CardValue.Error    => value = ""
 

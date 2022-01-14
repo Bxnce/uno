@@ -145,13 +145,9 @@ case class Game(
         case CardValue.Take2 =>
           player match
             case 0 =>
-              tmp = tmp.take("P2")
-              tmp = tmp.take("P2")
-              tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
+              takeCards(tmp, 2, 1, "P2")
             case 1 =>
-              tmp = tmp.take("P1")
-              tmp = tmp.take("P1")
-              tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
+              takeCards(tmp, 2, 0, "P1")
         case CardValue.Skip =>
           player match
             case 0 =>
@@ -159,6 +155,22 @@ case class Game(
             case 1 =>
               tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
         case CardValue.Wildcard =>
+          val farbe: String = "Green"
+          farbe match
+            case "Blue" =>
+              chooseColor(tmp, "Blue")
+            case "Red" =>
+              chooseColor(tmp, "Red")
+            case "Green" =>
+              chooseColor(tmp, "Green")
+            case "Yellow" =>
+              chooseColor(tmp, "Yellow")
+        case CardValue.Take4 =>
+          player match
+            case 0 =>
+              tmp = takeCards(tmp, 4, 1, "P2")
+            case 1 =>
+              tmp = takeCards(tmp, 4, 0, "P1")
           val farbe: String = "Green"
           farbe match
             case "Blue" =>
@@ -178,43 +190,32 @@ case class Game(
       setError(-1)
     }
 
-  def chooseColor(
-      tmp: Game,
-      farbe: String
-  ): Game = //funktioniert aktuell noch nicht
+  def takeCards(g: Game, num: Int, p: Int, pn: String): Game =
+    var tmp = g
+    for (i <- 1 to num) {
+      tmp = tmp.take(pn)
+    }
+    tmp.copy(tmp.pList.updated(p, tmp.pList(p).setTrue()))
+
+  def chooseColor(tmp: Game, farbe: String): Game =
     farbe match
       case "Blue" =>
-        tmp.copy(
-          tmp.pList,
-          tmp.currentstate,
-          tmp.ERROR,
-          tmp.cardStack,
-          tmp.midCard.removeInd(0).add(B)
-        )
+        changeMid(tmp, B)
       case "Red" =>
-        tmp.copy(
-          tmp.pList,
-          tmp.currentstate,
-          tmp.ERROR,
-          tmp.cardStack,
-          tmp.midCard.removeInd(0).add(R)
-        )
+        changeMid(tmp, R)
       case "Green" =>
-        tmp.copy(
-          tmp.pList,
-          tmp.currentstate,
-          tmp.ERROR,
-          tmp.cardStack,
-          tmp.midCard.removeInd(0).add(G)
-        )
+        changeMid(tmp, G)
       case "Yellow" =>
-        tmp.copy(
-          tmp.pList,
-          tmp.currentstate,
-          tmp.ERROR,
-          tmp.cardStack,
-          tmp.midCard.removeInd(0).add(Y)
-        )
+        changeMid(tmp, Y)
+
+  def changeMid(tmp: Game, c: Card): Game =
+    tmp.copy(
+      tmp.pList,
+      tmp.currentstate,
+      tmp.ERROR,
+      tmp.cardStack,
+      tmp.midCard.removeInd(0).add(c)
+    )
 
   def checkWin(player: Player): Boolean =
     if (player.karten.isEmpty) {
