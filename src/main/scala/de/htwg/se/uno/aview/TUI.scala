@@ -6,6 +6,7 @@ import controller.controllerComponent.controllerInterface
 import model.gameComponent.gameBaseImpl.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
+import de.htwg.se.uno.model.gameComponent.gameBaseImpl.CardValue
 
 class TUI(controller: controllerInterface) extends Observer:
   val ERROR = -1
@@ -63,6 +64,34 @@ class TUI(controller: controllerInterface) extends Observer:
             controller.game = controller.game.setError(0)
             return ERROR
           } else {
+            if (
+              controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Wildcard || controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Take4
+            ) {
+              var check = true
+              var color = "test"
+              while (check)
+              {
+                color = readLine(
+                  "please select your color (Yellow(Y), Blue(B), Green(G) or Red(R)):  "
+                )
+                print(color + "\n")
+                color match
+                  case "Yellow" | "Y" | "Blue" | "B" | "Green" | "G" | "Red" |
+                      "R" =>
+                    check =
+                      false //statt break und continue diese hässliche Variable.
+                  case _ =>
+                    print(
+                      "choose one of the given colors or shortcuts for colors! \n"
+                    )
+
+              }
+              controller.colorChoose(color)
+            }
             return SUCCESS
           }
         }

@@ -75,6 +75,13 @@ case class toStringCommand(controller: controllerInterface)
     }
 }
 
+case class colorChooseCommand(color: String, controller: controllerInterface)
+    extends Command(controller) {
+  override def execute =
+    controller.game.chooseColor(color)
+
+}
+
 object UnoCommand { //Factory
   def apply(controller: controllerInterface, dec: String) =
     dec match
@@ -87,4 +94,7 @@ object UnoCommand { //Factory
 
   def apply(ind: Int, controller: controllerInterface) =
     new PlaceCommand(ind, controller)
+
+  def apply(color: String, controller: controllerInterface) =
+    new colorChooseCommand(color, controller)
 }

@@ -95,6 +95,15 @@ case class displayCards(controller: controllerInterface) {
           listenTo(mouse.clicks)
           reactions += { case e: MouseClicked =>
             controller.place(i)
+            if (
+              controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Wildcard || controller.game.midCard
+                .karten(0)
+                .getValue == CardValue.Take4
+            ) {
+              colorChoosePop(controller).ret.open
+            }
             if (controller.game.ERROR != 0) {
               controller.game.midCard.karten(0).getValue match
                 case CardValue.Take2 =>

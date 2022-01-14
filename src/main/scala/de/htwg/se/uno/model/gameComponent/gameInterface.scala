@@ -23,5 +23,6 @@ trait gameInterface {
   def addTest(p: String, card: Card): gameInterface
   def init(): gameInterface
   def getNext(game: gameInterface, player: Int, state: State): gameInterface
+  def chooseColor(color: String): gameInterface
 
 }

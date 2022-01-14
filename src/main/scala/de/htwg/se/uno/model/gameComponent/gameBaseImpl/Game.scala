@@ -120,10 +120,6 @@ case class Game(
       case Success(x) => x
       case Failure(y) => false
     }
-  /*if(midCard.karten(0).getColor.equals(pList(player).karten(ind).getColor) || midCard.karten(0).getValue.equals(pList(player).karten(ind).getValue))
-      {true} else {
-        false
-      }*/
 
   def place(ind: Int, player: Int): Game =
     if (checkPlace(ind, player) && !pList(player).placed) {
@@ -154,33 +150,12 @@ case class Game(
               tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
             case 1 =>
               tmp.copy(tmp.pList.updated(0, tmp.pList(0).setTrue()))
-        case CardValue.Wildcard =>
-          val farbe: String = "Green"
-          farbe match
-            case "Blue" =>
-              chooseColor(tmp, "Blue")
-            case "Red" =>
-              chooseColor(tmp, "Red")
-            case "Green" =>
-              chooseColor(tmp, "Green")
-            case "Yellow" =>
-              chooseColor(tmp, "Yellow")
         case CardValue.Take4 =>
           player match
             case 0 =>
-              tmp = takeCards(tmp, 4, 1, "P2")
+              takeCards(tmp, 4, 1, "P2")
             case 1 =>
-              tmp = takeCards(tmp, 4, 0, "P1")
-          val farbe: String = "Green"
-          farbe match
-            case "Blue" =>
-              chooseColor(tmp, "Blue")
-            case "Red" =>
-              chooseColor(tmp, "Red")
-            case "Green" =>
-              chooseColor(tmp, "Green")
-            case "Yellow" =>
-              chooseColor(tmp, "Yellow")
+              takeCards(tmp, 4, 0, "P1")
         case _ =>
           tmp
     } else {
@@ -195,18 +170,24 @@ case class Game(
     for (i <- 1 to num) {
       tmp = tmp.take(pn)
     }
-    tmp.copy(tmp.pList.updated(p, tmp.pList(p).setTrue()))
+    tmp
+  //tmp.copy(tmp.pList.updated(p, tmp.pList(p).setTrue()))    //falls man den Spieler nach dem Ziehen sperren möchte(offizielle Regeln)
 
-  def chooseColor(tmp: Game, farbe: String): Game =
-    farbe match
-      case "Blue" =>
+  def chooseColor(color: String): Game =
+    print("Farbe:" + "'" + color + "'" + "\n")
+    val tmp = this
+    color match
+      case "Blue" | "B" =>
         changeMid(tmp, B)
-      case "Red" =>
+      case "Red" | "R" =>
         changeMid(tmp, R)
-      case "Green" =>
+      case "Green" | "G" =>
         changeMid(tmp, G)
-      case "Yellow" =>
+      case "Yellow" | "Y" =>
         changeMid(tmp, Y)
+      case _ =>
+        print("hier")
+        tmp
 
   def changeMid(tmp: Game, c: Card): Game =
     tmp.copy(
