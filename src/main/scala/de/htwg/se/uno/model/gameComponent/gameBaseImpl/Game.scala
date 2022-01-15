@@ -130,7 +130,7 @@ case class Game(
         0,
         cardStack.increase(
           midCard.karten(0)
-        ), //warum wird die Karte vom spieler und nicht die vom midstack dazugelegt ??
+        ),
         Player(
           midCard.name,
           midCard.karten.updated(0, pList(player).karten(ind)),
@@ -141,12 +141,9 @@ case class Game(
         case CardValue.Take2 =>
           player match
             case 0 =>
-              takeCards(tmp, 2, 1, "P2")
+              takeCards(tmp, 2, "P2")
             case 1 =>
-              takeCards(tmp, 2, 0, "P1")
-              tmp = tmp.take("P2")
-              tmp = tmp.take("P2")
-              tmp.copy(tmp.pList.updated(1, tmp.pList(1).setTrue()))
+              takeCards(tmp, 2, "P1")
         case CardValue.Skip =>
           player match
             case 0 =>
@@ -156,9 +153,9 @@ case class Game(
         case CardValue.Take4 =>
           player match
             case 0 =>
-              takeCards(tmp, 4, 1, "P2")
+              takeCards(tmp, 4, "P2")
             case 1 =>
-              takeCards(tmp, 4, 0, "P1")
+              takeCards(tmp, 4, "P1")
         case _ =>
           tmp
     } else {
@@ -168,7 +165,7 @@ case class Game(
       setError(-1)
     }
 
-  def takeCards(g: Game, num: Int, p: Int, pn: String): Game =
+  def takeCards(g: Game, num: Int, pn: String): Game =
     var tmp = g
     for (i <- 1 to num) {
       tmp = tmp.take(pn)
@@ -189,7 +186,6 @@ case class Game(
       case "Yellow" | "Y" =>
         changeMid(tmp, Y)
       case _ =>
-        print("hier")
         tmp
 
   def changeMid(tmp: Game, c: Card): Game =

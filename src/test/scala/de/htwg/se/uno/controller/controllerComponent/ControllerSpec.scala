@@ -142,6 +142,12 @@ class ControllerSpec extends AnyWordSpec {
 
       c.colorChoose("Yellow")
       c.game.midCard.karten(0) shouldBe (Y)
+
+      c.colorChoose("")
+      c.game.midCard.karten(0) shouldBe (Y)
+
+      c.colorChoose("Hallo")
+      c.game.midCard.karten(0) shouldBe (Y)
     }
 
     "override the method toString" in {
