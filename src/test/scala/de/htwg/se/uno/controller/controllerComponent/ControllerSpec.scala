@@ -127,6 +127,23 @@ class ControllerSpec extends AnyWordSpec {
       c.game.currentstate shouldEqual (between21State)
     }
 
+    "have a method colorChoose(String), that is called after a wildcard or a take4" in {
+      var game = new Game("p1", "p2", between21State)
+      var c = new Controller(game)
+
+      c.colorChoose("Red")
+      c.game.midCard.karten(0) shouldBe (R)
+
+      c.colorChoose("Green")
+      c.game.midCard.karten(0) shouldBe (G)
+
+      c.colorChoose("Blue")
+      c.game.midCard.karten(0) shouldBe (B)
+
+      c.colorChoose("Yellow")
+      c.game.midCard.karten(0) shouldBe (Y)
+    }
+
     "override the method toString" in {
       var game2 = new Game("p1", "p2", between21State)
       game2 = game2.addTest("midstack", R0)
