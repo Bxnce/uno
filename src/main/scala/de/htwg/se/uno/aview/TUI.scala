@@ -22,7 +22,7 @@ class TUI(controller: controllerInterface) extends Observer:
       case ERROR   => printhelp()
       case EXIT    => System.exit(0)
       case SUCCESS => print("\n\n")
-      case _       => print("Hier sollten sie nicht hinkommen\n")
+  //case _       => print("Hier sollten sie nicht hinkommen\n")
 
   def convertinputString(input: String): Int =
     if (input.size == 0)
@@ -72,7 +72,7 @@ class TUI(controller: controllerInterface) extends Observer:
                 .getValue == CardValue.Take4
             ) {
               var check = true
-              var color = "test"
+              var color = ""
               while (check)
               {
                 color = readLine(
