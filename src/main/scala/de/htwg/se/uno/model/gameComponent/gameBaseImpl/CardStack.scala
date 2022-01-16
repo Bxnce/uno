@@ -1,7 +1,7 @@
 package de.htwg.se.uno
 package model.gameComponent.gameBaseImpl
 
-import scala.collection.immutable.HashMap
+//import scala.collection.immutable.HashMap   //funktioniert auch ohne den Import
 import Card._
 
 case class CardStack(cards: Map[Card, Int]) {

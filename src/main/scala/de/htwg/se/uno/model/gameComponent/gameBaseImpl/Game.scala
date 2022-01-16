@@ -2,8 +2,6 @@ package de.htwg.se.uno
 package model.gameComponent.gameBaseImpl
 
 import model.gameComponent.gameInterface
-
-import scala.io.StdIn.readLine
 import Player._
 import toCard._
 import CardLayout._
@@ -21,6 +19,7 @@ case class Game(
     midCard: Player,
     winner: Int
 ) extends gameInterface:
+
   def this(player1: String, player2: String, startstate: State) =
     this(
       List(
@@ -36,32 +35,21 @@ case class Game(
       -1
     )
 
+  val cardsInDeck = Card.values.size - 1
+  val r = scala.util.Random
+
   def init(): Game =
     this
       .playerFill(7)
       .take("midcard")
 
-  def getNext(game: gameInterface, player: Int, state: State): Game =
-    if (player == -1) {
-      Game(game.pList, state, 0, game.cardStack, game.midCard, player)
-    } else {
-      Game(
-        game.pList
-          .updated(player, game.pList(player).setFalse()),
-        state,
-        0,
-        game.cardStack,
-        game.midCard,
-        player
-      )
-    }
+  //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
+  def take(player: String): Game =
+    val rnd = r.nextInt(cardsInDeck - 4)
+    add(player, Card.values(rnd))
 
-  val cardsInDeck = Card.values.size - 1
-  val r = scala.util.Random
-  //Funktionen des Spiels
-  //added eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
+  //fügt eine Spezifische Karte(als Card übergeben) auf die Hand eines Spielers
   def add(player: String, card: Card): Game =
-    //evtl. erst die Abfrage ob es ein richtiger Spieler ist da man sonst unnötig einmal take aufruft
     if (card.toString == "XX") {
       take(player)
     } else if (cardStack.cards(card) == 0) {
@@ -88,7 +76,7 @@ case class Game(
         cardStack.decrease(card),
         midCard
       )
-    } else if (player.equals("midcard")) {
+    } else if (player.equals("midcard")) { //würde ich rausnehmen da wir dem Stapel nie eine Karte adden
       copy(
         pList,
         currentstate,
@@ -99,13 +87,6 @@ case class Game(
     } else {
       setError(-1)
     }
-
-  //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
-  def take(player: String): Game =
-    val rnd = r.nextInt(
-      cardsInDeck - 4
-    ) // damit die Blank Cards nicht gezogen werden können
-    add(player, Card.values(rnd))
 
   def checkPlace(ind: Int, player: Int): Boolean =
     Try {
@@ -220,11 +201,27 @@ case class Game(
     }
     tmp
 
+  def getNext(game: gameInterface, player: Int, state: State): Game =
+    if (player == -1) {
+      Game(game.pList, state, 0, game.cardStack, game.midCard, player)
+    } else {
+      Game(
+        game.pList
+          .updated(player, game.pList(player).setFalse()),
+        state,
+        0,
+        game.cardStack,
+        game.midCard,
+        player
+      )
+    }
+
+  //wird nur in den Tests benutzt
   def addTest(p: String, card: Card): Game =
     copy(
       pList,
       currentstate,
       ERROR,
-      cardStack.decrease(card), //.increase(tmp)
+      cardStack.decrease(card),
       midCard.removeInd(0).add(card)
     )
