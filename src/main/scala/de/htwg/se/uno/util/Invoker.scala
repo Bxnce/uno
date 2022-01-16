@@ -8,9 +8,7 @@ class Invoker {
   private var redoStack: List[Command] = Nil
 
   def doStep(command: Command): gameInterface = {
-    command match
-      case _ =>
-        undoStack = command :: undoStack
+    undoStack = command :: undoStack
     command.execute
   }
 
