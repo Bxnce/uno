@@ -1,8 +1,6 @@
 package de.htwg.se.uno
 package util
 
-import controller.controllerComponent.controllerInterface
-import model.gameComponent.gameInterface
 import model.gameComponent.gameBaseImpl.Game
 import controller.controllerComponent.controllerBaseImpl.between21State
 import controller.controllerComponent.controllerBaseImpl.Controller
