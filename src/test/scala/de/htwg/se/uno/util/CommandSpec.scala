@@ -5,20 +5,20 @@ import controller.controllerComponent.controllerInterface
 import model.gameComponent.gameInterface
 import model.gameComponent.gameBaseImpl.Game
 import controller.controllerComponent.controllerBaseImpl.between21State
+import controller.controllerComponent.controllerBaseImpl.Controller
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import de.htwg.se.uno.controller.controllerComponent.controllerBaseImpl.Controller
 
 class TestCommand(controller: controllerInterface) extends Command(controller) {
   override def execute =
     newgame = controller.game.take("p1")
     newgame
 }
-val game = new Game("p1", "p2", between21State)
-val c = new Controller(game)
 
 class CommandSpec extends AnyWordSpec {
+  val game = new Game("p1", "p2", between21State)
+  val c = new Controller(game)
   val cmd = new TestCommand(c)
   "A Command " should {
     "have the method execute that changes the game in some way " in {
