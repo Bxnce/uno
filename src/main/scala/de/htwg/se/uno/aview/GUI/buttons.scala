@@ -17,7 +17,6 @@ case class buttonsPanel(controller: controllerInterface) {
 
   def ret: BoxPanel =
     new BoxPanel(Orientation.Horizontal) {
-      //border = BorderFactory.createLineBorder(Color.BLACK)
       contents += buttons
     }
 

@@ -3,10 +3,10 @@ package model.gameComponent.gameBaseImpl
 
 enum CardValue:
   case Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Take2, Skip,
-  Special, Error
+  Wildcard, Take4, Special, Error
 
 enum CardColor:
-  case Red, Blue, Green, Yellow, SpecialC, ErrorC
+  case Red, Blue, Green, Yellow, Black, ErrorC
 
 enum Card(color: CardColor, value: CardValue, id: String):
   case R0 extends Card(CardColor.Red, CardValue.Zero, "R0")
@@ -60,6 +60,13 @@ enum Card(color: CardColor, value: CardValue, id: String):
   case Y9 extends Card(CardColor.Yellow, CardValue.Nine, "Y9")
   case YP extends Card(CardColor.Yellow, CardValue.Take2, "Y+")
   case YS extends Card(CardColor.Yellow, CardValue.Skip, "YS")
+
+  case W extends Card(CardColor.Black, CardValue.Wildcard, "WC")
+  case T4 extends Card(CardColor.Black, CardValue.Take4, "+4")
+  case R extends Card(CardColor.Red, CardValue.Special, "RC")
+  case B extends Card(CardColor.Blue, CardValue.Special, "BC")
+  case G extends Card(CardColor.Green, CardValue.Special, "GC")
+  case Y extends Card(CardColor.Yellow, CardValue.Special, "YC")
 
   case XX extends Card(CardColor.ErrorC, CardValue.Error, "XX")
 

@@ -26,7 +26,6 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   )
   var dpCont = displayCards(controller)
   val butts = buttonsPanel(controller)
-  val output = stringout
   val preShow = createGame(controller).ret
   var cardsPlayer = dpCont.createBoxLayout
   var cardMid = dpCont.getCardImageMid
