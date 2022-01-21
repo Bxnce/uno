@@ -55,6 +55,7 @@ case class Controller @Inject() (var game: gameInterface)
 
   def save: Unit =
     fileio.save(game)
+    notifyObservers
 
   def load: Unit =
     game = fileio.load

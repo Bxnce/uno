@@ -57,17 +57,16 @@ class fileioXML extends FileIOInterface {
     )
 
     val midCard = (file \\ "game" \ "midCard")
-    val pmN = (midCard \ "name").text
-    val pmV = (midCard \ "karten").text
+    val pmN = (midCard \\ "name").text
+    val pmV = (midCard \\ "karten").text
     val VM = toCardVector(pmV)
     val winner = (file \\ "game" \ "winner").text.toInt
 
     val p1 = new Player(p1N, V1, p1P)
     val p2 = new Player(p2N, V2, p2P)
-    val pm = new Player(pmN, VM, false)
-    game = new Game(List(p1, p2), currentstate, ERROR, cardStack, pm, winner)
+    val mCard = new Player(pmN, VM, false)
+    game = new Game(List(p1, p2), currentstate, ERROR, cardStack, mCard, winner)
     game
-
   }
 
   def playertoXml(player: Player) =

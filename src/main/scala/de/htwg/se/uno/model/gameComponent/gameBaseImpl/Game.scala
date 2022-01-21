@@ -169,13 +169,14 @@ case class Game(
       case _ =>
         tmp
 
-  def changeMid(tmp: Game, c: Card): Game =
-    tmp.copy(
+  override def changeMid(tmp: gameInterface, c: Card): Game =
+    Game(
       tmp.pList,
       tmp.currentstate,
       tmp.ERROR,
       tmp.cardStack,
-      tmp.midCard.removeInd(0).add(c)
+      tmp.midCard.removeInd(0).add(c),
+      tmp.winner
     )
 
   def checkWin(player: Player): Boolean =
