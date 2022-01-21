@@ -14,13 +14,15 @@ import util.Invoker
 import model.gameComponent._
 import Console.{RED, RESET}
 import de.htwg.se.uno.model.fileIOComponent.XMLImpl.fileioXML
+import de.htwg.se.uno.model.fileIOComponent.JSONImpl.fileioJSON
 
 case class Controller @Inject() (var game: gameInterface)
     extends controllerInterface:
   val invoker = new Invoker
   //val injector = Guice.createInjector(new UnoModule)
   //val fileio = injector.getInstance(classOf[FileIOInterface])
-  val fileio = new fileioXML
+  //val fileio = new fileioXML
+  val fileio = new fileioJSON
 
   def take() =
     game = invoker.doStep(UnoCommand(this, "take"))

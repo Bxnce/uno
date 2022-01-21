@@ -1,0 +1,220 @@
+{
+  "game" : {
+    "player1" : {
+      "name" : "TImo",
+      "karten" : [ {
+        "cardv" : "R3"
+      }, {
+        "cardv" : "B7"
+      }, {
+        "cardv" : "Y8"
+      }, {
+        "cardv" : "R7"
+      }, {
+        "cardv" : "B0"
+      }, {
+        "cardv" : "B3"
+      }, {
+        "cardv" : "BS"
+      } ],
+      "kartenzahl" : 7,
+      "placed" : false
+    },
+    "player2" : {
+      "name" : "Bence",
+      "karten" : [ {
+        "cardv" : "R0"
+      }, {
+        "cardv" : "Y6"
+      }, {
+        "cardv" : "G6"
+      }, {
+        "cardv" : "B7"
+      }, {
+        "cardv" : "B5"
+      }, {
+        "cardv" : "Y+"
+      }, {
+        "cardv" : "G7"
+      } ],
+      "kartenzahl" : 7,
+      "placed" : false
+    },
+    "currentstate" : "between21State",
+    "ERROR" : 0,
+    "cardstack" : [ {
+      "cardv" : "R8",
+      "value" : 2
+    }, {
+      "cardv" : "R7",
+      "value" : 1
+    }, {
+      "cardv" : "B7",
+      "value" : 0
+    }, {
+      "cardv" : "R4",
+      "value" : 2
+    }, {
+      "cardv" : "GS",
+      "value" : 2
+    }, {
+      "cardv" : "R1",
+      "value" : 2
+    }, {
+      "cardv" : "G4",
+      "value" : 2
+    }, {
+      "cardv" : "Y6",
+      "value" : 1
+    }, {
+      "cardv" : "B4",
+      "value" : 2
+    }, {
+      "cardv" : "+4",
+      "value" : 2
+    }, {
+      "cardv" : "Y8",
+      "value" : 1
+    }, {
+      "cardv" : "B2",
+      "value" : 2
+    }, {
+      "cardv" : "Y1",
+      "value" : 2
+    }, {
+      "cardv" : "R0",
+      "value" : 1
+    }, {
+      "cardv" : "GC",
+      "value" : 2
+    }, {
+      "cardv" : "B9",
+      "value" : 2
+    }, {
+      "cardv" : "YC",
+      "value" : 2
+    }, {
+      "cardv" : "R2",
+      "value" : 2
+    }, {
+      "cardv" : "B6",
+      "value" : 2
+    }, {
+      "cardv" : "G3",
+      "value" : 2
+    }, {
+      "cardv" : "R5",
+      "value" : 2
+    }, {
+      "cardv" : "Y5",
+      "value" : 2
+    }, {
+      "cardv" : "B+",
+      "value" : 2
+    }, {
+      "cardv" : "RC",
+      "value" : 2
+    }, {
+      "cardv" : "G2",
+      "value" : 2
+    }, {
+      "cardv" : "Y+",
+      "value" : 1
+    }, {
+      "cardv" : "WC",
+      "value" : 2
+    }, {
+      "cardv" : "R6",
+      "value" : 2
+    }, {
+      "cardv" : "G0",
+      "value" : 2
+    }, {
+      "cardv" : "B8",
+      "value" : 2
+    }, {
+      "cardv" : "B3",
+      "value" : 1
+    }, {
+      "cardv" : "Y3",
+      "value" : 2
+    }, {
+      "cardv" : "R9",
+      "value" : 2
+    }, {
+      "cardv" : "B0",
+      "value" : 1
+    }, {
+      "cardv" : "Y2",
+      "value" : 2
+    }, {
+      "cardv" : "G1",
+      "value" : 2
+    }, {
+      "cardv" : "Y9",
+      "value" : 2
+    }, {
+      "cardv" : "G8",
+      "value" : 2
+    }, {
+      "cardv" : "G5",
+      "value" : 2
+    }, {
+      "cardv" : "R3",
+      "value" : 0
+    }, {
+      "cardv" : "B5",
+      "value" : 1
+    }, {
+      "cardv" : "BS",
+      "value" : 1
+    }, {
+      "cardv" : "Y0",
+      "value" : 2
+    }, {
+      "cardv" : "BC",
+      "value" : 2
+    }, {
+      "cardv" : "YS",
+      "value" : 2
+    }, {
+      "cardv" : "G9",
+      "value" : 2
+    }, {
+      "cardv" : "R+",
+      "value" : 2
+    }, {
+      "cardv" : "G6",
+      "value" : 1
+    }, {
+      "cardv" : "G7",
+      "value" : 1
+    }, {
+      "cardv" : "Y7",
+      "value" : 2
+    }, {
+      "cardv" : "G+",
+      "value" : 2
+    }, {
+      "cardv" : "RS",
+      "value" : 2
+    }, {
+      "cardv" : "B1",
+      "value" : 2
+    }, {
+      "cardv" : "XX",
+      "value" : 2
+    }, {
+      "cardv" : "Y4",
+      "value" : 2
+    } ],
+    "midCard" : {
+      "name" : "midcard",
+      "karten" : [ {
+        "cardv" : "R3"
+      } ],
+      "placed" : false
+    },
+    "winner" : -1
+  }
+}

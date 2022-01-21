@@ -140,6 +140,8 @@ def toStackMap(text: String): Map[Card, Int] =
 //toStackMap(cc)
 game.cardStack.toString.dropRight(1)
 
+game.pList(0).karten.toSeq
+
 // Game: pList(player1,player2), currentstate, ERROR, cardStack, midCard(playerMID), winner
 // Player: name, karten(vector), placed
 
