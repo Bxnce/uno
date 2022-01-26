@@ -25,27 +25,27 @@ class fileioJSON extends FileIOInterface {
     val json: JsValue = Json.parse(source)
     val p1 = (json \ "game" \ "player1").get
     val p1n = (p1 \ "name").get.as[String]
-    val p1ktmp = (p1 \ "kartenzahl").get.as[Int] 
-    var p1k: Vector[Card] = 
-    (for ( i <- 0 until p1ktmp ) yield {
-      getCard((p1 \\ "cardv")(i).as[String])
-    }).toVector
+    val p1ktmp = (p1 \ "kartenzahl").get.as[Int]
+    var p1k: Vector[Card] =
+      (for (i <- 0 until p1ktmp) yield {
+        getCard((p1 \\ "cardv")(i).as[String])
+      }).toVector
     val p1p = (p1 \ "placed").get.as[Boolean]
     val player1 = new Player(p1n, p1k, p1p)
-    
+
     val p2 = (json \ "game" \ "player2").get
     val p2n = (p2 \ "name").get.as[String]
     println(p2n)
-    val p2ktmp = (p2 \ "kartenzahl").get.as[Int] /*jsonToVec((p1 \ "karten").get)*/
+    val p2ktmp =
+      (p2 \ "kartenzahl").get.as[Int] /*jsonToVec((p1 \ "karten").get)*/
     print(p2ktmp.toString)
-    var p2k: Vector[Card] = 
-    (for ( i <- 0 until p2ktmp ) yield {
-      getCard((p2 \\ "cardv")(i).as[String])
-    }).toVector
+    var p2k: Vector[Card] =
+      (for (i <- 0 until p2ktmp) yield {
+        getCard((p2 \\ "cardv")(i).as[String])
+      }).toVector
     val p2p = (p2 \ "placed").get.as[Boolean]
     val player2 = new Player(p2n, p2k, p2p)
 
-    
     val cs = (json \ "game" \ "currentstate").get.toString
     val csf = cs.replaceAll("\"", "")
     var currentstate: State = between21State
@@ -57,7 +57,6 @@ class fileioJSON extends FileIOInterface {
       case "winState"       => currentstate = winState
     val ERROR = (json \ "game" \ "ERROR").get.as[Int]
 
-    
     val mc = (json \ "game" \ "midCard").get
     val mcn = (mc \ "name").get.as[String]
 
@@ -67,9 +66,16 @@ class fileioJSON extends FileIOInterface {
 
     val winner = (json \ "game" \ "winner").get.as[Int]
 
-    game = new Game(List(player1, player2),currentstate, ERROR, new CardStack(
+    game = new Game(
+      List(player1, player2),
+      currentstate,
+      ERROR,
+      new CardStack(
         Card.values.map(x => (x, 2)).toMap
-      ), midcard, winner)
+      ),
+      midcard,
+      winner
+    )
     game
 
   override def save(game: gameInterface): Unit =
@@ -107,8 +113,7 @@ class fileioJSON extends FileIOInterface {
 
   def vectorToJson(vec: Vector[Card]) =
     Json.toJson(
-      for 
-      {
+      for {
         i <- vec
       } yield {
         Json.obj(
@@ -117,17 +122,19 @@ class fileioJSON extends FileIOInterface {
       }
     )
 
-  def mapToJson(m:Map[Card,Int]) =
+  def mapToJson(m: Map[Card, Int]) =
     Json.toJson(
-      for{i <- m} yield {Json.obj(
-        "cardv" -> i(0).toString,
-        "value" -> i(1)
-      )}
+      for { i <- m } yield {
+        Json.obj(
+          "cardv" -> i(0).toString,
+          "value" -> i(1)
+        )
+      }
     )
 
   /*def jsonToVec(in:JsValue): Vector[Card] =
     for(index <- )
     Vector[Card](Card.R1)
-*/
-  
+   */
+
 }

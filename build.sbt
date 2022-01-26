@@ -31,7 +31,7 @@ lazy val root = project
       ), // note XML formatter
       "utf-8"
     ),
-    jacocoExcludes := Seq("*aview.*"),
+    jacocoExcludes := Seq("*aview.*", "*fileIOComponent.*"),
     jacocoCoverallsServiceName := "github-actions",
     jacocoCoverallsBranch := sys.env.get("CI_BRANCH"),
     jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
