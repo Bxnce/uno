@@ -19,7 +19,7 @@ import scala.collection.mutable.ListBuffer
 
 import scala.xml.{NodeSeq, PrettyPrinter}
 
-class fileioXML extends FileIOInterface {
+class fileIO extends FileIOInterface {
 
   override def load: gameInterface = {
     var game: gameInterface = null

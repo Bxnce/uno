@@ -17,7 +17,7 @@ import java.io._
 import play.api.libs.json._
 import scala.io.Source
 
-class fileioJSON extends FileIOInterface {
+class fileIO extends FileIOInterface {
 
   override def load: gameInterface =
     var game = new Game("f", "d", between21State)
@@ -35,10 +35,8 @@ class fileioJSON extends FileIOInterface {
 
     val p2 = (json \ "game" \ "player2").get
     val p2n = (p2 \ "name").get.as[String]
-    println(p2n)
     val p2ktmp =
       (p2 \ "kartenzahl").get.as[Int] /*jsonToVec((p1 \ "karten").get)*/
-    print(p2ktmp.toString)
     var p2k: Vector[Card] =
       (for (i <- 0 until p2ktmp) yield {
         getCard((p2 \\ "cardv")(i).as[String])
@@ -88,22 +86,22 @@ class fileioJSON extends FileIOInterface {
       "game" -> Json.obj(
         "player1" -> Json.obj(
           "name" -> game.pList(0).name,
-          "karten" -> vectorToJson(game.pList(0).karten), //Vektor
+          "karten" -> vectorToJson(game.pList(0).karten),
           "kartenzahl" -> game.pList(0).karten.size,
           "placed" -> game.pList(0).placed
         ),
         "player2" -> Json.obj(
           "name" -> game.pList(1).name,
-          "karten" -> vectorToJson(game.pList(1).karten), //Vektor,
+          "karten" -> vectorToJson(game.pList(1).karten),
           "kartenzahl" -> game.pList(1).karten.size,
           "placed" -> game.pList(1).placed
         ),
         "currentstate" -> game.currentstate.toString,
         "ERROR" -> game.ERROR,
-        "cardstack" -> mapToJson(game.cardStack.cards), //fehlt noch
+        "cardstack" -> mapToJson(game.cardStack.cards),
         "midCard" -> Json.obj(
           "name" -> game.midCard.name,
-          "karten" -> vectorToJson(game.midCard.karten), //Vektor
+          "karten" -> vectorToJson(game.midCard.karten),
           "placed" -> game.midCard.placed
         ),
         "winner" -> game.winner
@@ -131,10 +129,5 @@ class fileioJSON extends FileIOInterface {
         )
       }
     )
-
-  /*def jsonToVec(in:JsValue): Vector[Card] =
-    for(index <- )
-    Vector[Card](Card.R1)
-   */
 
 }
