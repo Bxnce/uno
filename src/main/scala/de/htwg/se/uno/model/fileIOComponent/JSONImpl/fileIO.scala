@@ -20,9 +20,9 @@ import scala.io.Source
 class fileIO extends FileIOInterface {
 
   override def load: gameInterface =
-    var game = new Game("f", "d", between21State)
     val source: String = Source.fromFile("game.json").getLines.mkString
     val json: JsValue = Json.parse(source)
+
     val p1 = (json \ "game" \ "player1").get
     val p1n = (p1 \ "name").get.as[String]
     val p1ktmp = (p1 \ "kartenzahl").get.as[Int]
@@ -36,7 +36,7 @@ class fileIO extends FileIOInterface {
     val p2 = (json \ "game" \ "player2").get
     val p2n = (p2 \ "name").get.as[String]
     val p2ktmp =
-      (p2 \ "kartenzahl").get.as[Int] /*jsonToVec((p1 \ "karten").get)*/
+      (p2 \ "kartenzahl").get.as[Int]
     var p2k: Vector[Card] =
       (for (i <- 0 until p2ktmp) yield {
         getCard((p2 \\ "cardv")(i).as[String])
@@ -53,6 +53,7 @@ class fileIO extends FileIOInterface {
       case "player1State"   => currentstate = player1State
       case "player2State"   => currentstate = player2State
       case "winState"       => currentstate = winState
+
     val ERROR = (json \ "game" \ "ERROR").get.as[Int]
 
     val mc = (json \ "game" \ "midCard").get
@@ -64,7 +65,7 @@ class fileIO extends FileIOInterface {
 
     val winner = (json \ "game" \ "winner").get.as[Int]
 
-    game = new Game(
+    val game = new Game(
       List(player1, player2),
       currentstate,
       ERROR,

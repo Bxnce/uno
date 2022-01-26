@@ -13,8 +13,6 @@ import util.Observable
 import util.Invoker
 import model.gameComponent._
 import Console.{RED, RESET}
-//import de.htwg.se.uno.model.fileIOComponent.XMLImpl.fileioXML
-//import de.htwg.se.uno.model.fileIOComponent.JSONImpl.fileioJSON
 
 case class Controller @Inject() (var game: gameInterface)
     extends controllerInterface:

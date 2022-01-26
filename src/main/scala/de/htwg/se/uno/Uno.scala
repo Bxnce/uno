@@ -13,9 +13,9 @@ import com.google.inject.Guice
 
 @main def Main: Unit =
   val injector = Guice.createInjector(new UnoModule)
-  println("\n" * 50)
   val controller = injector.getInstance(classOf[controllerInterface])
   controller.game = controller.game.init()
+  println("\n" * 50)
   val tui = TUI(controller)
   val gui = mGUI(controller)
 

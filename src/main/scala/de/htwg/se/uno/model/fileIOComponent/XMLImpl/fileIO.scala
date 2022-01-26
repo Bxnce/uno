@@ -22,14 +22,11 @@ import scala.xml.{NodeSeq, PrettyPrinter}
 class fileIO extends FileIOInterface {
 
   override def load: gameInterface = {
-    var game: gameInterface = null
     val file = scala.xml.XML.loadFile("game.xml")
-
     val player1 = (file \\ "game" \ "player1")
     val p1N = (player1 \\ "name").text
     val p1V = (player1 \\ "karten").text
     val V1 = toCardVector(p1V)
-    /*var p1P = (player1 \\ "placed").text.toBoolean*/
     var p1P = false
     (player1 \\ "placed").text match
       case "true"  => p1P = true
@@ -38,7 +35,6 @@ class fileIO extends FileIOInterface {
     val p2N = (player2 \\ "name").text
     val p2V = (player2 \\ "karten").text
     val V2 = toCardVector(p2V)
-    /*var p2P = (player2 \\ "placed").text.toBoolean*/
     var p2P = false
     (player2 \\ "placed").text match
       case "true"  => p2P = true
@@ -55,7 +51,6 @@ class fileIO extends FileIOInterface {
     val cardStack: CardStack = new CardStack(
       toStackMap(stackNote)
     )
-
     val midCard = (file \\ "game" \ "midCard")
     val pmN = (midCard \\ "name").text
     val pmV = (midCard \\ "karten").text
@@ -65,7 +60,8 @@ class fileIO extends FileIOInterface {
     val p1 = new Player(p1N, V1, p1P)
     val p2 = new Player(p2N, V2, p2P)
     val mCard = new Player(pmN, VM, false)
-    game = new Game(List(p1, p2), currentstate, ERROR, cardStack, mCard, winner)
+    val game =
+      new Game(List(p1, p2), currentstate, ERROR, cardStack, mCard, winner)
     game
   }
 
