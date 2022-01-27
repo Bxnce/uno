@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package aview.GUI
+package aview.GUIP
 
 import scala.swing.{Dialog, Label, Dimension, GridPanel}
 import javax.swing.ImageIcon

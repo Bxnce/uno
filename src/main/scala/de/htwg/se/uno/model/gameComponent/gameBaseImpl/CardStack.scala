@@ -15,6 +15,6 @@ case class CardStack(cards: Map[Card, Int]) {
   override def toString: String =
     var tmp = ""
     for ((k, v) <- cards) tmp = tmp + k.toString + "," + v.toString + " "
-  
+
     tmp
 }
