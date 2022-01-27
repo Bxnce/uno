@@ -1,23 +1,51 @@
 <game>
     <player1>
         <player>
-            <name>Test</name>
-            <karten>R1 G7 G9 R3 BS R6 G5 </karten>
+            <name>Bence</name>
+            <karten>Y6 R0 R7 R7 Y2 R6 R0 </karten>
             <placed>false</placed>
         </player>
     </player1>
     <player2>
         <player>
-            <name>sdfxcv</name>
-            <karten>R2 B3 G4 G5 B6 B2 YS </karten>
+            <name>Timo</name>
+            <karten>Y4 GS R3 G8 Y2 R3 B1 </karten>
             <placed>false</placed>
         </player>
     </player2>
-    <currentstate>player1State</currentstate>
+    <currentstate>between21State</currentstate>
     <error>0</error>
     <cardStack>
         <pair>
-            <card>G6</card>
+            <card>Y9</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y4</card>
+            <value>1</value>
+        </pair>
+        <pair>
+            <card>XX</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G1</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R2</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>B2</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R7</card>
+            <value>0</value>
+        </pair>
+        <pair>
+            <card>Y7</card>
             <value>2</value>
         </pair>
         <pair>
@@ -25,11 +53,47 @@
             <value>1</value>
         </pair>
         <pair>
-            <card>R9</card>
+            <card>B6</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>R0</card>
+            <card>YS</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R3</card>
+            <value>0</value>
+        </pair>
+        <pair>
+            <card>Y1</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R8</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>YC</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>B4</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y3</card>
+            <value>1</value>
+        </pair>
+        <pair>
+            <card>G5</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y0</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G0</card>
             <value>2</value>
         </pair>
         <pair>
@@ -38,90 +102,10 @@
         </pair>
         <pair>
             <card>G8</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R+</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>G5</card>
-            <value>0</value>
-        </pair>
-        <pair>
-            <card>B1</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>RC</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R3</card>
             <value>1</value>
         </pair>
         <pair>
-            <card>B4</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R1</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>Y+</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>Y4</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>YC</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>G3</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>RS</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>B+</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>G+</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>B7</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>Y1</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>Y5</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R4</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>B3</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>G2</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>XX</card>
+            <card>WC</card>
             <value>2</value>
         </pair>
         <pair>
@@ -129,79 +113,103 @@
             <value>2</value>
         </pair>
         <pair>
-            <card>B0</card>
-            <value>2</value>
-        </pair>
-        <pair>
             <card>Y8</card>
             <value>2</value>
-        </pair>
-        <pair>
-            <card>YS</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>+4</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>GS</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R8</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>BS</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>Y6</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>Y3</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>R2</card>
-            <value>1</value>
         </pair>
         <pair>
             <card>GC</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>G4</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>G0</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>B2</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>R7</card>
+            <card>G2</card>
             <value>2</value>
         </pair>
         <pair>
             <card>Y2</card>
+            <value>0</value>
+        </pair>
+        <pair>
+            <card>B7</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>WC</card>
+            <card>R0</card>
+            <value>0</value>
+        </pair>
+        <pair>
+            <card>R+</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>B6</card>
+            <card>GS</card>
             <value>1</value>
         </pair>
         <pair>
-            <card>Y0</card>
+            <card>RS</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>B0</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G+</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G9</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R4</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G4</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>RC</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R1</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G7</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y5</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y6</card>
+            <value>1</value>
+        </pair>
+        <pair>
+            <card>B1</card>
+            <value>1</value>
+        </pair>
+        <pair>
+            <card>B3</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>R9</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>B+</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>Y+</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>B5</card>
             <value>2</value>
         </pair>
         <pair>
@@ -209,38 +217,30 @@
             <value>2</value>
         </pair>
         <pair>
-            <card>G9</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>Y7</card>
-            <value>2</value>
-        </pair>
-        <pair>
-            <card>G7</card>
-            <value>1</value>
-        </pair>
-        <pair>
             <card>BC</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>B5</card>
-            <value>1</value>
-        </pair>
-        <pair>
-            <card>G1</card>
+            <card>G6</card>
             <value>2</value>
         </pair>
         <pair>
-            <card>Y9</card>
+            <card>+4</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>BS</card>
+            <value>2</value>
+        </pair>
+        <pair>
+            <card>G3</card>
             <value>2</value>
         </pair>
     </cardStack>
     <midCard>
         <player>
             <name>midcard</name>
-            <karten>B5 </karten>
+            <karten>Y3 </karten>
             <placed>false</placed>
         </player>
     </midCard>
