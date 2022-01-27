@@ -17,4 +17,6 @@ trait controllerInterface extends Observable {
   def WinG(p1: String, p2: String): Unit
   def colorChoose(color: String): Unit
   override def toString: String
+  def load: Unit
+  def save: Unit
 }

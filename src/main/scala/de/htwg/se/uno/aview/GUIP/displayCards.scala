@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package aview.GUI
+package aview.GUIP
 
 import model.gameComponent.gameBaseImpl._
 import controller.controllerComponent.controllerBaseImpl._

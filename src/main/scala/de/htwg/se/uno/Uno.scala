@@ -8,17 +8,16 @@ import controller.controllerComponent.controllerInterface
 import controller.controllerComponent.controllerBaseImpl._
 import scala.io.StdIn.readLine //import controller._
 import Console.{BLUE, RESET}
-import de.htwg.se.uno.aview.GUI.mGUI
 import com.google.inject.Guice
+import aview.GUIP._
 
 @main def Main: Unit =
   val injector = Guice.createInjector(new UnoModule)
-  println("\n" * 50)
   val controller = injector.getInstance(classOf[controllerInterface])
   controller.game = controller.game.init()
+  println("\n" * 50)
   val tui = TUI(controller)
-  val gui = mGUI(controller)
-
+  val gui = mainGUI(controller)
   var input: String = ""
   while input != "q" && input != "exit" do
     Console.print(s"${BLUE}>>>  ${RESET}")

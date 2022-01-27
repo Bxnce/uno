@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package aview.GUI
+package aview.GUIP
 
 import controller.controllerComponent.controllerInterface
 import controller.controllerComponent.controllerBaseImpl.winState
@@ -18,7 +18,7 @@ import java.awt.{Image, Toolkit, Color, Dimension}
 import javax.swing.BorderFactory
 import java.awt.FlowLayout
 
-class mGUI(controller: controllerInterface) extends MainFrame with Observer {
+class mainGUI(controller: controllerInterface) extends MainFrame with Observer {
   title = "BEST UNO EUW"
   controller.add(this)
   iconImage = Toolkit.getDefaultToolkit.getImage(
@@ -26,6 +26,7 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   )
   var dpCont = displayCards(controller)
   val butts = buttonsPanel(controller)
+  val menu = menubar(controller)
   val preShow = createGame(controller).ret
   var cardsPlayer = dpCont.createBoxLayout
   var cardMid = dpCont.getCardImageMid
@@ -69,6 +70,7 @@ class mGUI(controller: controllerInterface) extends MainFrame with Observer {
   }
 
   val show = new BoxPanel(Orientation.Vertical) {
+    contents += menu.menubar
     contents += upperLine
     contents += textOut
     contents += cardsPlayer

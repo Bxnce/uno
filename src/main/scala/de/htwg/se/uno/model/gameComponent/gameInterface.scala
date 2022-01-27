@@ -19,5 +19,6 @@ trait gameInterface {
   def setError(err: Int): gameInterface
   def init(): gameInterface
   def getNext(game: gameInterface, player: Int, state: State): gameInterface
+  def changeMid(tmp: gameInterface, c: Card): gameInterface
   def chooseColor(color: String): gameInterface
 }

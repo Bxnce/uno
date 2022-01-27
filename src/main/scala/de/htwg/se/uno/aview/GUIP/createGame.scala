@@ -1,5 +1,5 @@
 package de.htwg.se.uno
-package aview.GUI
+package aview.GUIP
 
 import controller.controllerComponent.controllerInterface
 import scala.swing._

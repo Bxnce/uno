@@ -12,4 +12,9 @@ case class CardStack(cards: Map[Card, Int]) {
   def increase(x: Card): CardStack =
     copy(cards.updated(x, cards.getOrElse(x, 2) + 1))
 
+  override def toString: String =
+    var tmp = ""
+    for ((k, v) <- cards) tmp = tmp + k.toString + "," + v.toString + " "
+
+    tmp
 }

@@ -29,6 +29,8 @@ object player1State extends State {
         }
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 0, between12State)
+  override def toString: String =
+    "player1State"
 }
 
 object player2State extends State {
@@ -50,6 +52,9 @@ object player2State extends State {
         }
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, 1, between21State)
+
+  override def toString: String =
+    "player2State"
 }
 
 object between12State extends State {
@@ -61,6 +66,8 @@ object between12State extends State {
         e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player2State)
+  override def toString: String =
+    "between12State"
 }
 
 object between21State extends State {
@@ -72,6 +79,8 @@ object between21State extends State {
         e.controller.game.setError(-1)
       case e: NextCommand =>
         e.controller.game.getNext(e.controller.game, -1, player1State)
+  override def toString: String =
+    "between21State"
 }
 
 object winState extends State {
@@ -87,4 +96,6 @@ object winState extends State {
           e.controller.game.pList(1).name
         )
         e.controller.game
+  override def toString: String =
+    "winState"
 }

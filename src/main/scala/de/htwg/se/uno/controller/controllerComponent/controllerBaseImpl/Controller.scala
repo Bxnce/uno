@@ -3,15 +3,19 @@ package controller.controllerComponent.controllerBaseImpl
 
 import controller.controllerComponent._
 
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject}
 import scala.io.StdIn.readLine
 import model.gameComponent.gameBaseImpl.Game
 import model.gameComponent.gameBaseImpl.toCard._
+import model.fileIOComponent.FileIOInterface
 import util.Observable
 import util.Invoker
 import model.gameComponent._
 import Console.{RED, RESET}
 
-case class Controller(var game: gameInterface) extends controllerInterface:
+case class Controller @Inject() (var game: gameInterface)
+    extends controllerInterface:
   val invoker = new Invoker
 
   def take() =
@@ -43,6 +47,18 @@ case class Controller(var game: gameInterface) extends controllerInterface:
 
   def colorChoose(color: String) =
     game = invoker.doStep(UnoCommand(color, this))
+    notifyObservers
+
+  def save: Unit =
+    def fileIO =
+      Guice.createInjector(new UnoModule).getInstance(classOf[FileIOInterface])
+    fileIO.save(game)
+    notifyObservers
+
+  def load: Unit =
+    def fileIO =
+      Guice.createInjector(new UnoModule).getInstance(classOf[FileIOInterface])
+    game = fileIO.load
     notifyObservers
 
   override def toString: String =

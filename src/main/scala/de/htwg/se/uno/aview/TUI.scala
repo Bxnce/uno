@@ -7,6 +7,7 @@ import model.gameComponent.gameBaseImpl.Game
 import util.Observer
 import Console.{RED, GREEN, RESET}
 import de.htwg.se.uno.model.gameComponent.gameBaseImpl.CardValue
+import de.htwg.se.uno.model.fileIOComponent.XMLImpl._
 
 class TUI(controller: controllerInterface) extends Observer:
   val ERROR = -1
@@ -31,6 +32,12 @@ class TUI(controller: controllerInterface) extends Observer:
     val in = input.split(" ")
 
     in(0) match
+      case "s" =>
+        controller.save
+        return SUCCESS
+      case "l" =>
+        controller.load
+        return SUCCESS
       case "exit" | "q" => return EXIT
 
       case "help" | "h" =>
