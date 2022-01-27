@@ -40,7 +40,7 @@ case class Game(
 
   def init(): Game =
     this
-      .playerFill(7)
+      .playerFill(2)
       .take("midcard")
 
   //zieht eine zufällige Karte vom Stack und gibt sie dem Spieler auf die Hand -> dekrementiert die Anzahl der Karte auf dem Stack
