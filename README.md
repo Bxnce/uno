@@ -10,7 +10,7 @@ GitHub-Actions | [![Scala CI](https://github.com/Bxnce/uno/actions/workflows/sca
 CoverAlls | [![Coverage Status](https://coveralls.io/repos/github/Bxnce/uno/badge.svg?branch=main)](https://coveralls.io/github/Bxnce/uno?branch=main)
  
 
-
+ 
 
 
 ### TUI commands and example
