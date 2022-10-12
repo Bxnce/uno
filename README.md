@@ -1,6 +1,6 @@
 # A SCALA UNO Project
 Only playable on one computer.<br/>
-TUI and GUI are both working and running synchron.
+TUI and GUI are both working and running synchron
 
 
 
