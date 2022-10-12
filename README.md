@@ -125,5 +125,5 @@ Timo
 <br/>
 ### Authors: 
 [@Bence Stuhlmann](https://github.com/Bxnce "Bences GitHub") <br/>
-[@Timo Haas](https://github.com/haasentimo "Timos GitHub").
+[@Timo Haas](https://github.com/haasentimo "Timos GitHub")
 
