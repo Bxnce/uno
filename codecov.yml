@@ -1,5 +1,5 @@
 ignore:
-  - "**/aview/GUI/"
+  - "**/aview/GUI/*"
   - "**/Uno.scala"
   - "**/resources/"
   - "**/UnoModel.scala"
