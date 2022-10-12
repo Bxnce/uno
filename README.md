@@ -117,7 +117,7 @@ Bence
 Timo
 ```
 
-### GUI - simple and functional
+### GUI - simple and functional 
 
 ![GUI_create](https://media.giphy.com/media/BuomVNSdoNSzO4I00e/giphy.gif)<br/>
 ![GUI](https://media.giphy.com/media/WHAiEh2GOSL35SZAEo/giphy.gif)
