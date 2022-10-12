@@ -9,9 +9,7 @@ on:
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -41,7 +39,7 @@ jobs:
   ping-pong:
       runs-on: ubuntu-latest
       steps:
-      - name: PING - Dispatch initiating repository event
+      - name: PING
         if: github.event.action != 'pong'
         run: |
           curl -X POST https://api.github.com/repos/bxnce/uno/dispatches \
