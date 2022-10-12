@@ -5,7 +5,8 @@ on:
     branches: [ '**' ]
   pull_request:
     branches: [ main ]
-
+  repository_dispatch:
+  
 jobs:
   build:
 
@@ -37,13 +38,23 @@ jobs:
         run: chmod +x codecov
       - name: Run Codecov
         run: ./codecov -t ${{ secrets.CODECOV_TOKEN }}
-  deploy_jar:
+  ping-pong:
       runs-on: ubuntu-latest
       steps:
-      - name: trigger
+      - name: PING - Dispatch initiating repository event
+        if: github.event.action != 'pong'
         run: |
-          curl -X POST https://api.github.com/repos/Bxnce/uno_web/dispatches \
+          curl -X POST https://api.github.com/repos/marcnuri-demo/actions-remote-dispatch-b/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
-          --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'"}}'
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" 
+      - name: ACK - Acknowledge pong from remote repository
+        if: github.event.action == 'pong'
+        run: |
+          echo "PONG received from '${{ github.event.client_payload.repository }}'" && \
+          curl -X POST https://api.github.com/repos/marcnuri-demo/actions-remote-dispatch-b/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "ack", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
     
     
