@@ -37,3 +37,13 @@ jobs:
         run: chmod +x codecov
       - name: Run Codecov
         run: ./codecov -t ${{ secrets.CODECOV_TOKEN }}
+  deploy_jar:
+      runs-on: ubuntu-latest
+      steps:
+      - name: trigger
+        run: |
+          curl -X POST https://api.github.com/repos/Bxnce/uno_web/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'"}}'
+    
+    
