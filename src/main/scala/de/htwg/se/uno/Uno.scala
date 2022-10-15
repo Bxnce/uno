@@ -23,3 +23,11 @@ import aview.GUIP._
     Console.print(s"${BLUE}>>>  ${RESET}")
     input = readLine()
     tui.run(input)
+
+class Con{
+  def controller =
+    val injector = Guice.createInjector(new UnoModule)
+    val controller = injector.getInstance(classOf[controllerInterface])
+    controller.game = controller.game.init()
+    controller
+}
