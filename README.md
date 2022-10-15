@@ -12,7 +12,7 @@ CoverAlls | [![Coverage Status](https://coveralls.io/repos/github/Bxnce/uno/badg
 
  
 
-
+  
 ### TUI commands and example
 Command | Description 
 --------|--------
