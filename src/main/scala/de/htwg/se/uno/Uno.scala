@@ -24,8 +24,8 @@ import aview.GUIP._
     input = readLine()
     tui.run(input)
 
-class Con{
-  def controller =
+class Kek{
+  def controller_return =
     val injector = Guice.createInjector(new UnoModule)
     val controller = injector.getInstance(classOf[controllerInterface])
     controller.game = controller.game.init()
