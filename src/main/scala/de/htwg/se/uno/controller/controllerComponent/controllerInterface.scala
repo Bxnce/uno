@@ -1,9 +1,11 @@
 package de.htwg.se.uno
 package controller.controllerComponent
+import model.gameComponent.gameBaseImpl.Player
 
 import util.Invoker
 import model.gameComponent._
 import util.Observable
+import scala.collection.mutable.ListBuffer
 
 trait controllerInterface extends Observable {
   var game: gameInterface
@@ -19,4 +21,6 @@ trait controllerInterface extends Observable {
   override def toString: String
   def load: Unit
   def save: Unit
+  def create_per_player(player: Player) : ListBuffer[String]
+  def create_tuple() : ListBuffer[ListBuffer[String]]
 }
