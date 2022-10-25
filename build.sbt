@@ -20,7 +20,32 @@ lazy val root = project
       .cross(CrossVersion.for3Use2_13),
     libraryDependencies ++= Seq(
       "com.novocode" % "junit-interface" % "0.11" % "test"
-    ))
+    ), 
+    jacocoReportSettings := JacocoReportSettings(
+      "Jacoco Coverage Report",
+      None,
+      JacocoThresholds(),
+      Seq(
+        JacocoReportFormats.ScalaHTML,
+        JacocoReportFormats.XML
+      ), // note XML formatter
+      "utf-8"
+    ),
+    jacocoExcludes := Seq(
+      "*aview.*",
+      "*fileIOComponent.*",
+      "*.UnoModule.scala",
+      "*.Uno.scala"
+    ),
+    jacocoCoverallsServiceName := "github-actions",
+    jacocoCoverallsBranch := sys.env.get("CI_BRANCH"),
+    jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME"),
+    jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
+    //jacocoCoverallsRepoToken := sys.env.get("CODECOV_REPO_TOKEN")
+  )
+  .enablePlugins(JacocoCoverallsPlugin)
+//falls es zu Problemem mit Parallelität kommt
+parallelExecution in Test := false
 assemblyMergeStrategy in assembly := {
  case PathList("META-INF", _*) => MergeStrategy.discard
  case _                        => MergeStrategy.first
