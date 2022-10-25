@@ -70,16 +70,15 @@ case class Controller @Inject() (var game: gameInterface)
     UnoCommand(this, "print").toString
 
 
-  def create_tuple() : ListBuffer[ListBuffer[String]] = 
-    var card_list = new ListBuffer[ListBuffer[String]]()
+  def create_tuple() : List[List[String]] = 
+    var card_list = new ListBuffer[List[String]]()
     card_list += create_per_player(this.game.pList(0))
     card_list += create_per_player(this.game.midCard)
     card_list += create_per_player(this.game.pList(1))
-    print(card_list)
-    card_list
+    card_list.toList
   
 
-  def create_per_player(player: Player) : ListBuffer[String] = 
+  def create_per_player(player: Player) : List[String] = 
     var cards = new ListBuffer[String]()
     for(c <- player.karten){
       var color = ""
@@ -112,5 +111,5 @@ case class Controller @Inject() (var game: gameInterface)
       }
       cards += "cards/" + color + value + ".png"
     }
-    cards
-  
+    cards.toList
+    
