@@ -33,6 +33,7 @@ case class Controller @Inject() (var game: gameInterface)
 
   def next() =
     game = invoker.doStep(UnoCommand(this, "next"))
+    create_tuple()
     notifyObservers
 
   def undo() =
@@ -70,16 +71,19 @@ case class Controller @Inject() (var game: gameInterface)
     UnoCommand(this, "print").toString
 
 
-  def create_tuple() : List[List[String]] = 
-    var card_list = new ListBuffer[List[String]]()
+  def create_tuple() : List[List[(String, Int)]] = 
+    var card_list = new ListBuffer[List[(String, Int)]]()
     card_list += create_per_player(this.game.pList(0))
     card_list += create_per_player(this.game.midCard)
     card_list += create_per_player(this.game.pList(1))
+    print(card_list)
     card_list.toList
+
   
 
-  def create_per_player(player: Player) : List[String] = 
-    var cards = new ListBuffer[String]()
+  def create_per_player(player: Player) : List[(String, Int)] = 
+    var cards = new ListBuffer[(String, Int)]()
+    var ind = 0 
     for(c <- player.karten){
       var color = ""
       var value = ""
@@ -109,7 +113,10 @@ case class Controller @Inject() (var game: gameInterface)
         case CardValue.Special  => value = ""
         case CardValue.Error    => value = ""
       }
-      cards += "cards/" + color + value + ".png"
+      var card_s = "cards/" + color + value + ".png"
+      var tup = (card_s, ind)
+      cards += tup
+      ind += 1
     }
     cards.toList
     

@@ -21,6 +21,6 @@ trait controllerInterface extends Observable {
   override def toString: String
   def load: Unit
   def save: Unit
-  def create_per_player(player: Player) : List[String]
-  def create_tuple() : List[List[String]]
+  def create_per_player(player: Player) : List[(String, Int)]
+  def create_tuple() : List[List[(String, Int)]]
 }
