@@ -33,7 +33,6 @@ case class Controller @Inject() (var game: gameInterface)
 
   def next() =
     game = invoker.doStep(UnoCommand(this, "next"))
-    create_tuple()
     notifyObservers
 
   def undo() =
@@ -76,7 +75,6 @@ case class Controller @Inject() (var game: gameInterface)
     card_list += create_per_player(this.game.pList(0))
     card_list += create_per_player(this.game.midCard)
     card_list += create_per_player(this.game.pList(1))
-    print(card_list)
     card_list.toList
 
   
