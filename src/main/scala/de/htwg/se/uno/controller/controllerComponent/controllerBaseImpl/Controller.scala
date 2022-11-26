@@ -60,6 +60,8 @@ case class Controller @Inject() (var game: gameInterface)
     fileIO.save(game)
     notifyObservers
 
+
+
   def load: Unit =
     def fileIO =
       Guice.createInjector(new UnoModule).getInstance(classOf[FileIOInterface])
@@ -69,6 +71,10 @@ case class Controller @Inject() (var game: gameInterface)
   override def toString: String =
     UnoCommand(this, "print").toString
 
+  def return_j: String =
+    def fileIO =
+      Guice.createInjector(new UnoModule).getInstance(classOf[FileIOInterface])
+    fileIO.return_json(game)
 
   def create_tuple() : List[List[(String, Int)]] =
     var card_list = new ListBuffer[List[(String, Int)]]()

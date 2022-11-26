@@ -114,6 +114,10 @@ class fileIO extends FileIOInterface {
     </pair>
   }
 
+  def return_json(game: gameInterface): String = {
+    val xml = gametoXml(game).toString
+    xml
+  }
   def toStackMap(mapString: NodeSeq): Map[Card, Int] =
     var sMap: Map[Card, Int] = Map[Card, Int]()
     for (temp <- mapString) {

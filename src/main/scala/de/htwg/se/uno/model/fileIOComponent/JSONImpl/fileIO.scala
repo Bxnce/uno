@@ -86,6 +86,10 @@ class fileIO extends FileIOInterface {
     pw.write(Json.prettyPrint(gameToJson(game)))
     pw.close
 
+  def return_json(game: gameInterface): String =
+    val game_j = Json.prettyPrint(gameToJson(game))
+    game_j
+
   def gameToJson(game: gameInterface) = {
     Json.obj(
       "game" -> Json.obj(

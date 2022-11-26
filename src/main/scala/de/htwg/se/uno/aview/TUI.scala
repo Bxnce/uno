@@ -33,7 +33,7 @@ class TUI(controller: controllerInterface) extends Observer:
 
     in(0) match
       case "s" =>
-        controller.save
+        print(controller.return_j)
         return SUCCESS
       case "l" =>
         controller.load
