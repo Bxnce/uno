@@ -70,28 +70,28 @@ case class Controller @Inject() (var game: gameInterface)
     UnoCommand(this, "print").toString
 
 
-  def create_tuple() : List[List[(String, Int)]] = 
+  def create_tuple() : List[List[(String, Int)]] =
     var card_list = new ListBuffer[List[(String, Int)]]()
     card_list += create_per_player(this.game.pList(0))
     card_list += create_per_player(this.game.midCard)
     card_list += create_per_player(this.game.pList(1))
     card_list.toList
 
-  
 
-  def create_per_player(player: Player) : List[(String, Int)] = 
+
+  def create_per_player(player: Player) : List[(String, Int)] =
     var cards = new ListBuffer[(String, Int)]()
-    var ind = 0 
+    var ind = 0
     for(c <- player.karten){
       var color = ""
       var value = ""
       c.getColor match {
-        case CardColor.Red    => color = "red"
-        case CardColor.Blue   => color = "blue"
-        case CardColor.Green  => color = "green"
-        case CardColor.Yellow => color = "yellow"
-        case CardColor.Black  => color = "black"
-        case CardColor.ErrorC => color = ""
+        case CardColor.Red      => color = "red"
+        case CardColor.Blue     => color = "blue"
+        case CardColor.Green    => color = "green"
+        case CardColor.Yellow   => color = "yellow"
+        case CardColor.Black    => color = "black"
+        case CardColor.ErrorC   => color = ""
       }
       c.getValue match {
         case CardValue.Zero     => value = "_0"
@@ -117,4 +117,4 @@ case class Controller @Inject() (var game: gameInterface)
       ind += 1
     }
     cards.toList
-    
+

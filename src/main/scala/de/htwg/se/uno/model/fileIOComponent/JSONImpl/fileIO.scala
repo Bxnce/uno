@@ -12,10 +12,14 @@ import controller.controllerComponent.controllerBaseImpl.{
   between21State,
   winState
 }
+import model.gameComponent.gameBaseImpl.CardValue
+import model.gameComponent.gameBaseImpl.CardColor
 import util.State
 import java.io._
 import play.api.libs.json._
 import scala.io.Source
+import scala.collection.mutable.ListBuffer
+
 
 class fileIO extends FileIOInterface {
 
@@ -89,13 +93,15 @@ class fileIO extends FileIOInterface {
           "name" -> game.pList(0).name,
           "karten" -> vectorToJson(game.pList(0).karten),
           "kartenzahl" -> game.pList(0).karten.size,
-          "placed" -> game.pList(0).placed
+          "placed" -> game.pList(0).placed,
+          "png_ind" -> smthngToJson(create_per_player(game.pList(0)))
         ),
         "player2" -> Json.obj(
           "name" -> game.pList(1).name,
           "karten" -> vectorToJson(game.pList(1).karten),
           "kartenzahl" -> game.pList(1).karten.size,
-          "placed" -> game.pList(1).placed
+          "placed" -> game.pList(1).placed,
+          "png_ind" -> smthngToJson(create_per_player(game.pList(1)))
         ),
         "currentstate" -> game.currentstate.toString,
         "ERROR" -> game.ERROR,
@@ -103,7 +109,8 @@ class fileIO extends FileIOInterface {
         "midCard" -> Json.obj(
           "name" -> game.midCard.name,
           "karten" -> vectorToJson(game.midCard.karten),
-          "placed" -> game.midCard.placed
+          "placed" -> game.midCard.placed,
+          "png_ind" -> smthngToJson(create_per_player(game.midCard))
         ),
         "winner" -> game.winner
       )
@@ -131,4 +138,52 @@ class fileIO extends FileIOInterface {
       }
     )
 
+  def smthngToJson(tuple_list: List[(String, Int)]) =
+    Json.toJson(
+        for { i <- tuple_list } yield {
+          Json.obj(
+            "card_png" -> i(0),
+            "index" -> i(1).toString
+          )
+        }
+      )
+
+  def create_per_player(player: Player): List[(String, Int)] =
+    var cards = new ListBuffer[(String, Int)]()
+    var ind = 0
+    for (c <- player.karten) {
+      var color = ""
+      var value = ""
+      c.getColor match {
+        case CardColor.Red => color = "red"
+        case CardColor.Blue => color = "blue"
+        case CardColor.Green => color = "green"
+        case CardColor.Yellow => color = "yellow"
+        case CardColor.Black => color = "black"
+        case CardColor.ErrorC => color = ""
+      }
+      c.getValue match {
+        case CardValue.Zero => value = "_0"
+        case CardValue.One => value = "_1"
+        case CardValue.Two => value = "_2"
+        case CardValue.Three => value = "_3"
+        case CardValue.Four => value = "_4"
+        case CardValue.Five => value = "_5"
+        case CardValue.Six => value = "_6"
+        case CardValue.Seven => value = "_7"
+        case CardValue.Eight => value = "_8"
+        case CardValue.Nine => value = "_9"
+        case CardValue.Take2 => value = "_+2"
+        case CardValue.Skip => value = "_skip"
+        case CardValue.Wildcard => value = "_wildcard"
+        case CardValue.Take4 => value = "_+4"
+        case CardValue.Special => value = ""
+        case CardValue.Error => value = ""
+      }
+      var card_s = "cards/" + color + value + ".png"
+      var tup = (card_s, ind)
+      cards += tup
+      ind += 1
+    }
+    cards.toList
 }

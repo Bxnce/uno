@@ -1,58 +1,190 @@
 {
   "game" : {
     "player1" : {
-      "name" : "Bence",
+      "name" : "asdName 1",
       "karten" : [ {
-        "cardv" : "B+"
+        "cardv" : "R2"
       }, {
-        "cardv" : "GS"
+        "cardv" : "R7"
       }, {
-        "cardv" : "G4"
-      }, {
-        "cardv" : "B5"
-      }, {
-        "cardv" : "R5"
-      }, {
-        "cardv" : "R5"
-      }, {
-        "cardv" : "R0"
-      } ],
-      "kartenzahl" : 7,
-      "placed" : false
-    },
-    "player2" : {
-      "name" : "Timo",
-      "karten" : [ {
-        "cardv" : "R8"
+        "cardv" : "R1"
       }, {
         "cardv" : "G1"
       }, {
-        "cardv" : "B0"
+        "cardv" : "Y4"
+      }, {
+        "cardv" : "R7"
+      }, {
+        "cardv" : "Y1"
+      }, {
+        "cardv" : "R2"
       }, {
         "cardv" : "G5"
+      } ],
+      "kartenzahl" : 9,
+      "placed" : false,
+      "card_png" : [ {
+        "card_png" : "cards/red_2.png",
+        "index" : "0"
+      }, {
+        "card_png" : "cards/red_7.png",
+        "index" : "1"
+      }, {
+        "card_png" : "cards/red_1.png",
+        "index" : "2"
+      }, {
+        "card_png" : "cards/green_1.png",
+        "index" : "3"
+      }, {
+        "card_png" : "cards/yellow_4.png",
+        "index" : "4"
+      }, {
+        "card_png" : "cards/red_7.png",
+        "index" : "5"
+      }, {
+        "card_png" : "cards/yellow_1.png",
+        "index" : "6"
+      }, {
+        "card_png" : "cards/red_2.png",
+        "index" : "7"
+      }, {
+        "card_png" : "cards/green_5.png",
+        "index" : "8"
+      } ]
+    },
+    "player2" : {
+      "name" : "Name 2",
+      "karten" : [ {
+        "cardv" : "B9"
+      }, {
+        "cardv" : "G6"
+      }, {
+        "cardv" : "RS"
+      }, {
+        "cardv" : "G6"
+      }, {
+        "cardv" : "B7"
       }, {
         "cardv" : "G0"
       }, {
-        "cardv" : "Y2"
-      }, {
-        "cardv" : "R+"
+        "cardv" : "B+"
       } ],
       "kartenzahl" : 7,
-      "placed" : false
+      "placed" : false,
+      "card_png" : [ {
+        "card_png" : "cards/blue_9.png",
+        "index" : "0"
+      }, {
+        "card_png" : "cards/green_6.png",
+        "index" : "1"
+      }, {
+        "card_png" : "cards/red_skip.png",
+        "index" : "2"
+      }, {
+        "card_png" : "cards/green_6.png",
+        "index" : "3"
+      }, {
+        "card_png" : "cards/blue_7.png",
+        "index" : "4"
+      }, {
+        "card_png" : "cards/green_0.png",
+        "index" : "5"
+      }, {
+        "card_png" : "cards/blue_+2.png",
+        "index" : "6"
+      } ]
     },
-    "currentstate" : "between21State",
+    "currentstate" : "between12State",
     "ERROR" : 0,
     "cardstack" : [ {
+      "cardv" : "G+",
+      "value" : 2
+    }, {
+      "cardv" : "G3",
+      "value" : 2
+    }, {
+      "cardv" : "Y6",
+      "value" : 2
+    }, {
+      "cardv" : "R2",
+      "value" : 0
+    }, {
+      "cardv" : "R+",
+      "value" : 2
+    }, {
+      "cardv" : "G2",
+      "value" : 2
+    }, {
+      "cardv" : "B3",
+      "value" : 2
+    }, {
+      "cardv" : "Y2",
+      "value" : 2
+    }, {
+      "cardv" : "BC",
+      "value" : 2
+    }, {
+      "cardv" : "B5",
+      "value" : 2
+    }, {
+      "cardv" : "R1",
+      "value" : 1
+    }, {
+      "cardv" : "Y+",
+      "value" : 2
+    }, {
+      "cardv" : "Y7",
+      "value" : 2
+    }, {
+      "cardv" : "B6",
+      "value" : 2
+    }, {
+      "cardv" : "WC",
+      "value" : 2
+    }, {
+      "cardv" : "R5",
+      "value" : 2
+    }, {
+      "cardv" : "RC",
+      "value" : 2
+    }, {
+      "cardv" : "R3",
+      "value" : 2
+    }, {
+      "cardv" : "B8",
+      "value" : 2
+    }, {
+      "cardv" : "B1",
+      "value" : 2
+    }, {
+      "cardv" : "G4",
+      "value" : 2
+    }, {
+      "cardv" : "B9",
+      "value" : 1
+    }, {
+      "cardv" : "R7",
+      "value" : 0
+    }, {
+      "cardv" : "B+",
+      "value" : 1
+    }, {
       "cardv" : "Y5",
       "value" : 2
     }, {
-      "cardv" : "B2",
+      "cardv" : "R0",
       "value" : 2
     }, {
-      "cardv" : "Y8",
+      "cardv" : "B4",
       "value" : 2
     }, {
-      "cardv" : "G7",
+      "cardv" : "Y9",
+      "value" : 2
+    }, {
+      "cardv" : "GC",
+      "value" : 2
+    }, {
+      "cardv" : "+4",
       "value" : 2
     }, {
       "cardv" : "G5",
@@ -61,160 +193,86 @@
       "cardv" : "XX",
       "value" : 2
     }, {
-      "cardv" : "R2",
+      "cardv" : "GS",
       "value" : 2
     }, {
-      "cardv" : "RS",
+      "cardv" : "G0",
+      "value" : 1
+    }, {
+      "cardv" : "B2",
       "value" : 2
     }, {
-      "cardv" : "B4",
+      "cardv" : "G8",
       "value" : 2
     }, {
-      "cardv" : "BC",
+      "cardv" : "G6",
+      "value" : 0
+    }, {
+      "cardv" : "BS",
+      "value" : 2
+    }, {
+      "cardv" : "YC",
+      "value" : 2
+    }, {
+      "cardv" : "Y1",
+      "value" : 1
+    }, {
+      "cardv" : "R9",
+      "value" : 2
+    }, {
+      "cardv" : "R8",
+      "value" : 2
+    }, {
+      "cardv" : "B0",
+      "value" : 2
+    }, {
+      "cardv" : "G9",
+      "value" : 2
+    }, {
+      "cardv" : "YS",
       "value" : 2
     }, {
       "cardv" : "Y3",
       "value" : 2
     }, {
       "cardv" : "Y4",
-      "value" : 2
-    }, {
-      "cardv" : "G0",
-      "value" : 1
-    }, {
-      "cardv" : "R8",
       "value" : 1
     }, {
       "cardv" : "Y0",
       "value" : 2
     }, {
-      "cardv" : "B0",
-      "value" : 1
-    }, {
-      "cardv" : "R1",
+      "cardv" : "R6",
       "value" : 2
     }, {
-      "cardv" : "G8",
-      "value" : 2
-    }, {
-      "cardv" : "G3",
-      "value" : 1
-    }, {
-      "cardv" : "BS",
-      "value" : 2
-    }, {
-      "cardv" : "R5",
+      "cardv" : "G1",
       "value" : 0
     }, {
-      "cardv" : "GC",
-      "value" : 2
-    }, {
-      "cardv" : "B9",
-      "value" : 2
-    }, {
-      "cardv" : "G4",
-      "value" : 1
-    }, {
-      "cardv" : "R9",
-      "value" : 2
-    }, {
-      "cardv" : "YS",
-      "value" : 2
-    }, {
-      "cardv" : "G+",
-      "value" : 2
-    }, {
-      "cardv" : "Y7",
-      "value" : 2
-    }, {
-      "cardv" : "Y9",
-      "value" : 2
-    }, {
-      "cardv" : "+4",
-      "value" : 2
-    }, {
-      "cardv" : "G6",
-      "value" : 2
-    }, {
-      "cardv" : "YC",
-      "value" : 2
-    }, {
-      "cardv" : "R+",
-      "value" : 1
-    }, {
       "cardv" : "B7",
-      "value" : 2
-    }, {
-      "cardv" : "G2",
-      "value" : 2
-    }, {
-      "cardv" : "R3",
-      "value" : 2
-    }, {
-      "cardv" : "B3",
-      "value" : 2
-    }, {
-      "cardv" : "GS",
       "value" : 1
     }, {
-      "cardv" : "G9",
-      "value" : 2
-    }, {
-      "cardv" : "Y2",
-      "value" : 1
-    }, {
-      "cardv" : "B6",
-      "value" : 2
-    }, {
-      "cardv" : "Y6",
-      "value" : 2
-    }, {
-      "cardv" : "Y+",
+      "cardv" : "G7",
       "value" : 2
     }, {
       "cardv" : "R4",
       "value" : 2
     }, {
-      "cardv" : "B+",
+      "cardv" : "RS",
       "value" : 1
     }, {
-      "cardv" : "Y1",
-      "value" : 2
-    }, {
-      "cardv" : "B8",
-      "value" : 2
-    }, {
-      "cardv" : "G1",
-      "value" : 1
-    }, {
-      "cardv" : "B1",
-      "value" : 2
-    }, {
-      "cardv" : "RC",
-      "value" : 2
-    }, {
-      "cardv" : "R7",
-      "value" : 2
-    }, {
-      "cardv" : "R6",
-      "value" : 2
-    }, {
-      "cardv" : "B5",
-      "value" : 1
-    }, {
-      "cardv" : "R0",
-      "value" : 1
-    }, {
-      "cardv" : "WC",
+      "cardv" : "Y8",
       "value" : 2
     } ],
     "midCard" : {
       "name" : "midcard",
       "karten" : [ {
-        "cardv" : "G3"
+        "cardv" : "G1"
       } ],
-      "placed" : false
+      "placed" : false,
+      "card_png" : [ {
+        "card_png" : "cards/green_1.png",
+        "index" : "0"
+      } ]
     },
-    "winner" : -1
+    "winner" : 0
   }
 }
