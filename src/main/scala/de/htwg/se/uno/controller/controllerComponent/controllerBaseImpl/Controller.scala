@@ -74,7 +74,10 @@ case class Controller @Inject() (var game: gameInterface)
   def return_j: String =
     def fileIO =
       Guice.createInjector(new UnoModule).getInstance(classOf[FileIOInterface])
-    fileIO.return_json(game)
+    var ret_str = ""
+    if game.pList(0).name != "place_h" then
+      ret_str = fileIO.return_json(game)
+    ret_str
 
   def create_tuple() : List[List[(String, Int)]] =
     var card_list = new ListBuffer[List[(String, Int)]]()
